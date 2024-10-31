@@ -1,6 +1,7 @@
 package com.infsis.socialpagebackend.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,6 +33,7 @@ public class ContactInfo {
     @Column(nullable = false, length = 20)
     private String category;
 
+    @Email
     @Column(nullable = false, length = 80)
     private String email;
 

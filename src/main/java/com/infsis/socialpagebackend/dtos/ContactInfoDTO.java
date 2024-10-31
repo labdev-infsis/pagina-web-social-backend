@@ -1,15 +1,44 @@
 package com.infsis.socialpagebackend.dtos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class ContactInfoDTO {
 
     private String uuid;
+
+    @NotBlank
+    @Size(min = 3, max = 80)
     private String name;
+
+    @NotBlank
+    @Size(min = 3, max = 300)
     private String description;
+
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String category;
+
+    @NotBlank
+    @Size(max = 80)
+    @Email
     private String email;
+
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String phone;
+
+    @NotBlank
+    @Size(min = 3, max = 80)
     private String url;
+
+    @NotBlank
+    @Size(min = 3, max = 100)
     private String logo_url;
+
+    @NotBlank
+    @Size(min = 3, max = 100)
     private String background_url;
 
     public ContactInfoDTO() {
