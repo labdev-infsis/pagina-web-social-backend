@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class ContactInfoDTO {
+public class InstitutionDTO {
 
     private String uuid;
 
@@ -17,16 +17,20 @@ public class ContactInfoDTO {
     private String description;
 
     @NotBlank
+    @Size(min = 3, max = 300)
+    private String location;
+
+    @NotBlank
     @Size(min = 3, max = 20)
     private String category;
 
     @NotBlank
-    @Size(max = 80)
+    @Size(max = 50)
     @Email
     private String email;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 7, max = 15)
     private String phone;
 
     @NotBlank
@@ -41,15 +45,16 @@ public class ContactInfoDTO {
     @Size(min = 3, max = 100)
     private String background_url;
 
-    public ContactInfoDTO() {
+    public InstitutionDTO() {
     }
 
-    public ContactInfoDTO(String uuid, String name, String description,
+    public InstitutionDTO(String uuid, String name, String description, String location,
                           String category, String email, String phone,
                           String url, String logo_url, String background_url) {
         this.uuid = uuid;
         this.name = name;
         this.description = description;
+        this.location = location;
         this.category = category;
         this.email = email;
         this.phone = phone;
@@ -80,6 +85,14 @@ public class ContactInfoDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getEmail() {
