@@ -22,8 +22,8 @@ public class UserService {
     @Autowired
     private RolRepository rolRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    //@Autowired
+  //  private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserMapper userMapper;
@@ -34,7 +34,7 @@ public class UserService {
         }
 
         User user = userMapper.toEntity(userDTO);
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        //user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
         Set<Rol> roles = new HashSet<>();
         for (String roleName : roleNames) {

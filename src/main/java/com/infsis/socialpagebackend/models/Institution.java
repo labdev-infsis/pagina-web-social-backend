@@ -13,10 +13,10 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SQLDelete(sql = "UPDATE contact_info SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE institution SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Table(name = "contact_info")
-public class ContactInfo {
+@Table(name = "institution")
+public class Institution {
 
     @Id
     @GeneratedValue
@@ -30,6 +30,9 @@ public class ContactInfo {
 
     @Column(nullable = false, length = 300)
     private String description;
+
+    @Column(nullable = false, length = 300)
+    private String location;
 
     @Column(nullable = false, length = 20)
     private String category;
@@ -61,17 +64,17 @@ public class ContactInfo {
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
-    public ContactInfo() {}
+    public Institution() {}
 
-    public ContactInfo(Integer id) {
+    public Institution(Integer id) {
         this.id = id;
     }
 
-    public ContactInfo(String uuid) {
+    public Institution(String uuid) {
         this.uuid = uuid;
     }
 
-    public ContactInfo(Integer id, String uuid, String name, String description,
+    public Institution(Integer id, String uuid, String name, String description, String location,
                        String category, String phone, String email, String url,
                        String logo_url, String background_url, Date createdDate,
                        Date lastModifiedDate, boolean deleted) {
@@ -79,6 +82,7 @@ public class ContactInfo {
         this.uuid = uuid;
         this.name = name;
         this.description = description;
+        this.location = location;
         this.category = category;
         this.phone = phone;
         this.email = email;
@@ -120,6 +124,14 @@ public class ContactInfo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getCategory() {
