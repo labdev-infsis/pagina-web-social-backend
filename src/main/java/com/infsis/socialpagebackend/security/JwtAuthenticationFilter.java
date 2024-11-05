@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //Asignamos el nombre de usuario contenido en el objeto "token" y lo pasamos a nuestra variable "username"
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
             //Luego creamos el objeto userDetails el cual contendrá todos los detalles de nuestro username, ósea nombre, pw y roles segun el método loadUserByUsername
-            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);//recibe email o username
             //Cargamos una lista de String con los roles alojados en BD
             List<String> userRoles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
             //Comprobamos que el usuario autenticado posee alguno de los siguientes roles alojados en BD

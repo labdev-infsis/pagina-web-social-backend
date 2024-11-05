@@ -37,7 +37,7 @@ public class JwtGenerator {
                 .parseClaimsJws(token) //Se utiliza para verificar la firma del token, apartir del String "token"
                 .getBody(); /*Obtenemos el claims(cuerpo) ya verificado del token el cual contendrá la información de
                 nombre de usuario, fecha de expiración y firma del token*/
-        return claims.getSubject(); //Devolvemos el nombre de usuario
+        return claims.getSubject(); //Devolvemos el nombre de usuario o email
     }
 
     //Método para validar el token

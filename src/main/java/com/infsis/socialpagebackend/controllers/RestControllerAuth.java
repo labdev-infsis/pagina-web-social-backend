@@ -45,11 +45,11 @@ public class RestControllerAuth {
     //Método para poder registrar usuarios con role "user"
     @PostMapping("register")
     public ResponseEntity<String> registrar(@RequestBody DtoRegistro dtoRegistro) {
-        if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())) {
+        if (usuariosRepository.existsByEmail(dtoRegistro.getEmail())) {
             return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
         }
         Users usuarios = new Users();
-        usuarios.setUsername(dtoRegistro.getEmail());
+
         usuarios.setName(dtoRegistro.getName());
         usuarios.setLastName(dtoRegistro.getLastName());
         usuarios.setEmail(dtoRegistro.getEmail());
@@ -65,23 +65,23 @@ public class RestControllerAuth {
     //Método para poder guardar usuarios de tipo ADMIN
     @PostMapping("registerAdm")
     public ResponseEntity<String> registrarAdmin(@RequestBody DtoRegistro dtoRegistro) {
-        if (usuariosRepository.existsByUsername(dtoRegistro.getUsername())) {
+        if (usuariosRepository.existsByEmail(dtoRegistro.getEmail())) {
             return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
         }
         Users usuarios = new Users();
-        usuarios.setUsername(dtoRegistro.getUsername());
+        usuarios.setEmail(dtoRegistro.getEmail());
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
         Role roles = rolesRepository.findByName("ADMIN").get();
         usuarios.setRoles(Collections.singletonList(roles));
         usuariosRepository.save(usuarios);
-        return new ResponseEntity<>("Registro de admin exitoso", HttpStatus.OK);
+        return new ResponseEntity<>("Registro de admin exitoso admin", HttpStatus.OK);
     }
 
     //Método para poder logear un usuario y obtener un token
     @PostMapping("login")
     public ResponseEntity<DtoAuthRespuesta> login(@RequestBody DtoLogin dtoLogin) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                dtoLogin.getUsername(), dtoLogin.getPassword()));
+                dtoLogin.getEmail(), dtoLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerador.generarToken(authentication);
         return new ResponseEntity<>(new DtoAuthRespuesta(token), HttpStatus.OK);
