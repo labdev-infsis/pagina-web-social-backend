@@ -17,13 +17,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import java.util.Collections;
-
+@Validated
 @RestController
 @RequestMapping("/api/auth/")
 public class RestControllerAuth {
@@ -44,7 +46,7 @@ public class RestControllerAuth {
     }
     //Método para poder registrar usuarios con role "user"
     @PostMapping("register")
-    public ResponseEntity<String> registrar(@RequestBody DtoRegistro dtoRegistro) {
+    public ResponseEntity<String> registrar(@Valid @RequestBody DtoRegistro dtoRegistro) {
         if (usuariosRepository.existsByEmail(dtoRegistro.getEmail())) {
             return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
         }
