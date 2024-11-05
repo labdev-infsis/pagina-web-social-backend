@@ -4,21 +4,16 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 import lombok.*;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity
-@Table(name = "rol")
-public class Rol {
+@Table(name = "role")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String nameRole;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
-    // Getters and setters
+    @Column(name = "id_role")
+    private Long idRole;
+    private String name;
 }
