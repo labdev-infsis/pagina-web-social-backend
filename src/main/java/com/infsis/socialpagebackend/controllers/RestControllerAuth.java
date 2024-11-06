@@ -58,7 +58,7 @@ public class RestControllerAuth {
         usuarios.setPhone(dtoRegistro.getPhone());
 
         usuarios.setPassword(passwordEncoder.encode(dtoRegistro.getPassword()));
-        Role roles = rolesRepository.findByName("USER").get();
+        Role roles = rolesRepository.findByName("STUDENT").get();
         usuarios.setRoles(Collections.singletonList(roles));
         usuariosRepository.save(usuarios);
         return new ResponseEntity<>("Registro de usuario exitoso", HttpStatus.OK);
