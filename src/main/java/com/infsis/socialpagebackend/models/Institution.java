@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -53,6 +54,9 @@ public class Institution {
     @Column(nullable = false, length = 100)
     private String background_url;
 
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
     @CreatedDate
     @Column(updatable = false)
     private Date createdDate;
@@ -72,26 +76,6 @@ public class Institution {
 
     public Institution(String uuid) {
         this.uuid = uuid;
-    }
-
-    public Institution(Integer id, String uuid, String name, String description, String location,
-                       String category, String phone, String email, String url,
-                       String logo_url, String background_url, Date createdDate,
-                       Date lastModifiedDate, boolean deleted) {
-        this.id = id;
-        this.uuid = uuid;
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.category = category;
-        this.phone = phone;
-        this.email = email;
-        this.url = url;
-        this.logo_url = logo_url;
-        this.background_url = background_url;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.deleted = deleted;
     }
 
     public Integer getId() {
@@ -180,6 +164,14 @@ public class Institution {
 
     public void setBackground_url(String background_url) {
         this.background_url = background_url;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public Date getCreatedDate() {
