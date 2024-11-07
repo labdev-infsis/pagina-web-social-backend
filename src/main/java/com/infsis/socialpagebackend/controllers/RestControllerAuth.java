@@ -47,8 +47,13 @@ public class RestControllerAuth {
     //Método para poder registrar usuarios con role "user"
     @PostMapping("register")
     public ResponseEntity<String> registrar(@Valid @RequestBody DtoRegistro dtoRegistro) {
+
+        if (!dtoRegistro.getPassword().equals(dtoRegistro.getRepeat_password())) {
+            return new ResponseEntity<>("Las contraseñas no coinciden", HttpStatus.BAD_REQUEST);
+        }
+
         if (usuariosRepository.existsByEmail(dtoRegistro.getEmail())) {
-            return new ResponseEntity<>("el usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("El usuario ya existe, intenta con otro", HttpStatus.BAD_REQUEST);
         }
         Users usuarios = new Users();
 

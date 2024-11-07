@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.security;
 
+import com.infsis.socialpagebackend.services.CustomUsersDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

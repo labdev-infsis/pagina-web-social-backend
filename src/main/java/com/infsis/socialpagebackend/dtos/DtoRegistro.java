@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -16,6 +17,10 @@ public class DtoRegistro {
     @NotBlank
     @Size(min = 8, max = 20)
     private String password;
+
+    @NotBlank
+    @Size(min = 8, max = 20)
+    private String repeat_password;
 
     @NotBlank
     @Size(min = 3, max = 50)

@@ -1,4 +1,4 @@
-package com.infsis.socialpagebackend.security;
+package com.infsis.socialpagebackend.services;
 
 import com.infsis.socialpagebackend.models.Role;
 import com.infsis.socialpagebackend.models.Users;
