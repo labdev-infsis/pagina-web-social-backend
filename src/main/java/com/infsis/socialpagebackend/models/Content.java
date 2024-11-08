@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -21,16 +22,13 @@ public class Content {
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
-    @Column(nullable = false, length = 10)
-    private String status;
-
     @OneToMany(mappedBy = "content", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Media> media;
 
     @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
     private Text text;
 
-    @OneToOne(mappedBy = "content", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "content", cascade = CascadeType.MERGE)
     private Post post;
 
     @CreatedDate
@@ -66,14 +64,6 @@ public class Content {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public List<Media> getMedia() {
@@ -119,5 +109,21 @@ public class Content {
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Content content = (Content) o;
+        return id.equals(content.getId()) && uuid.equals(content.getUuid())
+                && media.equals(content.getMedia()) && text.equals(content.getText())
+                && post.equals(content.getPost()) && Objects.equals(createdDate, content.createdDate)
+                && Objects.equals(lastModifiedDate, content.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return  getClass().hashCode();
     }
 }

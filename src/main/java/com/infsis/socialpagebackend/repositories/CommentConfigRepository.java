@@ -11,4 +11,7 @@ public interface CommentConfigRepository extends JpaRepository<CommentConfig, In
     @Query("SELECT c FROM CommentConfig c WHERE c.uuid = ?1")
     CommentConfig findOneByUuid(String Uuid);
 
+    @Query("SELECT c FROM CommentConfig c WHERE c.id = ?1")
+    CommentConfig findOneById(Integer id);
+
 }

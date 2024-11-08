@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,11 @@ public class ErrorHandler {
             errors.add(violation.getMessage());
         }
         return errors;
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<String> handleDuplicateKeyException(DuplicateKeyException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate key error occurred. Please provide a valid value.");
     }
 
 }

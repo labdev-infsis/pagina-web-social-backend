@@ -8,4 +8,7 @@ public interface InstitutionRepository extends JpaRepository<Institution, Intege
 
     @Query("SELECT i FROM Institution i WHERE i.uuid = ?1")
     Institution findOneByUuid(String Uuid);
+
+    @Query("SELECT i FROM Institution i WHERE i.id = ?1")
+    Institution findOneById(Integer id);
 }

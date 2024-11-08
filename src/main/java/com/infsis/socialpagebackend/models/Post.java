@@ -1,10 +1,12 @@
 package com.infsis.socialpagebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
@@ -12,36 +14,41 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SQLDelete(sql = "UPDATE institution SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Table(name = "media")
-public class Post {
+
+@Table(name = "post", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id", "uuid", "institution_id", "content_id", "user_id"})
+})
+
+public class Post implements Persistable<Integer> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
     @ManyToOne
-    @JoinColumn(name = "institution_id")
+    @JoinColumn(name = "institution_id", nullable = false)
     private Institution institution;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users users;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "content_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "content_id", referencedColumnName = "uuid", nullable = false, unique = true)
     private Content content;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "comment_config_id")
-    private CommentConfig comment_config;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false, unique = false)
+    private CommentConfig comment_conf;
 
     @Column(nullable = false)
-    private Date post_date;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date date;
 
     @CreatedDate
     @Column(updatable = false)
@@ -53,6 +60,11 @@ public class Post {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 
     public Post() {
     }
@@ -89,12 +101,12 @@ public class Post {
         this.institution = institution;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Users users) {
+        this.users = users;
     }
 
     public Content getContent() {
@@ -105,20 +117,20 @@ public class Post {
         this.content = content;
     }
 
-    public CommentConfig getComment_config() {
-        return comment_config;
+    public CommentConfig getComment_conf() {
+        return comment_conf;
     }
 
-    public void setComment_config(CommentConfig comment_config) {
-        this.comment_config = comment_config;
+    public void setComment_conf(CommentConfig comment_conf) {
+        this.comment_conf = comment_conf;
     }
 
-    public Date getPost_date() {
-        return post_date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setPost_date(Date post_date) {
-        this.post_date = post_date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Date getCreatedDate() {
@@ -148,5 +160,23 @@ public class Post {
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return id != null && id.equals(post.getId())
+                && uuid.equals(post.getUuid())
+                && institution.getUuid().equals(post.getInstitution().getUuid())
+                && users.getUuid().equals(post.getUser().getUuid())
+                && content.equals(post.getContent())
+                && date.equals(post.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return  getClass().hashCode();
     }
 }

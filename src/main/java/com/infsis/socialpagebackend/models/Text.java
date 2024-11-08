@@ -6,6 +6,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -97,5 +98,20 @@ public class Text {
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Text text1 = (Text) o;
+        return id.equals(text1.getId()) && uuid.equals(text1.getUuid())
+                && content.equals(text1.getContent()) && text.equals(text1.getText())
+                && Objects.equals(createdDate, text1.createdDate) && Objects.equals(lastModifiedDate, text1.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return  getClass().hashCode();
     }
 }
