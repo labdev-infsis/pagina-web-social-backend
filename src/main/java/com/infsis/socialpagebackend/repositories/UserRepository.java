@@ -1,11 +1,11 @@
 package com.infsis.socialpagebackend.repositories;
 
-import com.infsis.socialpagebackend.models.Institution;
-import com.infsis.socialpagebackend.models.Post;
 import com.infsis.socialpagebackend.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
@@ -15,4 +15,11 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 
     @Query("SELECT u FROM Users u WHERE u.id = ?1")
     Users findOneById(Integer id);
+
+    //Método para poder buscar un usuario mediante su nombre
+    Optional<Users> findByEmail(String email);
+
+    //Método para poder verificar si un usuario existe en nuestra base de datos
+    Boolean existsByEmail(String email);
 }
+
