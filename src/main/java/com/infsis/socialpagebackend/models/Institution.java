@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -53,6 +55,9 @@ public class Institution {
     @Column(nullable = false, length = 100)
     private String background_url;
 
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
     @CreatedDate
     @Column(updatable = false)
     private Date createdDate;
@@ -72,26 +77,6 @@ public class Institution {
 
     public Institution(String uuid) {
         this.uuid = uuid;
-    }
-
-    public Institution(Integer id, String uuid, String name, String description, String location,
-                       String category, String phone, String email, String url,
-                       String logo_url, String background_url, Date createdDate,
-                       Date lastModifiedDate, boolean deleted) {
-        this.id = id;
-        this.uuid = uuid;
-        this.name = name;
-        this.description = description;
-        this.location = location;
-        this.category = category;
-        this.phone = phone;
-        this.email = email;
-        this.url = url;
-        this.logo_url = logo_url;
-        this.background_url = background_url;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.deleted = deleted;
     }
 
     public Integer getId() {
@@ -182,6 +167,14 @@ public class Institution {
         this.background_url = background_url;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -209,5 +202,18 @@ public class Institution {
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Institution that = (Institution) o;
+        return deleted == that.deleted && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(location, that.location) && Objects.equals(category, that.category) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone) && Objects.equals(url, that.url) && Objects.equals(logo_url, that.logo_url) && Objects.equals(background_url, that.background_url) && Objects.equals(posts, that.posts) && Objects.equals(createdDate, that.createdDate) && Objects.equals(lastModifiedDate, that.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, uuid, name, description, location, category, email, phone, url, logo_url, background_url, posts, createdDate, lastModifiedDate, deleted);
     }
 }

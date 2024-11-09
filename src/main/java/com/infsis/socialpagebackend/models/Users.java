@@ -1,32 +1,49 @@
 package com.infsis.socialpagebackend.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user")
-    private Long idUsuario;
+    private Integer id;
+
+    @Column(updatable = false, nullable = false, unique = true, length = 36)
+    private String uuid;
+
+    @Column(nullable = false, length = 50)
     private String email;
+
+    @Column(nullable = false, length = 80)
     private String password;
+
+    @Column(nullable = false, length = 50)
     private String name;
+
+    @Column(nullable = false, length = 80)
     private String lastName;
-    @Column(nullable = true)
+
+    @Column(length = 15)
     private String phone;
-    @Column(nullable = true)
+
+    @Column(length = 50)
     private String photo_profile_path;
-    @Column(nullable = true)
+
+    @Column(length = 50)
     private String photo_portada_path;
     //Usamos fetchType en EAGER para que cada vez que se acceda o se extraiga un usuario de la BD, este se traiga todos sus roles
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -36,4 +53,12 @@ public class Users {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_user")
             ,inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id_role"))
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+
+    @PrePersist
+    public void initializeUuid() {
+        this.setUuid(UUID.randomUUID().toString());
+    }
 }
