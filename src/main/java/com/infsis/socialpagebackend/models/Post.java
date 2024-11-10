@@ -2,6 +2,8 @@ package com.infsis.socialpagebackend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,10 +18,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-
-@Table(name = "post", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id", "uuid", "institution_id", "content_id", "user_id"})
-})
+@Table(name = "post")
 
 public class Post implements Persistable<Integer> {
 
@@ -42,8 +41,9 @@ public class Post implements Persistable<Integer> {
     @JoinColumn(name = "content_id", referencedColumnName = "uuid", nullable = false, unique = true)
     private Content content;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false, unique = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CommentConfig comment_conf;
 
     @Column(nullable = false)

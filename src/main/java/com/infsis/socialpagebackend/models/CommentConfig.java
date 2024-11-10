@@ -12,7 +12,7 @@ import java.util.UUID;
 public class CommentConfig {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     @Column(updatable = false, nullable = false, unique = true, length = 36)
@@ -20,11 +20,6 @@ public class CommentConfig {
 
     @Column(nullable = false, length = 200)
     private String configuration;
-
-    /*
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "comment_conf")
-    private Post post;
-     */
 
     public CommentConfig() {
     }
@@ -60,16 +55,6 @@ public class CommentConfig {
     public void setConfiguration(String configuration) {
         this.configuration = configuration;
     }
-
-/*
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
- */
 
     @PrePersist
     public void initializeUuid() {
