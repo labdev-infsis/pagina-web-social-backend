@@ -30,11 +30,11 @@ public class Post implements Persistable<Integer> {
     private String uuid;
 
     @ManyToOne
-    @JoinColumn(name = "institution_id", nullable = false)
+    @JoinColumn(name = "institution_id", referencedColumnName = "uuid", nullable = false)
     private Institution institution;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "uuid", nullable = false)
     private Users users;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -48,7 +48,7 @@ public class Post implements Persistable<Integer> {
 
     @Column(nullable = false)
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date date;
+    private Date post_date;
 
     @CreatedDate
     @Column(updatable = false)
@@ -125,12 +125,12 @@ public class Post implements Persistable<Integer> {
         this.comment_conf = comment_conf;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getPost_date() {
+        return post_date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPost_date(Date post_date) {
+        this.post_date = post_date;
     }
 
     public Date getCreatedDate() {
@@ -172,7 +172,7 @@ public class Post implements Persistable<Integer> {
                 && institution.getUuid().equals(post.getInstitution().getUuid())
                 && users.getUuid().equals(post.getUser().getUuid())
                 && content.equals(post.getContent())
-                && date.equals(post.getDate());
+                && post_date.equals(post.getPost_date());
     }
 
     @Override

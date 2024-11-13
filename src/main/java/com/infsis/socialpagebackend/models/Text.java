@@ -22,7 +22,7 @@ public class Text {
     private String uuid;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "content_id", referencedColumnName = "id")
+    @JoinColumn(name = "content_id", referencedColumnName = "uuid")
     private Content content;
 
     @Column(nullable = false, length = 500)

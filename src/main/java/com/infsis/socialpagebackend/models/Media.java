@@ -22,7 +22,7 @@ public class Media {
     private String uuid;
 
     @ManyToOne
-    @JoinColumn(name = "content_id")
+    @JoinColumn(name = "content_id", referencedColumnName = "uuid")
     private Content content;
 
     @Column(nullable = false, length = 50)
