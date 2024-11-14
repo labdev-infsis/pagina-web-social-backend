@@ -11,7 +11,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -61,6 +63,8 @@ public class Post implements Persistable<Integer> {
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
+    List<Comment> comments = new ArrayList<>();
+
     @Override
     public boolean isNew() {
         return true;
@@ -68,7 +72,9 @@ public class Post implements Persistable<Integer> {
 
     public Post() {
     }
-
+    public List<Comment> getComments() {
+        return comments;
+    }
     public Post(Integer id) {
         this.id = id;
     }
