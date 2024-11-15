@@ -60,10 +60,12 @@ public class Post implements Persistable<Integer> {
     @Column(updatable = false)
     private Date lastModifiedDate;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
-    List<Comment> comments = new ArrayList<>();
 
     @Override
     public boolean isNew() {
@@ -72,15 +74,21 @@ public class Post implements Persistable<Integer> {
 
     public Post() {
     }
-    public List<Comment> getComments() {
-        return comments;
-    }
+
     public Post(Integer id) {
         this.id = id;
     }
 
     public Post(String uuid) {
         this.uuid = uuid;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Integer getId() {
