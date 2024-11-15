@@ -25,6 +25,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 //Indicamos que se activa la seguridad web en nuestra aplicación y además esta será una clase la cual contendrá toda la configuración referente a la seguridad
 public class SecurityConfig {
+
+    @Autowired
+    CustomCorsConfiguration customCorsConfiguration;
+
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
@@ -52,6 +56,15 @@ public class SecurityConfig {
 
     //Vamos a crear un bean el cual va a establecer una cadena de filtros de seguridad en nuestra aplicación.
     // Y es aquí donde determinaremos los permisos segun los roles de usuarios para acceder a nuestra aplicación
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(req -> req.anyRequest().permitAll())
+                .cors(c -> c.configurationSource(customCorsConfiguration));
+        return httpSecurity.build();
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
