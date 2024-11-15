@@ -25,7 +25,7 @@ public class Text {
     @JoinColumn(name = "content_id", referencedColumnName = "uuid")
     private Content content;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 1000)
     private String text;
 
     @CreatedDate

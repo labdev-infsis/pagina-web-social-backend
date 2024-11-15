@@ -25,7 +25,7 @@ public class Media {
     @JoinColumn(name = "content_id", referencedColumnName = "uuid")
     private Content content;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String file_path;
 
     @Column(nullable = false, length = 10)
