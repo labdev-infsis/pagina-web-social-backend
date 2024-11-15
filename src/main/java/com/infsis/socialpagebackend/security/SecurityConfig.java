@@ -58,16 +58,7 @@ public class SecurityConfig {
     // Y es aquí donde determinaremos los permisos segun los roles de usuarios para acceder a nuestra aplicación
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req -> req.anyRequest().permitAll())
-                .cors(c -> c.configurationSource(customCorsConfiguration));
-        return httpSecurity.build();
-    }
-
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(exceptionHandling ->
@@ -78,6 +69,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated())
+                .cors(c -> c.configurationSource(customCorsConfiguration))
                 .httpBasic(withDefaults());
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
