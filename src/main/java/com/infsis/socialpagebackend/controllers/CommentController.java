@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/api/v1")
 public class CommentController {
 
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/{postUuid}")
+    @PostMapping("/post/{postUuid}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDTO addComment(@PathVariable String postUuid, @RequestBody CommentDTO commentDTO) {
-        return commentService.saveComment(postUuid, commentDTO);
+        return commentService.saveComment(postUuid, commentDTO.getUserUuid(), commentDTO);
     }
 
-    @GetMapping("/{postUuid}")
+    @GetMapping("/post/{postUuid}/comments")
     public List<CommentDTO> getComments(@PathVariable String postUuid) {
         return commentService.getCommentsByPost(postUuid);
     }
