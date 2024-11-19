@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class CommentDTO {
     private String uuid;
     private String content;
-    private String userUuid;
     private Date createdDate;
-    private Date lastModifiedDate;
+    private String name;
+    private String lastName;
 }

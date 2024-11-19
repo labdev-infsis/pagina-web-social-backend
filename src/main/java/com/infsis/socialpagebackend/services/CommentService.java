@@ -1,6 +1,7 @@
 package com.infsis.socialpagebackend.services;
 
 import com.infsis.socialpagebackend.dtos.CommentDTO;
+import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.models.Comment;
 import com.infsis.socialpagebackend.models.Post;
 import com.infsis.socialpagebackend.models.Users;
@@ -8,6 +9,8 @@ import com.infsis.socialpagebackend.repositories.CommentRepository;
 import com.infsis.socialpagebackend.repositories.PostRepository;
 import com.infsis.socialpagebackend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +28,13 @@ public class CommentService {
     @Autowired
     private UserRepository userRepository;
 
-    public CommentDTO saveComment(String postUuid, String userUuid, CommentDTO commentDTO) {
+    public CommentDTO saveComment(String postUuid, CommentDTO commentDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con email: ", email));
+
         Post post = postRepository.findOneByUuid(postUuid);
-        Users user = userRepository.findOneByUuid(userUuid);
         Comment comment = new Comment();
         comment.setPost(post);
         comment.setUser(user);
@@ -46,8 +53,8 @@ public class CommentService {
         dto.setUuid(comment.getUuid());
         dto.setContent(comment.getContent());
         dto.setCreatedDate(comment.getCreatedDate());
-        dto.setLastModifiedDate(comment.getLastModifiedDate());
-        dto.setUserUuid(comment.getUser().getUuid());
+        dto.setName(comment.getUser().getName());
+        dto.setLastName(comment.getUser().getLastName());
         return dto;
     }
 }

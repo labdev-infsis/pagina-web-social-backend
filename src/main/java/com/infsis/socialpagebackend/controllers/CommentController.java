@@ -18,7 +18,7 @@ public class CommentController {
     @PostMapping("/post/{postUuid}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDTO addComment(@PathVariable String postUuid, @RequestBody CommentDTO commentDTO) {
-        return commentService.saveComment(postUuid, commentDTO.getUserUuid(), commentDTO);
+        return commentService.saveComment(postUuid, commentDTO);
     }
 
     @GetMapping("/post/{postUuid}/comments")
