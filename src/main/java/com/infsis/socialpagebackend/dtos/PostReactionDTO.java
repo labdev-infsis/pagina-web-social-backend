@@ -3,7 +3,7 @@ package com.infsis.socialpagebackend.dtos;
 import lombok.Data;
 
 @Data
-public class PostReaction {
+public class PostReactionDTO {
 
     private String uuid;
     private String user_id;

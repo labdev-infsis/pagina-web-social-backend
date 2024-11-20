@@ -67,7 +67,7 @@ public class SecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/auth/**", "/websocket/**").permitAll()
                                 .anyRequest().authenticated())
                 .cors(c -> c.configurationSource(customCorsConfiguration))
                 .httpBasic(withDefaults());
