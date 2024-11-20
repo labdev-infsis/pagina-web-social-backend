@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/institution")
+@RequestMapping("/api/v1/institution")
 @Validated
 public class InstitutionController {
 
