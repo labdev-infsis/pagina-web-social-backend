@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: pagina-web-social-backend
+    env: docker
+    repo: https://github.com/labdev-infsis/pagina-web-social-backend.git
+    branch: FE-15_React_to_comment
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+    plan: free
+    autoDeploy: true
