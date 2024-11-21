@@ -67,7 +67,15 @@ public class SecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers(HttpMethod.GET)
+                                .permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/v1/websocket/**").permitAll()
+                                .requestMatchers("/api/v1/institution/**").permitAll()
+                                .requestMatchers("/api/v1/post/**").permitAll()
+                                .requestMatchers("/api/v1/comment-config/**").permitAll()
+                                //  .requestMatchers(HttpMethod.GET, "/institution/**").hasAnyAuthority("ADMIN", "STUDENT")
+                                //.requestMatchers("/institution/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .cors(c -> c.configurationSource(customCorsConfiguration))
                 .httpBasic(withDefaults());

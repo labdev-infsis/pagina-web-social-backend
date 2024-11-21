@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment-config")
+@RequestMapping("/api/v1/comment-config")
 @Validated
 public class CommentConfigController {
 
