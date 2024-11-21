@@ -37,34 +37,40 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    @Override                       //Solicitud entrante
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    //Respuesta saliente
                                     HttpServletResponse response,
-                                    //Mecanismo para invocar el siguiente filtro en la siguiente cadena de filtros
                                     FilterChain filterChain) throws ServletException, IOException {
-        //Obtenemos los datos del token mediante el método desarrollado arriba
+        // Obtenemos los datos del token mediante el método desarrollado
         String token = obtenerTokenDeSolicitud(request);
+    
+        // Agrega este log para verificar si el token está siendo recibido
+        System.out.println("Token recibido en el filtro: " + token);
+    
         // Validamos la información del token
         if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
-            //Asignamos el nombre de usuario contenido en el objeto "token" y lo pasamos a nuestra variable "username"
+            System.out.println("Token válido. Procediendo con la autenticación.");
+    
+            // Obtenemos el nombre de usuario del token
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
-            //Luego creamos el objeto userDetails el cual contendrá todos los detalles de nuestro username, ósea nombre, pw y roles segun el método loadUserByUsername
-            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);//recibe email o username
-            //Cargamos una lista de String con los roles alojados en BD
-            List<String> userRoles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-            //Comprobamos que el usuario autenticado posee alguno de los siguientes roles alojados en BD
-            if (userRoles.contains("STUDENT") || userRoles.contains("ADMIN")) {
-                /*Creamos el objeto UsernamePasswordAuthenticationToken el cual contendrá los detalles de autenticación del usuario*/
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
-                        null, userDetails.getAuthorities());
-                //Aca establecimos información adicional de la autenticación, como por ejemplo la dirección ip del usuario, o el agente de usuario para hacer la solicitud etc.
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                //Establecemos el objeto anterior (autenticación del usuario) en el contexto de seguridad
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+            System.out.println("Username extraído del token: " + username);
+    
+            // Cargamos los detalles del usuario
+            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);
+    
+            // Asignamos los roles y autenticamos al usuario
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    
+            System.out.println("Usuario autenticado correctamente: " + username);
+        } else {
+            System.out.println("Token no válido o ausente.");
         }
-        //Permite que la solicitud continue hacia el siguiente filtro en la cadena de filtro.
+    
+        // Continuamos con la cadena de filtros
         filterChain.doFilter(request, response);
     }
+    
+    
 }

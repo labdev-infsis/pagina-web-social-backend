@@ -6,27 +6,45 @@ import java.util.Date;
 
 public class PostDTO {
 
-    private String uuid;
+    private String uuid; // Identificador único
 
     @NotNull
-    private String institution_id;
+    private String institution_id; // ID de la institución
 
     @NotNull
-    private String user_id;
+    private String user_id; // ID del usuario
 
     @NotNull
-    private String comment_config_id;
+    private String comment_config_id; // ID de configuración de comentarios
+
+
 
     @NotNull
-    private Date date;
-
+    private ContentDTO content; // Contenido del post
     @NotNull
-
-    private ContentDTO content;
-
+    // Nuevo atributo: Título del post
+    private String title;
+    
+    @NotNull
+    private Date postDate; // Ahora se llama postDate para consistencia
+    
     public PostDTO() {
     }
 
+    public PostDTO(String uuid, String title, ContentDTO content, Date postDate,
+    String institution_id, String user_id, String comment_config_id) {
+this.uuid = uuid;
+this.title = title;
+this.content = content;
+this.postDate = postDate;
+this.institution_id = institution_id != null ? institution_id : "Sin institución";
+this.user_id = user_id != null ? user_id : "Sin usuario";
+this.comment_config_id = comment_config_id != null ? comment_config_id : "Sin configuración de comentarios";
+}
+
+    
+
+    // Getters y Setters
     public String getUuid() {
         return uuid;
     }
@@ -59,13 +77,6 @@ public class PostDTO {
         this.comment_config_id = comment_config_id;
     }
 
-    public @NotNull Date getDate() {
-        return date;
-    }
-
-    public void setDate(@NotNull Date date) {
-        this.date = date;
-    }
 
     public @NotNull ContentDTO getContent() {
         return content;
@@ -74,4 +85,22 @@ public class PostDTO {
     public void setContent(@NotNull ContentDTO content) {
         this.content = content;
     }
+
+    // Métodos para title
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Date getPostDate() {
+        return postDate;
+    }
+    
+    public void setPostDate(Date postDate) {
+        this.postDate = postDate;
+    }
+    
 }

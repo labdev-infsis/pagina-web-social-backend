@@ -49,12 +49,10 @@ values(100, '38j1f8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7
     (105, '95n3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 2, 'image', 'https://ibb.co/6rMGC4S'),
     (106, '44k7f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 3, 'image', 'https://ibb.co/5nb0Rvx');
 
-insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
-    values(101, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-06-25T10:00:22'),
-        (102, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-09-18T15:07:22'),
-        (103, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-21T14:21:22'),
-        (104, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-06T11:35:22');
-
-
-
-
+-- Inserción de datos en la tabla post con el campo title
+insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date, title)
+    values
+    (101, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-06-25T10:00:22', 'Primera publicación'),
+    (102, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-09-18T15:07:22', 'Segunda publicación'),
+    (103, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-21T14:21:22', 'Tercera publicación'),
+    (104, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '77f803b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-06T11:35:22', 'Cuarta publicación');

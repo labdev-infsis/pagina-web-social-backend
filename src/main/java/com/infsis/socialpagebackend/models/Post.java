@@ -1,6 +1,8 @@
 package com.infsis.socialpagebackend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.infsis.socialpagebackend.models.Group;
+
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,20 +12,20 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
+
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "post")
-
 public class Post implements Persistable<Integer> {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(updatable = false, nullable = false, unique = true, length = 36)
@@ -37,23 +39,24 @@ public class Post implements Persistable<Integer> {
     @JoinColumn(name = "user_id", referencedColumnName = "uuid", nullable = false)
     private Users users;
 
+  
+
+    @ManyToOne
+    @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false)
+    private CommentConfig comment_conf;
+   
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "content_id", referencedColumnName = "uuid", nullable = false, unique = true)
     private Content content;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private CommentConfig comment_conf;
 
     @Column(nullable = false)
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private Date post_date;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private Date createdDate;
 
+  
+  
     @LastModifiedDate
     @Column(updatable = false)
     private Date lastModifiedDate;
@@ -61,6 +64,13 @@ public class Post implements Persistable<Integer> {
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
+    @Column(nullable = false, length = 255)
+    private String title;
+   
+    @ManyToOne
+    @JoinColumn(name = "group_id", referencedColumnName = "uuid", nullable = true)
+    private Group group;
+    
     @Override
     public boolean isNew() {
         return true;
@@ -133,18 +143,23 @@ public class Post implements Persistable<Integer> {
         this.post_date = post_date;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+ 
 
     public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
+ 
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -155,6 +170,14 @@ public class Post implements Persistable<Integer> {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @PrePersist
@@ -177,6 +200,6 @@ public class Post implements Persistable<Integer> {
 
     @Override
     public int hashCode() {
-        return  getClass().hashCode();
+        return getClass().hashCode();
     }
 }
