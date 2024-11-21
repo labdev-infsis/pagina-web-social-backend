@@ -1,32 +1,40 @@
 package com.infsis.socialpagebackend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "text")
-public class Text {
+@SQLDelete(sql = "UPDATE ReactionRepository SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
+@Table(name = "reaction")
+public class Reaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "content_id", referencedColumnName = "uuid")
-    private Content content;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "uuid", nullable = false)
+    private Users users;
 
-    @Column(nullable = false, length = 1000)
-    private String text;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "emoji_type_id", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private EmojiType emoji_type;
 
     @CreatedDate
     @Column(updatable = false)
@@ -36,15 +44,10 @@ public class Text {
     @Column(updatable = false)
     private Date lastModifiedDate;
 
-    public Text() {
-    }
+    @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
+    private boolean deleted;
 
-    public Text(Integer id) {
-        this.id = id;
-    }
-
-    public Text(String uuid) {
-        this.uuid = uuid;
+    public Reaction() {
     }
 
     public Integer getId() {
@@ -63,20 +66,20 @@ public class Text {
         this.uuid = uuid;
     }
 
-    public Content getContent() {
-        return content;
+    public Users getUsers() {
+        return users;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
-    public String getText() {
-        return text;
+    public EmojiType getEmoji_type() {
+        return emoji_type;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setEmoji_type(EmojiType emoji_type) {
+        this.emoji_type = emoji_type;
     }
 
     public Date getCreatedDate() {
@@ -95,23 +98,18 @@ public class Text {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Text text1 = (Text) o;
-        return id.equals(text1.getId()) && uuid.equals(text1.getUuid())
-                && content.equals(text1.getContent()) && text.equals(text1.getText())
-                && Objects.equals(createdDate, text1.createdDate) && Objects.equals(lastModifiedDate, text1.lastModifiedDate);
-    }
 
-    @Override
-    public int hashCode() {
-        return  getClass().hashCode();
-    }
 }

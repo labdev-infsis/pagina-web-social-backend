@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController // Define esta clase como un controlador REST
-@RequestMapping("/api/posts") // Ruta base para este controlador
-@Validated // Valida automáticamente las anotaciones @Valid
+@RestController
+@RequestMapping("/api/v1/post")
+@Validated
 public class PostController {
 
     @Autowired

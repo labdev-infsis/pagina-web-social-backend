@@ -25,6 +25,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 //Indicamos que se activa la seguridad web en nuestra aplicación y además esta será una clase la cual contendrá toda la configuración referente a la seguridad
 public class SecurityConfig {
+
+    @Autowired
+    CustomCorsConfiguration customCorsConfiguration;
+
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
@@ -54,19 +58,27 @@ public class SecurityConfig {
     // Y es aquí donde determinaremos los permisos segun los roles de usuarios para acceder a nuestra aplicación
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .exceptionHandling(exceptionHandling ->
-                exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-            .sessionManagement(sessionManagement ->
-                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests
-                    .requestMatchers("/api/auth/**").permitAll() // Endpoints públicos
-                    .requestMatchers("/posts/**").authenticated() // Protege /posts
-                    .anyRequest().authenticated())
-            .httpBasic(withDefaults());
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(HttpMethod.GET)
+                                .permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/v1/websocket/**").permitAll()
+                                .requestMatchers("/api/v1/institution/**").permitAll()
+                                .requestMatchers("/api/v1/post/**").permitAll()
+                                .requestMatchers("/api/v1/comment-config/**").permitAll()
+                                //  .requestMatchers(HttpMethod.GET, "/institution/**").hasAnyAuthority("ADMIN", "STUDENT")
+                                //.requestMatchers("/institution/**").hasAuthority("ADMIN")
+                                .anyRequest().authenticated())
+                .cors(c -> c.configurationSource(customCorsConfiguration))
+                .httpBasic(withDefaults());
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
