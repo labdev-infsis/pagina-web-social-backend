@@ -1,5 +1,5 @@
 # Usar una imagen base de Java
-FROM openjdk:11-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
