@@ -1,39 +1,37 @@
 package com.infsis.socialpagebackend.controllers;
 
 import com.infsis.socialpagebackend.dtos.PostReactionDTO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.stereotype.Controller;
+import com.infsis.socialpagebackend.services.PostReactionService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@Slf4j
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/")
+@Validated
 public class PostReactionController {
 
-    @MessageMapping("/post_reaction")
-    @SendTo("/topic/reaction")
-    public PostReactionDTO chatWebSocket(@Payload PostReactionDTO postReactionDTO){
-        log.info(postReactionDTO.toString());
-        System.out.println(postReactionDTO.toString() );
-        return postReactionDTO;
+    @Autowired
+    private PostReactionService postReactionService;
+
+    @GetMapping("/post/{postUuid}/reactions/{reactionUuid}")
+    public PostReactionDTO get(@PathVariable String postUuid, @PathVariable String reactionUuid) {
+        return postReactionService.getPostReaction(postUuid, reactionUuid);
     }
 
-    /*
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public PostReactionDTO sendMessage(PostReactionDTO chatMessage) {
-        return chatMessage;
+    @GetMapping("/post/{postUuid}/reactions")
+    public List<PostReactionDTO> getAll(@PathVariable String postUuid) {
+        return postReactionService.getAllPostReaction(postUuid);
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public PostReactionDTO addUser(PostReactionDTO chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
+    @PostMapping("/post/{postUuid}/reactions")
+    @ResponseStatus(HttpStatus.CREATED)
+    public PostReactionDTO create(@PathVariable String postUuid, @Valid @RequestBody PostReactionDTO postReactionDTO) {
+        return postReactionService.saveReaction(postUuid, postReactionDTO);
     }
-    **
-     */
-
 
 }

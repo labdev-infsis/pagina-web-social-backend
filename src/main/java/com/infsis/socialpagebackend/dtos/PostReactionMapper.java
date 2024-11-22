@@ -6,24 +6,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class PostReactionMapper {
 
-    public PostReactionDTO toDTO(Reaction reaction) {
+    public PostReactionDTO toDTO(PostReaction postReaction) {
 
         PostReactionDTO postReactionDTO = new PostReactionDTO();
-        postReactionDTO.setUuid(reaction.getUuid());
-        postReactionDTO.setUser_id(reaction.getUsers().getUuid());
-        postReactionDTO.setEmoji_type_id(reaction.getEmoji_type().getUuid());
+        postReactionDTO.setUuid(postReaction.getUuid());
+        postReactionDTO.setUser_id(postReaction.getUsers().getUuid());
+        postReactionDTO.setPost_id(postReaction.getPost().getUuid());
+        postReactionDTO.setReaction_date(postReaction.getReaction_date());
+        postReactionDTO.setEmoji_type_id(postReaction.getEmoji_type().getUuid());
 
         return postReactionDTO;
     }
 
-    public Reaction getReaction(PostReactionDTO postReactionDTO, Users users, Post post, EmojiType emojiType) {
+    public PostReaction getReaction(PostReactionDTO postReactionDTO, Users users, Post post, EmojiType emojiType) {
 
-        Reaction reaction = new Reaction();
+        PostReaction postReaction = new PostReaction();
 
-        reaction.setUuid(postReactionDTO.getUuid());
-        //reaction.setUsers(postReactionDTO.getUser_id());
-        //reaction.setEmoji_type(postReactionDTO.getEmoji_type_id());
+        postReaction.setUsers(users);
+        postReaction.setPost(post);
+        postReaction.setEmoji_type(emojiType);
+        postReaction.setReaction_date(postReactionDTO.getReaction_date());
 
-        return reaction;
+        return postReaction;
     }
 }

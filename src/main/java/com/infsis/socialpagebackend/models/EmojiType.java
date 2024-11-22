@@ -18,8 +18,11 @@ public class EmojiType {
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
-    @Column(nullable = false, length = 200)
-    private String name;
+    @Column(nullable = false, length = 15)
+    private String emoji_name;
+
+    @Column(nullable = false, length = 5)
+    private String emoji_code;
 
     public EmojiType() {
     }
@@ -40,12 +43,20 @@ public class EmojiType {
         this.uuid = uuid;
     }
 
-    public String getName() {
-        return name;
+    public String getEmoji_name() {
+        return emoji_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmoji_name(String emoji_name) {
+        this.emoji_name = emoji_name;
+    }
+
+    public String getEmoji_code() {
+        return emoji_code;
+    }
+
+    public void setEmoji_code(String emoji_code) {
+        this.emoji_code = emoji_code;
     }
 
     @PrePersist
@@ -58,11 +69,11 @@ public class EmojiType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmojiType emojiType = (EmojiType) o;
-        return Objects.equals(id, emojiType.id) && Objects.equals(uuid, emojiType.uuid) && Objects.equals(name, emojiType.name);
+        return Objects.equals(id, emojiType.id) && Objects.equals(uuid, emojiType.uuid) && Objects.equals(emoji_name, emojiType.emoji_name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, uuid, name);
+        return Objects.hash(id, uuid, emoji_name);
     }
 }

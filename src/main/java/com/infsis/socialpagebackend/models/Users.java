@@ -57,6 +57,9 @@ public class Users {
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostReaction> postReactions;
+
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
