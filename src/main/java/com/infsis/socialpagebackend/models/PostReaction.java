@@ -15,10 +15,10 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SQLDelete(sql = "UPDATE ReactionRepository SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE PostReaction SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
-@Table(name = "reaction")
-public class Reaction {
+@Table(name = "post_reaction")
+public class PostReaction {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,10 +31,18 @@ public class Reaction {
     @JoinColumn(name = "user_id", referencedColumnName = "uuid", nullable = false)
     private Users users;
 
+    @ManyToOne
+    @JoinColumn(name = "post_id", referencedColumnName = "uuid", nullable = false)
+    private Post post;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "emoji_type_id", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private EmojiType emoji_type;
+
+    @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date reaction_date;
 
     @CreatedDate
     @Column(updatable = false)
@@ -47,7 +55,7 @@ public class Reaction {
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
-    public Reaction() {
+    public PostReaction() {
     }
 
     public Integer getId() {
@@ -82,6 +90,22 @@ public class Reaction {
         this.emoji_type = emoji_type;
     }
 
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public Date getReaction_date() {
+        return reaction_date;
+    }
+
+    public void setReaction_date(Date reaction_date) {
+        this.reaction_date = reaction_date;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -110,6 +134,5 @@ public class Reaction {
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
     }
-
 
 }
