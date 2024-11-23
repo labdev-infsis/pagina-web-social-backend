@@ -21,7 +21,6 @@ import java.util.UUID;
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "post")
-
 public class Post implements Persistable<Integer> {
 
     @Id
@@ -47,6 +46,9 @@ public class Post implements Persistable<Integer> {
     @JoinColumn(name = "comment_config_id", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CommentConfig comment_conf;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostReaction> postReactions;
 
     @Column(nullable = false)
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
@@ -145,6 +147,22 @@ public class Post implements Persistable<Integer> {
 
     public void setPost_date(Date post_date) {
         this.post_date = post_date;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public List<PostReaction> getPostReactions() {
+        return postReactions;
+    }
+
+    public void setPostReactions(List<PostReaction> postReactions) {
+        this.postReactions = postReactions;
     }
 
     public Date getCreatedDate() {
