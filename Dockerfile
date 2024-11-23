@@ -7,7 +7,7 @@ RUN ./gradlew bootJar --no-daemon
 
 FROM openjdk:17-jdk-slim
 # Exponer el puerto en el que la aplicación se ejecutará
-EXPOSE 8080
+EXPOSE 9090
 COPY --from=build /app/build/libs/*.jar app.jar
 
 # Comando para ejecutar la aplicación
