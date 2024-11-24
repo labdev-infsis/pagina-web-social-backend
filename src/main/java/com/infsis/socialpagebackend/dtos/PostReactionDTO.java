@@ -13,7 +13,6 @@ public class PostReactionDTO {
 
     private String uuid;
 
-    @NotBlank
     @Size(min = 36, max = 40)
     private String user_id;
 
