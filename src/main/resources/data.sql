@@ -69,6 +69,7 @@ VALUES
  'Anuncio de Prototipos de Página Web',
  '2024-10-30 12:52:22'),
 
+
 (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', 
  '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
  'j5818068-9280-4055-987c-087f1b1f6635',
@@ -76,6 +77,19 @@ VALUES
  '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', -- Cambiado
  'Curso de Visual Basic - Últimos Cupos',
  '2024-10-31 08:45:00'),
+
+insert into emoji_type (id, uuid, emoji_name, emoji_code)
+    values(100, '3f696a78-c73f-475c-80a6-f5a858648af1', 'thumbs-up', U&'\+01F44D'),
+    (101, '7v236a78-c73f-475c-80a6-f5a858648af1', 'red-heart', U&'\+002764\+00FE0F'),
+    (102, 'n1596a78-c73f-475c-80a6-f5a858648af1', 'crying-face', U&'\+01F622'),
+    (103, '4c806a78-c73f-475c-80a6-f5a858648af1', 'angry-face', U&'\+01F620');
+
+insert into post_reaction (id, uuid, user_id, post_id, emoji_type_id, reaction_date)
+    values(100, 'c31d5d56-b6f5-41a4-97d2-e797a6b0aa0e', 'a0818068-4880-4055-987c-087f1b1f6635', '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-10-30T15:23:22'),
+    (101, 'e4l98068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', 'n1596a78-c73f-475c-80a6-f5a858648af1', '2024-11-07T19:50:22'),
+    (102, 'i7258068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-11-12T12:10:22'),
+    (103, 'j1338068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '3f696a78-c73f-475c-80a6-f5a858648af1', '2024-11-14T20:14:22');
+
 
 (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', 
  '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 

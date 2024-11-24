@@ -1,6 +1,12 @@
 package com.infsis.socialpagebackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import jakarta.validation.constraints.Size;
+
+
 import java.util.Date;
 
 public class PostDTO {
@@ -9,6 +15,7 @@ public class PostDTO {
 
     @NotNull
     private String institution_id; // ID de la institución asociada
+
 
     @NotNull
     private String user_id; // ID del usuario que creó la publicación
@@ -24,6 +31,25 @@ public class PostDTO {
 
     @NotNull
     private String title; // Título de la publicación
+
+    @NotBlank
+    @Size(min = 36, max = 40)
+    private String institution_id;
+
+    @NotBlank
+    @Size(min = 36, max = 40)
+    private String user_id;
+
+    @NotBlank
+    @Size(min = 36, max = 40)
+    private String comment_config_id;
+
+    @NotNull
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date date;
+
+    @NotNull
+    private ContentDTO content;
 
 
     // Constructor vacío para inicializar sin parámetros
