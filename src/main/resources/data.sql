@@ -59,13 +59,45 @@ values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7
     (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://i.ibb.co/F6hn3kk/Distrib-Mesas.jpg'),
     (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://i.ibb.co/0rT5WJ5/Encaminamiento-Redes-G3.jpg');
 
-insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
-    values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-30T12:52:22'),
-        (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-31T07:34:22'),
-        (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-07T16:38:22'),
-        (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-11T07:05:22'),
-        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-14T09:21:22');
+INSERT INTO post (id, uuid, institution_id, user_id, comment_config_id, content_id, title, post_date)
+VALUES
+(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', 
+ '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
+ 'j5818068-9280-4055-987c-087f1b1f6635',
+ '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 
+ '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', 
+ 'Anuncio de Prototipos de Página Web',
+ '2024-10-30 12:52:22'),
 
+(101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', 
+ '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
+ 'j5818068-9280-4055-987c-087f1b1f6635',
+ '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 
+ '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', -- Cambiado
+ 'Curso de Visual Basic - Últimos Cupos',
+ '2024-10-31 08:45:00'),
 
+(102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', 
+ '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
+ 'j5818068-9280-4055-987c-087f1b1f6635',
+ '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', 
+ '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', 
+ 'Oferta de Cursos de Redes',
+ '2024-11-07 16:38:22'),
 
+(103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', 
+ '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
+ 'j5818068-9280-4055-987c-087f1b1f6635',
+ '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 
+ '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 
+ 'Distribución de Mesas y Aulas',
+ '2024-11-11 07:05:22'),
+
+(104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', 
+ '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 
+ 'j5818068-9280-4055-987c-087f1b1f6635',
+ '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 
+ '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 
+ 'Apertura de Nuevo Grupo en Redes',
+ '2024-11-14 09:21:22');
 

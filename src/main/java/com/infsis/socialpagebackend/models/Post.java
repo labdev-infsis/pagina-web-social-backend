@@ -21,11 +21,10 @@ import java.util.UUID;
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "post")
-
 public class Post implements Persistable<Integer> {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(updatable = false, nullable = false, unique = true, length = 36)
@@ -60,37 +59,24 @@ public class Post implements Persistable<Integer> {
     @Column(updatable = false)
     private Date lastModifiedDate;
 
+    @Column(nullable = false, length = 255) // Agregamos el atributo title
+    private String title;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
 
-
     @Override
     public boolean isNew() {
         return true;
     }
 
-    public Post() {
-    }
+    // Constructor vacío
+    public Post() {}
 
-    public Post(Integer id) {
-        this.id = id;
-    }
-
-    public Post(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
+    // Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -163,6 +149,22 @@ public class Post implements Persistable<Integer> {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public String getTitle() { // Getter para title
+        return title;
+    }
+
+    public void setTitle(String title) { // Setter para title
+        this.title = title;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public boolean isDeleted() {
         return deleted;
     }
@@ -186,11 +188,12 @@ public class Post implements Persistable<Integer> {
                 && institution.getUuid().equals(post.getInstitution().getUuid())
                 && users.getUuid().equals(post.getUser().getUuid())
                 && content.equals(post.getContent())
-                && post_date.equals(post.getPost_date());
+                && post_date.equals(post.getPost_date())
+                && title.equals(post.getTitle()); // Agregamos title en equals
     }
 
     @Override
     public int hashCode() {
-        return  getClass().hashCode();
+        return getClass().hashCode();
     }
 }

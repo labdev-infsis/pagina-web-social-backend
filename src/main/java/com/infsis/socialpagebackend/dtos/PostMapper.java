@@ -18,6 +18,7 @@ public class PostMapper {
         postDTO.setComment_config_id(post.getComment_conf().getUuid());
         postDTO.setDate(post.getPost_date());
         postDTO.setContent(contentMapper.toDTO(post.getContent()));
+        postDTO.setTitle(post.getTitle());
 
         return postDTO;
     }
@@ -34,4 +35,18 @@ public class PostMapper {
         post.setContent(content);
         return post;
     }
+
+
+       // Método para actualizar el contenido de una publicación
+       public Content getContent(ContentDTO contentDTO, Content existingContent) {
+        if (contentDTO.getText() != null) {
+            Text text = new Text(); // Instancia un nuevo objeto de tipo Text
+            text.setText(contentDTO.getText()); // Asigna el valor del texto desde el DTO
+            existingContent.setText(text); // Asigna el objeto Text a la entidad Content
+        }
+        return existingContent; // Devuelve la entidad actualizada
+    }
+    
+
+
 }

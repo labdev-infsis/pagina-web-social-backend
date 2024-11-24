@@ -19,6 +19,7 @@ public class PostService {
 
     @Autowired
     private PostMapper postMapper;
+    
 
     @Autowired
     private MediaMapper mediaMapper;
@@ -40,6 +41,8 @@ public class PostService {
 
     @Autowired
     private UserRepository userRepository;
+
+
 
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
@@ -109,6 +112,40 @@ public class PostService {
             textRepository.save(text);
         }
         return text;
+    }
+
+
+    // Método para actualizar una publicación específica
+    public PostDTO updatePost(String postUuid, PostDTO updatedPostDTO) {
+        // Buscamos la publicación en la base de datos utilizando su UUID
+        Post existingPost = postRepository.findOneByUuid(postUuid);
+        if (existingPost == null) { // Si no existe, lanzamos una excepción personalizada
+            throw new NotFoundException("Post", postUuid);
+        }
+
+        // Actualizamos el título si se ha enviado un nuevo valor
+        if (updatedPostDTO.getTitle() != null) {
+            existingPost.setTitle(updatedPostDTO.getTitle());
+        }
+
+        // Si el contenido está presente en el DTO, actualizamos el contenido asociado
+        if (updatedPostDTO.getContent() != null) {
+            Content updatedContent = contentRepository.save(
+                postMapper.getContent(updatedPostDTO.getContent(), existingPost.getContent())
+            );
+            existingPost.setContent(updatedContent); // Asociamos el contenido actualizado a la publicación
+        }
+
+        // Actualizamos la configuración de comentarios si se envía un nuevo valor
+        if (updatedPostDTO.getComment_config_id() != null) {
+            existingPost.getComment_conf().setUuid(updatedPostDTO.getComment_config_id());
+        }
+
+        // Guardamos la publicación actualizada en la base de datos
+        Post updatedPost = postRepository.save(existingPost);
+
+        // Convertimos la publicación actualizada en un DTO para devolverla como respuesta
+        return postMapper.toDTO(updatedPost);
     }
 
 }
