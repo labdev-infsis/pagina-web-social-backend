@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -48,14 +49,6 @@ public class PostReactionService {
                 .stream()
                 .map(postReaction -> postReactionMapper.toDTO(postReaction))
                 .collect(Collectors.toList());
-        /*
-        return postReactionRepository
-                        .findAll()
-                        .stream()
-                        .filter(postReaction -> postReaction.getPost().getUuid().equals(postUuid))
-                        .map(postReaction -> postReactionMapper.toDTO(postReaction))
-                        .collect(Collectors.toList());
-        */
     }
 
     public PostReactionDTO saveReaction(String postUuid, PostReactionDTO postReactionDTO) {
@@ -67,6 +60,8 @@ public class PostReactionService {
         //Users user = userRepository.findOneByUuid(postReactionDTO.getUser_id());
         Post post = postRepository.findOneByUuid(postUuid);
         EmojiType emojiType = emojiTypeRepository.findOneByUuid(postReactionDTO.getEmoji_type_id());
+
+        //PostReaction postReactionFound = postReactionRepository.findByUserUuid(user.getUuid());
 
         PostReaction postReaction;
         PostReactionDTO resDTO = new PostReactionDTO();
