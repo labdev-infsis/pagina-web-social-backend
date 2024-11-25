@@ -48,23 +48,16 @@ public class PostReactionService {
                 .stream()
                 .map(postReaction -> postReactionMapper.toDTO(postReaction))
                 .collect(Collectors.toList());
-        /*
-        return postReactionRepository
-                        .findAll()
-                        .stream()
-                        .filter(postReaction -> postReaction.getPost().getUuid().equals(postUuid))
-                        .map(postReaction -> postReactionMapper.toDTO(postReaction))
-                        .collect(Collectors.toList());
-        */
     }
 
     public PostReactionDTO saveReaction(String postUuid, PostReactionDTO postReactionDTO) {
+    /*
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Users user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found: ", email));
-
-        //Users user = userRepository.findOneByUuid(postReactionDTO.getUser_id());
+    */
+        Users user = userRepository.findOneByUuid(postReactionDTO.getUser_id());
         Post post = postRepository.findOneByUuid(postUuid);
         EmojiType emojiType = emojiTypeRepository.findOneByUuid(postReactionDTO.getEmoji_type_id());
 

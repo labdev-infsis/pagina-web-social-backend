@@ -58,6 +58,9 @@ public class Institution {
     @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "institution", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SocialNetwork> socialNetworks;
+
     @CreatedDate
     @Column(updatable = false)
     private Date createdDate;
@@ -175,6 +178,14 @@ public class Institution {
         this.posts = posts;
     }
 
+    public List<SocialNetwork> getSocialNetworks() {
+        return socialNetworks;
+    }
+
+    public void setSocialNetworks(List<SocialNetwork> socialNetworks) {
+        this.socialNetworks = socialNetworks;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -209,11 +220,11 @@ public class Institution {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Institution that = (Institution) o;
-        return deleted == that.deleted && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(location, that.location) && Objects.equals(category, that.category) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone) && Objects.equals(url, that.url) && Objects.equals(logo_url, that.logo_url) && Objects.equals(background_url, that.background_url) && Objects.equals(posts, that.posts) && Objects.equals(createdDate, that.createdDate) && Objects.equals(lastModifiedDate, that.lastModifiedDate);
+        return deleted == that.deleted && Objects.equals(id, that.id) && Objects.equals(uuid, that.uuid) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(location, that.location) && Objects.equals(category, that.category) && Objects.equals(email, that.email) && Objects.equals(phone, that.phone) && Objects.equals(url, that.url) && Objects.equals(logo_url, that.logo_url) && Objects.equals(background_url, that.background_url) && Objects.equals(posts, that.posts) && Objects.equals(socialNetworks, that.socialNetworks) && Objects.equals(createdDate, that.createdDate) && Objects.equals(lastModifiedDate, that.lastModifiedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, uuid, name, description, location, category, email, phone, url, logo_url, background_url, posts, createdDate, lastModifiedDate, deleted);
+        return Objects.hash(id, uuid, name, description, location, category, email, phone, url, logo_url, background_url, posts, socialNetworks, createdDate, lastModifiedDate, deleted);
     }
 }
