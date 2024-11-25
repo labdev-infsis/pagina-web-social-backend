@@ -22,6 +22,19 @@ public class PostMapper {
         return postDTO;
     }
 
+    public PostDTO toDTO(Post post, ReactionCounterDTO reactionCounterDTO) {
+        PostDTO postDTO = new PostDTO();
+        postDTO.setUuid(post.getUuid());
+        postDTO.setInstitution_id(post.getInstitution().getUuid());
+        postDTO.setUser_id(post.getUser().getUuid());
+        postDTO.setComment_config_id(post.getComment_conf().getUuid());
+        postDTO.setDate(post.getPost_date());
+        postDTO.setContent(contentMapper.toDTO(post.getContent()));
+        postDTO.setReactions(reactionCounterDTO);
+
+        return postDTO;
+    }
+
     public Post getPost(PostDTO postDTO, Content content,
                         CommentConfig commentConfig,
                         Institution institution, Users user) {

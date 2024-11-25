@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -60,6 +61,8 @@ public class PostReactionService {
         Users user = userRepository.findOneByUuid(postReactionDTO.getUser_id());
         Post post = postRepository.findOneByUuid(postUuid);
         EmojiType emojiType = emojiTypeRepository.findOneByUuid(postReactionDTO.getEmoji_type_id());
+
+        //PostReaction postReactionFound = postReactionRepository.findByUserUuid(user.getUuid());
 
         PostReaction postReaction;
         PostReactionDTO resDTO = new PostReactionDTO();
