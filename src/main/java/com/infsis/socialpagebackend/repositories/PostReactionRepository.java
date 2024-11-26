@@ -15,4 +15,9 @@ public interface PostReactionRepository extends JpaRepository<PostReaction, Inte
 
     @Query("SELECT pr FROM PostReaction pr WHERE pr.post.uuid = ?1")
     List<PostReaction> findByPostId(String postUuid);
+
+    /*
+    @Query("SELECT pr FROM PostReaction pr WHERE pr.users.uuid = ?1")
+    PostReaction findByUserUuid(String userUuid);
+     */
 }
