@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -52,13 +51,11 @@ public class PostReactionService {
     }
 
     public PostReactionDTO saveReaction(String postUuid, PostReactionDTO postReactionDTO) {
-    /*
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Users user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found: ", email));
-    */
-        Users user = userRepository.findOneByUuid(postReactionDTO.getUser_id());
+
         Post post = postRepository.findOneByUuid(postUuid);
         EmojiType emojiType = emojiTypeRepository.findOneByUuid(postReactionDTO.getEmoji_type_id());
 
