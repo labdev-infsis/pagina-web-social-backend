@@ -14,4 +14,5 @@ public class CommentDTO {
     private Date createdDate;
     private String name;
     private String lastName;
+    private int replyCount;
 }
