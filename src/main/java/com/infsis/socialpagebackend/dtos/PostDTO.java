@@ -33,4 +33,6 @@ public class PostDTO {
 
     private ReactionCounterDTO reactions;
 
+    private CommentCounterDTO commentCounter;
+
 }

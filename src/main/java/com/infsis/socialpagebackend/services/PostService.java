@@ -54,6 +54,9 @@ public class PostService {
     @Autowired
     private EmojiTypeRepository emojiTypeRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
 
@@ -62,14 +65,16 @@ public class PostService {
         }
         ReactionCounterDTO reactionCounterDTO = getPostReactionCounterDTO(post);
 
-        return postMapper.toDTO(post, reactionCounterDTO);
+        CommentCounterDTO commentCounterDTO = getCommentCounter(postUuid);
+
+        return postMapper.toDTO(post, reactionCounterDTO, commentCounterDTO);
     }
 
     public List<PostDTO> getAllPost() {
         return postRepository
                 .findAll()
                 .stream()
-                .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post)))
+                .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
                 .collect(Collectors.toList());
     }
 
@@ -189,5 +194,16 @@ public class PostService {
 
         return reactionCounterDTO;
     }
+    public CommentCounterDTO getCommentCounter(String postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+        int totalComments = comments.size();
+        int totalReplies = comments.stream().mapToInt(comment -> comment.getReplies().size()).sum();
 
+        CommentCounterDTO commentCounterDTO = new CommentCounterDTO();
+        commentCounterDTO.setTotalComments(totalComments);
+        commentCounterDTO.setTotalReplies(totalReplies);
+        commentCounterDTO.setTotalCommentsAndReplies(totalComments + totalReplies);
+
+        return commentCounterDTO;
+    }
 }

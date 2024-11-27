@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.services;
 
+import com.infsis.socialpagebackend.dtos.CommentCounterDTO;
 import com.infsis.socialpagebackend.dtos.CommentDTO;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.models.Comment;
@@ -45,7 +46,15 @@ public class CommentService {
 
     public List<CommentDTO> getCommentsByPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
-        return post.getComments().stream().map(this::convertToDTO).collect(Collectors.toList());
+
+        return post.getComments()
+                .stream()
+                .map(comment -> {
+                    CommentDTO commentDTO = convertToDTO(comment);
+                    commentDTO.setReplyCount(getReplyCounter(comment.getUuid()));
+                    return commentDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     private CommentDTO convertToDTO(Comment comment) {
@@ -56,5 +65,13 @@ public class CommentService {
         dto.setName(comment.getUser().getName());
         dto.setLastName(comment.getUser().getLastName());
         return dto;
+    }
+
+    private int getReplyCounter(String commentUuid) {
+        Comment comment = commentRepository.findByUuid(commentUuid);
+        if (comment == null) {
+            throw new NotFoundException("Comment", commentUuid);
+        }
+        return comment.getReplies().size();
     }
 }
