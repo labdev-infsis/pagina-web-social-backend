@@ -49,5 +49,20 @@ public class PostController {
         return ResponseEntity.ok(updatedPost); // Respondemos con un código HTTP 200 (OK)
     }
 
+   /**
+     * Endpoint para buscar publicaciones por texto.
+     *
+     * @param text Texto para buscar.
+     * @return Lista de publicaciones encontradas.
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<PostDTO>> searchPosts(@RequestParam("text") String text) {
+        // Llamamos al servicio para buscar publicaciones
+        List<PostDTO> posts = postService.searchPosts(text);
+
+        // Devolvemos la respuesta con los resultados
+        return ResponseEntity.ok(posts);
+    }
+
 
 }

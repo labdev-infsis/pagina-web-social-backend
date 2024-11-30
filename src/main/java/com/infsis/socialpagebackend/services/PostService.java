@@ -143,5 +143,16 @@ public class PostService {
         // Convertimos la publicación actualizada en un DTO para devolverla como respuesta
         return postMapper.toDTO(updatedPost);
     }
+  // Método para buscar publicaciones por texto
+  public List<PostDTO> searchPosts(String text) {
+    // Buscar publicaciones por texto en el repositorio
+    List<Post> posts = postRepository.searchPostsByText(text);
+
+    // Convertir las publicaciones encontradas a una lista de DTOs
+    return posts.stream()
+            .map(post -> postMapper.toDTO(post))
+            .collect(Collectors.toList());
+}
+
 
 }
