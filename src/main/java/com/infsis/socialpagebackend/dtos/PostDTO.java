@@ -22,8 +22,7 @@ public class PostDTO {
     @NotNull
     private ContentDTO content; // Contenido asociado a la publicación
 
-    @NotNull
-    private String title; // Título de la publicación
+
 
 
     // Constructor vacío para inicializar sin parámetros
@@ -79,13 +78,7 @@ public class PostDTO {
         this.content = content;
     }
 
-    public @NotNull String getTitle() {
-        return title;
-    }
 
-    public void setTitle(@NotNull String title) {
-        this.title = title;
-    }
 
  
 }

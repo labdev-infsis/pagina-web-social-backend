@@ -123,11 +123,7 @@ public class PostService {
             throw new NotFoundException("Post", postUuid);
         }
 
-        // Actualizamos el título si se ha enviado un nuevo valor
-        if (updatedPostDTO.getTitle() != null) {
-            existingPost.setTitle(updatedPostDTO.getTitle());
-        }
-
+   
         // Si el contenido está presente en el DTO, actualizamos el contenido asociado
         if (updatedPostDTO.getContent() != null) {
             Content updatedContent = contentRepository.save(

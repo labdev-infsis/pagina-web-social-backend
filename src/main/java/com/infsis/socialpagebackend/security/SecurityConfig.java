@@ -59,45 +59,45 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    //     http
-    //             .csrf(csrf -> csrf.disable())
-    //             .exceptionHandling(exceptionHandling ->
-    //                     exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-    //             .sessionManagement(sessionManagement ->
-    //                     sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    //             .authorizeHttpRequests(authorizeRequests ->
-    //                     authorizeRequests
-    //                             .requestMatchers(HttpMethod.GET)
-    //                             .permitAll()
-    //                             .requestMatchers("/api/auth/**").permitAll()
-    //                             .requestMatchers("/api/v1/websocket/**").permitAll()
-    //                             .requestMatchers("/api/v1/institution/**").permitAll()
-    //                             .requestMatchers("/api/v1/post/**").permitAll()
-    //                             .requestMatchers("/api/v1/comment-config/**").permitAll()
-    //                             //  .requestMatchers(HttpMethod.GET, "/institution/**").hasAnyAuthority("ADMIN", "STUDENT")
-    //                             //.requestMatchers("/institution/**").hasAuthority("ADMIN")
-    //                             .anyRequest().authenticated())
-    //             .cors(c -> c.configurationSource(customCorsConfiguration))
-    //             .httpBasic(withDefaults());
-    //     http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-    //     return http.build();
-    // }
+        http
+                .csrf(csrf -> csrf.disable())
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(HttpMethod.GET)
+                                .permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/v1/websocket/**").permitAll()
+                                .requestMatchers("/api/v1/institution/**").permitAll()
+                                .requestMatchers("/api/v1/post/**").permitAll()
+                                .requestMatchers("/api/v1/comment-config/**").permitAll()
+                                //  .requestMatchers(HttpMethod.GET, "/institution/**").hasAnyAuthority("ADMIN", "STUDENT")
+                                //.requestMatchers("/institution/**").hasAuthority("ADMIN")
+                                .anyRequest().authenticated())
+                .cors(c -> c.configurationSource(customCorsConfiguration))
+                .httpBasic(withDefaults());
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
+//  //CAMPO PARA DESABILITAR TEMPORALMENTE AUTENTICACION
+//     http
+//     .csrf(csrf -> csrf.disable())
+//     .exceptionHandling(exceptionHandling ->
+//             exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+//     .sessionManagement(sessionManagement ->
+//             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//     .authorizeHttpRequests(authorizeRequests ->
+//             authorizeRequests
+//                 .anyRequest().permitAll() // Permite todas las solicitudes sin autenticación
+//     )
+//     .cors(c -> c.configurationSource(customCorsConfiguration))
+//     .httpBasic(withDefaults());
+// // Nota: El filtro de autenticación sigue registrado, pero no se usará ya que no se requieren permisos
+// http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+// return http.build();
 
-    http
-    .csrf(csrf -> csrf.disable())
-    .exceptionHandling(exceptionHandling ->
-            exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-    .sessionManagement(sessionManagement ->
-            sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-    .authorizeHttpRequests(authorizeRequests ->
-            authorizeRequests
-                .anyRequest().permitAll() // Permite todas las solicitudes sin autenticación
-    )
-    .cors(c -> c.configurationSource(customCorsConfiguration))
-    .httpBasic(withDefaults());
-// Nota: El filtro de autenticación sigue registrado, pero no se usará ya que no se requieren permisos
-http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-return http.build();
 
-}
 }

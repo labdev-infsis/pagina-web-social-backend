@@ -18,7 +18,7 @@ public class PostMapper {
         postDTO.setComment_config_id(post.getComment_conf().getUuid());
         postDTO.setDate(post.getPost_date());
         postDTO.setContent(contentMapper.toDTO(post.getContent()));
-        postDTO.setTitle(post.getTitle());
+  
 
         return postDTO;
     }
