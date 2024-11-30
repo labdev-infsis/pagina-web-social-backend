@@ -1,35 +1,35 @@
 package com.infsis.socialpagebackend.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
+@Data
 public class PostDTO {
 
     private String uuid; // Identificador único para la publicación
 
     @NotNull
-    private String institution_id; // ID de la institución asociada
+    private String institution_id;
 
     @NotNull
-    private String user_id; // ID del usuario que creó la publicación
+    private String user_id;
 
     @NotNull
-    private String comment_config_id; // ID de configuración de comentarios
+    private String comment_config_id;
 
     @NotNull
-    private Date date; // Fecha de la publicación
+    private Date date;
 
     @NotNull
-    private ContentDTO content; // Contenido asociado a la publicación
 
+    private ContentDTO content;
 
-
-
-    // Constructor vacío para inicializar sin parámetros
     public PostDTO() {
     }
 
-    // Getters y Setters
     public String getUuid() {
         return uuid;
     }
@@ -77,8 +77,4 @@ public class PostDTO {
     public void setContent(@NotNull ContentDTO content) {
         this.content = content;
     }
-
-
-
- 
 }
