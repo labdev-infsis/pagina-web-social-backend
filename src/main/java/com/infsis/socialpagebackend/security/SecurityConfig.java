@@ -81,7 +81,7 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-//  //CAMPO PARA DESABILITAR TEMPORALMENTE AUTENTICACION
+ //CAMPO PARA DESABILITAR TEMPORALMENTE AUTENTICACION
 //     http
 //     .csrf(csrf -> csrf.disable())
 //     .exceptionHandling(exceptionHandling ->
@@ -98,5 +98,5 @@ public class SecurityConfig {
 // http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 // return http.build();
 
-
+// }
 }
