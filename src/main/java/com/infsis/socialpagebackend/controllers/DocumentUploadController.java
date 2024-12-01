@@ -36,7 +36,7 @@ public class DocumentUploadController {
     }
 
     @GetMapping(value = "/{filename}")
-    public ResponseEntity<Resource> getDocument(@PathVariable String filename) {
+    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         try {
             Path filePath = Paths.get(UPLOAD_DIRECTORY).resolve(filename);
             Resource resource = new UrlResource(filePath.toUri());

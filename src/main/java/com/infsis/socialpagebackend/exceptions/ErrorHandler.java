@@ -1,6 +1,5 @@
 package com.infsis.socialpagebackend.exceptions;
 
-import com.infsis.socialpagebackend.dtos.ResponseMessage;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;

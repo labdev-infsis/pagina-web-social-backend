@@ -3,7 +3,6 @@ package com.infsis.socialpagebackend.services;
 import com.infsis.socialpagebackend.dtos.FileDTO;
 import com.infsis.socialpagebackend.dtos.FileStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -14,8 +13,8 @@ import java.util.UUID;
 @Component
 public class FileStorageService {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/files/posts/documents/";
-    private static final String DOCUMENTS_PATH = "/files/posts/documents/";
+    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/documents/";
+    private static final String DOCUMENTS_PATH = "/api/v1/documents/";
 
     public FileDTO storeFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
@@ -34,7 +33,7 @@ public class FileStorageService {
         FileDTO fileDTO = new FileDTO();
         fileDTO.setUuid(uniqueFileName);
         fileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-        //fileDTO.setType(file.getContentType());
+        fileDTO.setType(file.getContentType());
         fileDTO.setUrlResource(downloadUrl);
 
         return fileDTO;
