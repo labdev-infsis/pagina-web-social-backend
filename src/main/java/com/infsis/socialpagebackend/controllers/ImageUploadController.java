@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/images")
@@ -27,13 +28,12 @@ public class ImageUploadController {
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/photos/";
 
     @Autowired
-
     private ImageStorageService imageStorageService;
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
-    public FileDTO handleImageUpload(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
-        return imageStorageService.storeImage(image);
+    public List<FileDTO> handleImageUpload(@RequestParam("images") @ValidImageFile List<MultipartFile> images) throws IOException {
+        return imageStorageService.storeImages(images);
     }
 
     @GetMapping(value = "/{filename}")
