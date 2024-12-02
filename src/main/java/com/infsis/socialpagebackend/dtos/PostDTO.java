@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 public class PostDTO {
 
-    private String uuid;
+    private String uuid; // Identificador único para la publicación
 
     @NotBlank
     @Size(min = 36, max = 40)
