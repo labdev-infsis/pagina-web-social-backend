@@ -81,4 +81,22 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+ //CAMPO PARA DESABILITAR TEMPORALMENTE AUTENTICACION
+//     http
+//     .csrf(csrf -> csrf.disable())
+//     .exceptionHandling(exceptionHandling ->
+//             exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+//     .sessionManagement(sessionManagement ->
+//             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//     .authorizeHttpRequests(authorizeRequests ->
+//             authorizeRequests
+//                 .anyRequest().permitAll() // Permite todas las solicitudes sin autenticación
+//     )
+//     .cors(c -> c.configurationSource(customCorsConfiguration))
+//     .httpBasic(withDefaults());
+// // Nota: El filtro de autenticación sigue registrado, pero no se usará ya que no se requieren permisos
+// http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+// return http.build();
+
+// }
 }
