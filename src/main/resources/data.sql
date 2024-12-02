@@ -80,3 +80,15 @@ insert into post_reaction (id, uuid, user_id, post_id, emoji_type_id, reaction_d
 
 
 
+INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
+VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 100,
+        (SELECT id FROM post WHERE uuid = '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),
+        'Este es un comentario de prueba',
+        NOW(),
+        NOW());
+INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
+VALUES (11,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b7c7c', 100,
+        (SELECT id FROM post WHERE uuid = '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),
+        'Este es un comentario de felicitaciones',
+        NOW(),
+        NOW());
