@@ -54,7 +54,7 @@ public class PostController {
      *
      * @param text Texto para buscar.
      * @return Lista de publicaciones encontradas.
-     */
+
     @GetMapping("/search")
     public ResponseEntity<List<PostDTO>> searchPosts(@RequestParam("text") String text) {
         // Llamamos al servicio para buscar publicaciones
@@ -63,6 +63,6 @@ public class PostController {
         // Devolvemos la respuesta con los resultados
         return ResponseEntity.ok(posts);
     }
-
+    */
 
 }

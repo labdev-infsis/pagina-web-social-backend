@@ -269,7 +269,7 @@ public class PostService {
     }
 
     /* Método para buscar publicaciones por texto
-     */
+
     public List<PostDTO> searchPosts(String text) {
         // Buscar publicaciones por texto en el repositorio
         List<Post> posts = postRepository.searchPostsByText(text);
@@ -279,5 +279,6 @@ public class PostService {
                 .map(post -> postMapper.toDTO(post))
                 .collect(Collectors.toList());
     }
+     */
 
 }

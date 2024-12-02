@@ -10,7 +10,7 @@ public class FileValidator implements ConstraintValidator<ValidDocumentFile, Mul
 
     @Override
     public void initialize(ValidDocumentFile validDocumentFile) {
-        log.info("File validator initialized!!");
+        //log.info("File validator initialized!!");
     }
 
     @Override
