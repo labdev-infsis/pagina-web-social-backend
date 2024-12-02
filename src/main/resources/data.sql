@@ -59,6 +59,7 @@ values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7
     (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://i.ibb.co/F6hn3kk/Distrib-Mesas.jpg'),
     (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://i.ibb.co/0rT5WJ5/Encaminamiento-Redes-G3.jpg');
 
+
 INSERT INTO post (id, uuid, institution_id, user_id, comment_config_id, content_id, title, post_date)
 VALUES
 (100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', 
@@ -103,7 +104,14 @@ VALUES
  '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 
  '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 
  'Apertura de Nuevo Grupo en Redes',
- '2024-11-14 09:21:22');
+ '2024-11-14 09:21:
+insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
+    values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-30T12:52:22'),
+        (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-31T07:34:22'),
+        (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-07T16:38:22'),
+        (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-11T07:05:22'),
+        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-14T09:21:22');
+
 
 insert into emoji_type (id, uuid, emoji_name, emoji_code)
     values(100, '3f696a78-c73f-475c-80a6-f5a858648af1', 'thumbs-up', U&'\+01F44D'),
@@ -115,4 +123,23 @@ insert into post_reaction (id, uuid, user_id, post_id, emoji_type_id, reaction_d
     values(100, 'c31d5d56-b6f5-41a4-97d2-e797a6b0aa0e', 'a0818068-4880-4055-987c-087f1b1f6635', '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-10-30T15:23:22'),
     (101, 'e4l98068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', 'n1596a78-c73f-475c-80a6-f5a858648af1', '2024-11-07T19:50:22'),
     (102, 'i7258068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-11-12T12:10:22'),
+
     (103, 'j1338068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '3f696a78-c73f-475c-80a6-f5a858648af1', '2024-11-14T20:14:22');
+
+    (103, 'j1338068-4880-4055-987c-087f1b1f6635', 'a0818068-4880-4055-987c-087f1b1f6635', '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '3f696a78-c73f-475c-80a6-f5a858648af1', '2024-11-14T20:14:22');
+
+
+
+INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
+VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 100,
+        (SELECT id FROM post WHERE uuid = '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),
+        'Este es un comentario de prueba',
+        NOW(),
+        NOW());
+INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
+VALUES (11,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b7c7c', 100,
+        (SELECT id FROM post WHERE uuid = '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),
+        'Este es un comentario de felicitaciones',
+        NOW(),
+        NOW());
+
