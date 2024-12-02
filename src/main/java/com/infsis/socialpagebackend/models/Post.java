@@ -11,10 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -61,9 +58,6 @@ public class Post implements Persistable<Integer> {
     @LastModifiedDate
     @Column(updatable = false)
     private Date lastModifiedDate;
-
-    @Column(nullable = false, length = 255) // Agregamos el atributo title
-    private String title;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
@@ -168,14 +162,6 @@ public class Post implements Persistable<Integer> {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getTitle() { // Getter para title
-        return title;
-    }
-
-    public void setTitle(String title) { // Setter para title
-        this.title = title;
-    }
-
     public List<Comment> getComments() {
         return comments;
     }
@@ -202,17 +188,11 @@ public class Post implements Persistable<Integer> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return id != null && id.equals(post.getId())
-                && uuid.equals(post.getUuid())
-                && institution.getUuid().equals(post.getInstitution().getUuid())
-                && users.getUuid().equals(post.getUser().getUuid())
-                && content.equals(post.getContent())
-                && post_date.equals(post.getPost_date())
-                && title.equals(post.getTitle()); // Agregamos title en equals
+        return deleted == post.deleted && Objects.equals(id, post.id) && Objects.equals(uuid, post.uuid) && Objects.equals(institution, post.institution) && Objects.equals(users, post.users) && Objects.equals(content, post.content) && Objects.equals(comment_conf, post.comment_conf) && Objects.equals(postReactions, post.postReactions) && Objects.equals(post_date, post.post_date) && Objects.equals(createdDate, post.createdDate) && Objects.equals(lastModifiedDate, post.lastModifiedDate) && Objects.equals(comments, post.comments);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id, uuid, institution, users, content, comment_conf, postReactions, post_date, createdDate, lastModifiedDate, comments, deleted);
     }
 }

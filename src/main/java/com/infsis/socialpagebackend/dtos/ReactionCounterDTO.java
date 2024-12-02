@@ -1,6 +1,5 @@
 package com.infsis.socialpagebackend.dtos;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -12,5 +11,7 @@ public class ReactionCounterDTO {
 
     private Integer total_reactions;
 
-    private List<ReactionItemDTO> reactions;
+    private List<ReactionItemDTO> reactions_by_type;
+
+    private List<ReactionUserDTO> reactions_by_user;
 }
