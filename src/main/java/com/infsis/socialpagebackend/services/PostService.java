@@ -153,6 +153,18 @@ public class PostService {
         }
         List<PostReaction> postReactions = postReactionRepository.findByPostId(post.getUuid());
         List<EmojiType> emojiTypes = emojiTypeRepository.findAll();
+        //Users user = userRepository.findOneByUuid(postDTO.getUser_id());
+        List<Users> postUsers =
+                postReactions
+                        .stream()
+                        .map(postReaction -> userRepository.findOneByUuid(postReaction.getUsers().getUuid()))
+                        .collect(Collectors.toList());
+
+        List<ReactionUserDTO> reactionUsers =
+                postUsers
+                        .stream()
+                        .map(postUser -> getReactionUserDTO(postUser, postReactions))
+                        .collect(Collectors.toList());
 
         List<ReactionItemDTO> reactionItemDTOList = new ArrayList<>();
         Integer totalPostReactions = postReactions.size();
@@ -190,10 +202,29 @@ public class PostService {
 
         reactionCounterDTO.setMy_reaction_emoji(currentUserEmojiReaction);
         reactionCounterDTO.setTotal_reactions(totalPostReactions);
-        reactionCounterDTO.setReactions(totalPostReactions != 0 ? reactionItemDTOList : null);
+        reactionCounterDTO.setReactions_by_type(totalPostReactions != 0 ? reactionItemDTOList : new ArrayList<>());
+        reactionCounterDTO.setReactions_by_user(reactionUsers);
 
         return reactionCounterDTO;
     }
+    private ReactionUserDTO getReactionUserDTO(Users user, List<PostReaction> postReactions) {
+        ReactionUserDTO reactionUserDTO = new ReactionUserDTO();
+
+        Optional<PostReaction> postUserReaction =
+                postReactions
+                        .stream()
+                        .filter(postReaction -> postReaction.getUsers().getUuid().equals(user.getUuid()))
+                        .findFirst();
+
+        if (postUserReaction.isPresent()) {
+            reactionUserDTO.setUser_name(user.getName() + " " + user.getLastName());
+            reactionUserDTO.setUser_photo(user.getPhoto_profile_path());
+            reactionUserDTO.setUser_reaction(postUserReaction.get().getEmoji_type().getEmoji_name());
+        }
+
+        return reactionUserDTO;
+    }
+
     public CommentCounterDTO getCommentCounter(String postId) {
         List<Comment> comments = commentRepository.findByPostId(postId);
         int totalComments = comments.size();
