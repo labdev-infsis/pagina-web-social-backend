@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -30,6 +31,9 @@ public class Reply {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private Users user;
+
+    @OneToMany(mappedBy = "reply", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyReaction> replyReactions;
 
     @Column(nullable = false)
     private String content;

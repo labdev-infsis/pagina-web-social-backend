@@ -1,23 +1,27 @@
 package com.infsis.socialpagebackend.services;
 
+import com.infsis.socialpagebackend.dtos.ReactionCounterDTO;
+import com.infsis.socialpagebackend.dtos.ReactionItemDTO;
+import com.infsis.socialpagebackend.dtos.ReactionUserDTO;
 import com.infsis.socialpagebackend.dtos.ReplyDTO;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
-import com.infsis.socialpagebackend.models.Comment;
-import com.infsis.socialpagebackend.models.Reply;
-import com.infsis.socialpagebackend.models.Users;
-import com.infsis.socialpagebackend.repositories.CommentRepository;
-import com.infsis.socialpagebackend.repositories.ReplyRepository;
-import com.infsis.socialpagebackend.repositories.UserRepository;
+import com.infsis.socialpagebackend.models.*;
+import com.infsis.socialpagebackend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ReplyService {
+
+    private static final String ANONYMOUS_USER = "anonymousUser";
+
 
     @Autowired
     private ReplyRepository replyRepository;
@@ -28,9 +32,23 @@ public class ReplyService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private EmojiTypeRepository emojiTypeRepository;
+
+    @Autowired
+    private ReplyReactionRepository replyReactionRepository;
+
     public List<ReplyDTO> getRepliesByCommentUuid(String commentUuid) {
         List<Reply> replies = replyRepository.findByCommentUuid(commentUuid);
-        return replies.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return replies
+                .stream()
+                .map(reply -> {
+                    ReplyDTO replyDTO = convertToDTO(reply);
+                    ReactionCounterDTO reactionCounterDTO = getReplyReactionCounterDTO(reply);
+                    replyDTO.setReactions(reactionCounterDTO);
+                    return replyDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     public ReplyDTO saveReply(String comment_uuid, ReplyDTO replyRequest) {
@@ -68,5 +86,60 @@ public class ReplyService {
         dto.setName(reply.getUser().getName());
         dto.setLastName(reply.getUser().getLastName());
         return dto;
+    }
+    private ReactionCounterDTO getReplyReactionCounterDTO(Reply reply) {
+
+        ReactionCounterDTO reactionCounterDTO = new ReactionCounterDTO();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        Users user = new Users();
+        if (!email.equals(ANONYMOUS_USER)) {
+            user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new NotFoundException("User not found: ", email));
+        }
+        List<ReplyReaction> replyReactions = replyReactionRepository.findByReplyId(reply.getUuid());
+        List<EmojiType> emojiTypes = emojiTypeRepository.findAll();
+
+        List<ReactionItemDTO> reactionItemDTOList = new ArrayList<>();
+        Integer totalReplyReactions = replyReactions.size();
+
+        for (EmojiType emojiType : emojiTypes) {
+            Long reactionCounter =
+                    replyReactions
+                            .stream()
+                            .filter(replyReaction -> replyReaction.getEmojiType().getEmoji_name().equals(emojiType.getEmoji_name()))
+                            .count();
+
+            ReactionItemDTO reactionItemDTO = new ReactionItemDTO();
+            reactionItemDTO.setEmoji_type(emojiType.getEmoji_name());
+            reactionItemDTO.setAmount(reactionCounter.intValue());
+
+            reactionItemDTOList.add(reactionItemDTO);
+        }
+
+        String currentUserId = !email.equals(ANONYMOUS_USER) ? user.getUuid() : "";
+
+        Optional<ReplyReaction> optionalReplyReaction = Optional.empty();
+        if (!currentUserId.isEmpty()) {
+            optionalReplyReaction =
+                    replyReactions
+                            .stream()
+                            .filter(replyReaction -> replyReaction.getUser().getUuid().equals(currentUserId))
+                            .findFirst();
+        }
+
+        String currentUserEmojiReaction = "";
+        if(optionalReplyReaction.isPresent()) {
+            ReplyReaction currentReplyReaction = optionalReplyReaction.get();
+            currentUserEmojiReaction = currentReplyReaction.getEmojiType().getEmoji_name();
+        }
+
+        reactionCounterDTO.setMy_reaction_emoji(currentUserEmojiReaction);
+        reactionCounterDTO.setTotal_reactions(totalReplyReactions);
+        reactionCounterDTO.setReactions_by_type(totalReplyReactions != 0 ? reactionItemDTOList : new ArrayList<>());
+
+        return reactionCounterDTO;
     }
 }

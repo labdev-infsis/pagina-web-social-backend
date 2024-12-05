@@ -11,4 +11,5 @@ public class ReplyDTO {
     private String content;
     private String name;
     private String lastName;
+    private ReactionCounterDTO reactions;
 }

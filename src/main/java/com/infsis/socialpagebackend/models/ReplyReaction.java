@@ -24,7 +24,7 @@ public class ReplyReaction {
     private String uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reply_id", nullable = false)
+    @JoinColumn(name = "reply_id", referencedColumnName = "replyId", nullable = false)
     private Reply reply;
 
     @ManyToOne(fetch = FetchType.LAZY)

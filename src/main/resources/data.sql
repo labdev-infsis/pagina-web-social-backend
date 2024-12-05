@@ -92,3 +92,19 @@ VALUES (11,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b7c7c', 100,
         NOW(),
         NOW());
 
+
+INSERT INTO replies (reply_id, uuid, user_id, comment_id, content, created_at)
+VALUES (20,'f8d2a52b-c1dc-4919-8610-76057df842c0', 100,10,
+        'No estoy de acuerdo con tu comentario',
+        NOW());
+INSERT INTO replies (reply_id, uuid, user_id, comment_id, content, created_at)
+VALUES (30,'b0315608-e21b-4096-8cb9-3cf3b518892b', 100,10,
+        'tampoco estoy de acuerdo con tu comentario',
+        NOW());
+
+INSERT INTO reply_reactions (id, uuid, user_id, reply_id, emoji_type_id, reaction_date)
+VALUES (10,'819d23be-25c9-49c8-9e8a-d5070bbf57ef', 100,20,101,
+        NOW());
+INSERT INTO reply_reactions (id, uuid, user_id, reply_id, emoji_type_id, reaction_date)
+VALUES (11,'ce87a375-8fe4-4c98-a86d-2d02e0d6d6d7', 100,20,101,
+        NOW());
