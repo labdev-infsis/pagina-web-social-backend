@@ -24,7 +24,7 @@ import java.nio.file.Paths;
 @Validated
 public class DocumentUploadController {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/documents/";
+    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
 
     @Autowired
     private FileStorageService fileStorageService;
