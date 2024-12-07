@@ -13,7 +13,7 @@ import java.util.UUID;
 @Component
 public class FileStorageService {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/documents/";
+    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
     private static final String DOCUMENTS_PATH = "/api/v1/documents/";
 
     public FileDTO storeFile(MultipartFile file) throws IOException {

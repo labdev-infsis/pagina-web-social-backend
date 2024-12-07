@@ -25,7 +25,7 @@ import java.util.List;
 @Validated
 public class ImageUploadController {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/photos/";
+    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/photos/";
 
     @Autowired
     private ImageStorageService imageStorageService;

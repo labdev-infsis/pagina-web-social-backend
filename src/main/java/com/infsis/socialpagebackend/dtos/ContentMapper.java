@@ -14,7 +14,7 @@ public class ContentMapper {
 
     public ContentDTO toDTO(Content content) {
         ContentDTO contentDTO = new ContentDTO();
-        contentDTO.setText(content.getText().getText());
+        contentDTO.setText(content.getText() != null ? content.getText().getText() : "");
         contentDTO.setMedia(
                 content.getMedia()
                         .stream()
