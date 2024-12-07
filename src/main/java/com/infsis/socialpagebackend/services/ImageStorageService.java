@@ -15,7 +15,7 @@ import java.util.UUID;
 @Component
 public class ImageStorageService {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/resources/posts/photos/";
+    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/photos/";
     private static final String IMAGES_PATH = "/api/v1/images/";
 
     public List<FileDTO> storeImages(List<MultipartFile> images) throws IOException {
@@ -26,7 +26,7 @@ public class ImageStorageService {
                 throw new IOException("Image is empty");
             }
 
-            String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+            String uniqueFileName = UUID.randomUUID().toString();
             File uploadedImage = new File(UPLOAD_DIRECTORY + uniqueFileName);
             image.transferTo(uploadedImage);
 
