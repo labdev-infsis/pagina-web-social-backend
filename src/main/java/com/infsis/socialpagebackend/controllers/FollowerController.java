@@ -1,11 +1,15 @@
 package com.infsis.socialpagebackend.controllers;
 
+import com.infsis.socialpagebackend.dtos.FollowerDTO;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
+import com.infsis.socialpagebackend.models.Users;
 import com.infsis.socialpagebackend.services.FollowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/institutions")
@@ -37,6 +41,34 @@ public class FollowerController {
             return ResponseEntity.badRequest().body("Error: no sigues esta página.");
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+    @GetMapping("/{institutionUuid}/followers/count")
+    public ResponseEntity<String> countFollowers(@PathVariable String institutionUuid) {
+        try {
+            long count = followerService.countFollowers(institutionUuid);
+            return ResponseEntity.ok(count + " Seguidores");
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @GetMapping("/{institutionUuid}/followers")
+    public ResponseEntity<List<FollowerDTO>> getFollowers(@PathVariable String institutionUuid) {
+        try {
+            List<FollowerDTO> followers = followerService.getFollowers(institutionUuid);
+            return ResponseEntity.ok(followers);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    @GetMapping("/{institutionUuid}/isFollowing")
+    public ResponseEntity<Boolean> isFollowing(@PathVariable String institutionUuid) {
+        try {
+            boolean isFollowing = followerService.isFollowing(institutionUuid);
+            return ResponseEntity.ok(isFollowing);
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }
