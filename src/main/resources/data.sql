@@ -136,3 +136,5 @@ VALUES (11,'ce87a375-8fe4-4c98-a86d-2d02e0d6d6d7', 100,20,101,
 INSERT INTO followers (id, user_id, institution_id, followed_since)
 values(1, 100, 10, NOW()),
 (2, 110, 10, NOW());
+-- Actualizar la secuencia para la tabla followers
+SELECT setval('followers_id_seq', (SELECT MAX(id) FROM followers));

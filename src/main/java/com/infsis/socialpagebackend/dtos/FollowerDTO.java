@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class FollowerDTO {
     private String name;
-    private String las_name;
+    private String last_name;
     private String photo_profile_path;
 }
