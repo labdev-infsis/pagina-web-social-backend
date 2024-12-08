@@ -39,10 +39,10 @@ public class PostController {
         return postService.addToGroup(postUuid, postGroupDTO);
     }
 
-    @PutMapping("/{postUuid}/group/{groupUuid}")
+    @PutMapping("/{postUuid}/group")
     @ResponseStatus(HttpStatus.OK)
-    public PostGroupDTO ungroup(@PathVariable String postUuid, @PathVariable String groupUuid) {
-        return postService.removeFromGroup(postUuid, groupUuid);
+    public PostGroupDTO ungroup(@PathVariable String postUuid, @Valid @RequestBody PostGroupDTO postGroupDTO) {
+        return postService.removeFromGroup(postUuid, postGroupDTO);
     }
 
     @GetMapping("/group/{groupUuid}")

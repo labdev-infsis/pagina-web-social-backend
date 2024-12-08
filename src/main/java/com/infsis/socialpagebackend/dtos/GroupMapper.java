@@ -1,10 +1,13 @@
 package com.infsis.socialpagebackend.dtos;
 
 import com.infsis.socialpagebackend.models.Group;
+import com.infsis.socialpagebackend.services.PostService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GroupMapper {
+
+
 
     public GroupDTO toDTO(Group group) {
         GroupDTO groupDTO = new GroupDTO();

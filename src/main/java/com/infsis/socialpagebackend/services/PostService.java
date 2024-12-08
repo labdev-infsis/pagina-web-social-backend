@@ -21,6 +21,10 @@ public class PostService {
 
     private static final String ANONYMOUS_USER = "anonymousUser";
 
+    public enum GroupStatus {
+        CREATED, SAVED, REMOVED, UPDATED
+    }
+
     @Autowired
     private PostRepository postRepository;
 
@@ -298,23 +302,25 @@ public class PostService {
         Post currentPost = postRepository.findOneByUuid(postUuid);
         Group currentGroup = groupRepository.findOneByUuid(postGroupDTO.getGroup_uuid());
 
-        List<Group> groups;
-        groups = currentPost.getGroups();
-        groups.add(currentGroup);
-        currentPost.setGroups(groups);
+        if(!isFromGroup(postGroupDTO.getGroup_uuid(), currentPost)) {
+            List<Group> groups;
+            groups = currentPost.getGroups();
+            groups.add(currentGroup);
+            currentPost.setGroups(groups);
 
-        postRepository.save(currentPost);
+            postRepository.save(currentPost);
+        }
 
         postGroupDTO.setPost_uuid(postUuid);
-        postGroupDTO.setStatus("ADDED");
+        postGroupDTO.setStatus(GroupStatus.SAVED.name());
 
         return postGroupDTO;
     }
 
-    public PostGroupDTO removeFromGroup(String postUuid, String groupUuid) {
+    public PostGroupDTO removeFromGroup(String postUuid, PostGroupDTO postGroupDTO) {
 
         Post currentPost = postRepository.findOneByUuid(postUuid);
-        Group currentGroup = groupRepository.findOneByUuid(groupUuid);
+        Group currentGroup = groupRepository.findOneByUuid(postGroupDTO.getGroup_uuid());
 
         List<Group> groups;
         groups = currentPost.getGroups();
@@ -323,10 +329,8 @@ public class PostService {
 
         postRepository.save(currentPost);
 
-        PostGroupDTO postGroupDTO = new PostGroupDTO();
-        postGroupDTO.setGroup_uuid(groupUuid);
         postGroupDTO.setPost_uuid(postUuid);
-        postGroupDTO.setStatus("REMOVED");
+        postGroupDTO.setStatus(GroupStatus.REMOVED.name());
 
         return postGroupDTO;
     }
@@ -339,5 +343,6 @@ public class PostService {
                 .collect(Collectors.toList())
                 .isEmpty();
     }
+
 
 }

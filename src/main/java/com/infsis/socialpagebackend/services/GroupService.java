@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 @Component
 public class GroupService {
 
+    public enum GroupStatus {
+        CREATED, REMOVED, UPDATED
+    }
+
     @Autowired
     private GroupRepository groupRepository;
 
@@ -45,6 +49,7 @@ public class GroupService {
         }
 
         Group group = groupMapper.getPostGroup(groupDTO);
+        group.setStatus(GroupStatus.CREATED.name());
         groupRepository.save(group);
 
         return groupMapper.toDTO(group);
