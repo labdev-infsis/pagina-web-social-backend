@@ -103,8 +103,8 @@ insert into social_network (id, uuid, institution_id, name, link)
     (101, 'b2n6s9h4-4880-4055-987c-087f1b1f6635', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'Telegram', 'https://t.me/isumss');
 
 insert into groups (id, uuid, name, status)
-    values (100, '5ad28ac2-bd48-4fc5-8be0-92cd24448708', 'Fijados', 'visible'),
-    (101, 'd7cc6017-1a74-40e5-9d9c-41d4d271259b', 'Destacados', 'visible');
+    values (100, '5ad28ac2-bd48-4fc5-8be0-92cd24448708', 'Fijados', 'CREATED'),
+    (101, 'd7cc6017-1a74-40e5-9d9c-41d4d271259b', 'Destacados', 'CREATED');
 
 insert into post_group (group_id, post_id)
     values ('5ad28ac2-bd48-4fc5-8be0-92cd24448708', '4jc8m3b6-0856-4aad-b3aa-747e2dba76d9'),
