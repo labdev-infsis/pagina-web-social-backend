@@ -311,6 +311,26 @@ public class PostService {
         return postGroupDTO;
     }
 
+    public PostGroupDTO removeFromGroup(String postUuid, String groupUuid) {
+
+        Post currentPost = postRepository.findOneByUuid(postUuid);
+        Group currentGroup = groupRepository.findOneByUuid(groupUuid);
+
+        List<Group> groups;
+        groups = currentPost.getGroups();
+        groups.remove(currentGroup);
+        currentPost.setGroups(groups);
+
+        postRepository.save(currentPost);
+
+        PostGroupDTO postGroupDTO = new PostGroupDTO();
+        postGroupDTO.setGroup_uuid(groupUuid);
+        postGroupDTO.setPost_uuid(postUuid);
+        postGroupDTO.setStatus("REMOVED");
+
+        return postGroupDTO;
+    }
+
     private boolean isFromGroup(String groupUuid, Post post){
 
         return !post.getGroups()
