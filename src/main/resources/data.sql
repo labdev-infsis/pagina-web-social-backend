@@ -132,3 +132,9 @@ VALUES (10,'819d23be-25c9-49c8-9e8a-d5070bbf57ef', 100,20,101,
 INSERT INTO reply_reactions (id, uuid, user_id, reply_id, emoji_type_id, reaction_date)
 VALUES (11,'ce87a375-8fe4-4c98-a86d-2d02e0d6d6d7', 100,20,101,
         NOW());
+
+INSERT INTO followers (id, user_id, institution_id, followed_since)
+values(1, 100, 10, NOW()),
+(2, 110, 10, NOW());
+-- Actualizar la secuencia para la tabla followers
+SELECT setval('followers_id_seq', (SELECT MAX(id) FROM followers));

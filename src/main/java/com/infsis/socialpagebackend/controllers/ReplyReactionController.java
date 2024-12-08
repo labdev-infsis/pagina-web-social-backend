@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reply-reactions")
+@RequestMapping("/api/v1/reply-reactions")
 public class ReplyReactionController {
 
     @Autowired
