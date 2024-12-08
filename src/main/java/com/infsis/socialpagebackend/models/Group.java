@@ -3,13 +3,14 @@ package com.infsis.socialpagebackend.models;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-@Table(name = "post_group")
-public class PostGroup {
+@Table(name = "groups")
+public class Group {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,7 +25,11 @@ public class PostGroup {
     @Column(nullable = false, length = 20)
     private String status;
 
-    public PostGroup() {
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL },
+            mappedBy = "groups")
+    private List<Post> posts = new ArrayList<>();
+
+    public Group() {
     }
 
     public Integer getId() {
@@ -59,6 +64,14 @@ public class PostGroup {
         this.status = status;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @PrePersist
     public void initializeUuid() {
         this.setUuid(UUID.randomUUID().toString());
@@ -68,8 +81,8 @@ public class PostGroup {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PostGroup postGroup = (PostGroup) o;
-        return Objects.equals(id, postGroup.id) && Objects.equals(uuid, postGroup.uuid) && Objects.equals(name, postGroup.name) && Objects.equals(status, postGroup.status);
+        Group group = (Group) o;
+        return Objects.equals(id, group.id) && Objects.equals(uuid, group.uuid) && Objects.equals(name, group.name) && Objects.equals(status, group.status);
     }
 
     @Override

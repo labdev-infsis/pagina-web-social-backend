@@ -1,10 +1,10 @@
 package com.infsis.socialpagebackend.controllers;
 
 import com.infsis.socialpagebackend.dtos.PostDTO;
+import com.infsis.socialpagebackend.dtos.PostGroupDTO;
 import com.infsis.socialpagebackend.services.PostService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping("/api/v1/post")
 @Validated
 public class PostController {
-
-   
 
     @GetMapping("/{postUuid}")
     public PostDTO get(@PathVariable String postUuid) {
@@ -35,6 +33,16 @@ public class PostController {
         return postService.savePost(postDTO);
     }
 
+    @PostMapping("/{postUuid}/group")
+    @ResponseStatus(HttpStatus.OK)
+    public PostGroupDTO group(@PathVariable String postUuid, @Valid @RequestBody PostGroupDTO postGroupDTO) {
+        return postService.addToGroup(postUuid, postGroupDTO);
+    }
+
+    @GetMapping("/group/{groupUuid}")
+    public List<PostDTO> getAllByGroup(@PathVariable String groupUuid) {
+        return postService.getAllByGroup(groupUuid);
+    }
 
     @Autowired
     private PostService postService; // Inyección del servicio que contiene la lógica de negocio

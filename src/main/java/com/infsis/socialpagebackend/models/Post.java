@@ -8,7 +8,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.*;
@@ -18,7 +17,7 @@ import java.util.*;
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "post")
-public class Post implements Persistable<Integer> {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -62,13 +61,13 @@ public class Post implements Persistable<Integer> {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL})
+    @JoinTable(name = "post_group", joinColumns = { @JoinColumn(name = "post_id", referencedColumnName = "uuid") },
+            inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "uuid") })
+    private List<Group> groups = new ArrayList<>();
+
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
 
     // Constructor vacío
     public Post() {}
@@ -176,6 +175,14 @@ public class Post implements Persistable<Integer> {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @PrePersist

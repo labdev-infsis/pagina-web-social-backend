@@ -1,37 +1,36 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.CommentConfigDTO;
-import com.infsis.socialpagebackend.dtos.PostGroupDTO;
-import com.infsis.socialpagebackend.services.PostGroupService;
+import com.infsis.socialpagebackend.dtos.GroupDTO;
+import com.infsis.socialpagebackend.services.GroupService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/post-group")
+@RequestMapping("/api/v1/group")
 public class GroupController {
 
     @Autowired
-    private PostGroupService postGroupService;
+    private GroupService groupService;
 
-    @GetMapping("/{postGroupUuid}")
-    public PostGroupDTO get(@PathVariable String postGroupUuid) {
-        return postGroupService.getCommentConfig(postGroupUuid);
+    @GetMapping("/{groupUuid}")
+    public GroupDTO get(@PathVariable String groupUuid) {
+        return groupService.getGroup(groupUuid);
     }
 
     @GetMapping
-    public List<PostGroupDTO> getAll() {
-        return postGroupService.getAllCommentConfig();
+    public List<GroupDTO> getAll() {
+        return groupService.getAllGroups();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PostGroupDTO create(@Valid @RequestBody PostGroupDTO postGroupDTO) {
-        return postGroupService.saveCommentConfig(postGroupDTO);
+    public GroupDTO create(@Valid @RequestBody GroupDTO groupDTO) {
+        return groupService.saveGroup(groupDTO);
     }
-
 
 }

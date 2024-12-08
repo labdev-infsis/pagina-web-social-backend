@@ -1,19 +1,20 @@
 package com.infsis.socialpagebackend.dtos;
 
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class PostGroupDTO {
+public class GroupDTO {
+
+    private String uuid;
 
     @NotBlank
-    @Size(min = 36, max = 36)
-    private String group_uuid;
+    @Size(min = 3, max = 50)
+    private String name;
 
-    private String post_uuid;
-
+    @NotBlank
+    @Size(min = 3, max = 20)
     private String status;
 
 }
