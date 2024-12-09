@@ -4,11 +4,14 @@ package com.infsis.socialpagebackend.controllers;
 import com.infsis.socialpagebackend.dtos.DtoRegistro;
 import com.infsis.socialpagebackend.dtos.DtoLogin;
 import com.infsis.socialpagebackend.dtos.DtoAuthRespuesta;
+import com.infsis.socialpagebackend.models.InvalidToken;
 import com.infsis.socialpagebackend.models.Role;
 import com.infsis.socialpagebackend.models.Users;
+import com.infsis.socialpagebackend.repositories.InvalidTokenRepository;
 import com.infsis.socialpagebackend.repositories.RoleRepository;
 import com.infsis.socialpagebackend.repositories.UserRepository;
 import com.infsis.socialpagebackend.security.JwtGenerator;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +27,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 @Validated
 @RestController
 @RequestMapping("/api/auth/")
 public class RestControllerAuth {
+    @Autowired
+    private InvalidTokenRepository invalidTokenRepository;
+
     private AuthenticationManager authenticationManager;
     private PasswordEncoder passwordEncoder;
     private RoleRepository rolesRepository;
@@ -36,6 +43,7 @@ public class RestControllerAuth {
     private JwtGenerator jwtGenerador;
 
     @Autowired
+
 
     public RestControllerAuth(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, RoleRepository rolesRepository, UserRepository usuariosRepository, JwtGenerator jwtGenerador) {
         this.authenticationManager = authenticationManager;
@@ -98,6 +106,14 @@ public class RestControllerAuth {
         String token = jwtGenerador.generarToken(authentication);
         return new ResponseEntity<>(new DtoAuthRespuesta(token), HttpStatus.OK);
     }
-
-
+    @PostMapping("logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        InvalidToken invalidToken = new InvalidToken();
+        invalidToken.setToken(token);
+        invalidToken.setInvalidatedAt(LocalDateTime.now());
+        invalidTokenRepository.save(invalidToken);
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>("Sesión cerrada exitosamente", HttpStatus.OK);
+    }
 }
