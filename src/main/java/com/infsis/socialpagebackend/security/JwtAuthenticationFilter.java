@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.security;
 
+import com.infsis.socialpagebackend.repositories.InvalidTokenRepository;
 import com.infsis.socialpagebackend.services.CustomUsersDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,6 +27,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtGenerator jwtGenerador;
 
+    @Autowired
+    private InvalidTokenRepository invalidTokenRepository;
+
     /*Con el siguiente método extraeremos  el token JWT de la cabecera de nuestra petición Http("Authorization")
      * luego lo validaremos y finalmente se retornará*/
     private String obtenerTokenDeSolicitud(HttpServletRequest request) {
@@ -47,6 +51,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = obtenerTokenDeSolicitud(request);
         // Validamos la información del token
         if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
+            if (invalidTokenRepository.findByToken(token).isPresent()) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
+                return;
+            }
             //Asignamos el nombre de usuario contenido en el objeto "token" y lo pasamos a nuestra variable "username"
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
             //Luego creamos el objeto userDetails el cual contendrá todos los detalles de nuestro username, ósea nombre, pw y roles segun el método loadUserByUsername
