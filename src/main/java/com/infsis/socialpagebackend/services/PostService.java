@@ -21,6 +21,10 @@ public class PostService {
 
     private static final String ANONYMOUS_USER = "anonymousUser";
 
+    public enum GroupStatus {
+        CREATED, SAVED, REMOVED, UPDATED
+    }
+
     @Autowired
     private PostRepository postRepository;
 
@@ -57,6 +61,9 @@ public class PostService {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
+
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
 
@@ -74,6 +81,16 @@ public class PostService {
         return postRepository
                 .findAll()
                 .stream()
+                .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
+                .collect(Collectors.toList());
+    }
+
+    public List<PostDTO> getAllByGroup(String groupUuid) {
+
+        return postRepository
+                .findAll()
+                .stream()
+                .filter(post -> isFromGroup(groupUuid, post))
                 .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
                 .collect(Collectors.toList());
     }
@@ -207,6 +224,7 @@ public class PostService {
 
         return reactionCounterDTO;
     }
+
     private ReactionUserDTO getReactionUserDTO(Users user, List<PostReaction> postReactions) {
         ReactionUserDTO reactionUserDTO = new ReactionUserDTO();
 
@@ -278,6 +296,53 @@ public class PostService {
                 .map(post -> postMapper.toDTO(post))
                 .collect(Collectors.toList());
     }
-    
+
+    public PostGroupDTO addToGroup(String postUuid, PostGroupDTO postGroupDTO) {
+
+        Post currentPost = postRepository.findOneByUuid(postUuid);
+        Group currentGroup = groupRepository.findOneByUuid(postGroupDTO.getGroup_uuid());
+
+        if(!isFromGroup(postGroupDTO.getGroup_uuid(), currentPost)) {
+            List<Group> groups;
+            groups = currentPost.getGroups();
+            groups.add(currentGroup);
+            currentPost.setGroups(groups);
+
+            postRepository.save(currentPost);
+        }
+
+        postGroupDTO.setPost_uuid(postUuid);
+        postGroupDTO.setStatus(GroupStatus.SAVED.name());
+
+        return postGroupDTO;
+    }
+
+    public PostGroupDTO removeFromGroup(String postUuid, PostGroupDTO postGroupDTO) {
+
+        Post currentPost = postRepository.findOneByUuid(postUuid);
+        Group currentGroup = groupRepository.findOneByUuid(postGroupDTO.getGroup_uuid());
+
+        List<Group> groups;
+        groups = currentPost.getGroups();
+        groups.remove(currentGroup);
+        currentPost.setGroups(groups);
+
+        postRepository.save(currentPost);
+
+        postGroupDTO.setPost_uuid(postUuid);
+        postGroupDTO.setStatus(GroupStatus.REMOVED.name());
+
+        return postGroupDTO;
+    }
+
+    private boolean isFromGroup(String groupUuid, Post post){
+
+        return !post.getGroups()
+                .stream()
+                .filter(group -> group.getUuid().equals(groupUuid))
+                .collect(Collectors.toList())
+                .isEmpty();
+    }
+
 
 }

@@ -66,7 +66,12 @@ public class ErrorHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ErrorResponse("File too large!"));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("File too large!"));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicatedDataException(IllegalArgumentException exc) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Data was already added!"));
     }
 
 }
