@@ -149,3 +149,6 @@ values(1, 100, 10, NOW()),
 (2, 110, 10, NOW());
 -- Actualizar la secuencia para la tabla followers
 SELECT setval('followers_id_seq', (SELECT MAX(id) FROM followers));
+insert into comment_reaction (id, uuid, user_id, comment_id, emoji_type_id, reaction_date)
+    values(100, '07063785-4327-49ff-86b7-2bf1e9596290', 'a0818068-4880-4055-987c-087f1b1f6635', 'd3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-10-30T15:23:22'),
+    (103, 'bce50d37-3ada-45ac-a556-a17cc33464d9', 'a0818068-4880-4055-987c-087f1b1f6635', 'd3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', '3f696a78-c73f-475c-80a6-f5a858648af1', '2024-11-14T20:14:22');
