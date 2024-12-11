@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.services;
 
+import com.infsis.socialpagebackend.dtos.FileItemDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionMapper;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
@@ -8,7 +9,9 @@ import com.infsis.socialpagebackend.repositories.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,11 +19,19 @@ import java.util.stream.Collectors;
 @Component
 public class InstitutionService {
 
+    private static final String INST_PROFILE_PHOTO_DIR = System.getProperty("user.dir") + "/storage/institution/profile/photos/";
+    private static final String IMAGES_INSTITUTION_PROFILE_PATH = "/api/v1/images/inst-profile/";
+    private static final String INST_COVER_DIR = System.getProperty("user.dir") + "/storage/institution/cover/photos/";
+    private static final String IMAGES_INSTITUTION_COVER_PATH = "/api/v1/images/inst-cover/";
+
     @Autowired
     private InstitutionRepository institutionRepository;
 
     @Autowired
     private InstitutionMapper institutionMapper;
+
+    @Autowired
+    private ImageStorageService imageStorageService;
 
     public InstitutionDTO getInstitution(String institutionUuid) {
         Institution institution = institutionRepository.findOneByUuid(institutionUuid);
@@ -47,13 +58,7 @@ public class InstitutionService {
     }
 
     public InstitutionDTO updateInstitution(InstitutionDTO institutionDTO) {
-        Institution example1 = new Institution(institutionDTO.getUuid());
-
-        Optional<Institution> optionalInstitution = institutionRepository.findOne(Example.of(example1));
-
-        if (optionalInstitution.isEmpty()) {
-            throw  new NotFoundException("Institution", institutionDTO.getUuid());
-        }
+        Optional<Institution> optionalInstitution = findInstitution(institutionDTO.getUuid());
 
         Institution institution = optionalInstitution.get();
 
@@ -72,16 +77,51 @@ public class InstitutionService {
     }
 
     public InstitutionDTO deleteInstitution(String institutionUuid) {
-        Institution example1 = new Institution(institutionUuid);
+        Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
 
+        Institution institution = optionalInstitution.get();
+        institutionRepository.delete(institution);
+        return institutionMapper.toDTO(institution);
+    }
+
+    public InstitutionDTO saveProfileImage(String institutionUuid, List<MultipartFile> image) throws IOException {
+        Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
+
+        FileItemDTO file = saveImage(image, INST_PROFILE_PHOTO_DIR, IMAGES_INSTITUTION_PROFILE_PATH);
+
+        Institution institution = optionalInstitution.get();
+        institution.setLogo_url(file.getUrlResource());
+
+        institutionRepository.save(institution);
+        return institutionMapper.toDTO(institution);
+    }
+
+    public InstitutionDTO saveCoverImage(String institutionUuid, List<MultipartFile> image) throws IOException {
+
+        Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
+
+        FileItemDTO file = saveImage(image, INST_COVER_DIR, IMAGES_INSTITUTION_COVER_PATH);
+
+        Institution institution = optionalInstitution.get();
+        institution.setBackground_url(file.getUrlResource());
+
+        institutionRepository.save(institution);
+        return institutionMapper.toDTO(institution);
+    }
+
+    private Optional<Institution> findInstitution(String institutionUuid) {
+        Institution example1 = new Institution(institutionUuid);
         Optional<Institution> optionalInstitution = institutionRepository.findOne(Example.of(example1));
 
         if (optionalInstitution.isEmpty()) {
             throw  new NotFoundException("Institution", institutionUuid);
         }
 
-        Institution institution = optionalInstitution.get();
-        institutionRepository.delete(institution);
-        return institutionMapper.toDTO(institution);
+        return optionalInstitution;
+    }
+
+    private FileItemDTO saveImage(List<MultipartFile> image, String imageDirectory, String imageRoute) throws IOException {
+        List<FileItemDTO> fileItemDTO = imageStorageService.storeImages(image, imageDirectory, imageRoute);
+        return fileItemDTO.get(0);
     }
 }

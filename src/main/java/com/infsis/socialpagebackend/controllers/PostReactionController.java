@@ -18,17 +18,17 @@ public class PostReactionController {
     @Autowired
     private PostReactionService postReactionService;
 
-    @GetMapping("/post/{postUuid}/reactions/{reactionUuid}")
+    @GetMapping("/posts/{postUuid}/reactions/{reactionUuid}")
     public PostReactionDTO get(@PathVariable String postUuid, @PathVariable String reactionUuid) {
         return postReactionService.getPostReaction(postUuid, reactionUuid);
     }
 
-    @GetMapping("/post/{postUuid}/reactions")
+    @GetMapping("/posts/{postUuid}/reactions")
     public List<PostReactionDTO> getAll(@PathVariable String postUuid) {
         return postReactionService.getAllPostReaction(postUuid);
     }
 
-    @PostMapping("/post/{postUuid}/reactions")
+    @PostMapping("/posts/{postUuid}/reactions")
     @ResponseStatus(HttpStatus.CREATED)
     public PostReactionDTO create(@PathVariable String postUuid, @Valid @RequestBody PostReactionDTO postReactionDTO) {
         return postReactionService.saveReaction(postUuid, postReactionDTO);
