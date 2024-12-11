@@ -1,6 +1,6 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.FileDTO;
+import com.infsis.socialpagebackend.dtos.FileItemDTO;
 import com.infsis.socialpagebackend.services.FileStorageService;
 import com.infsis.socialpagebackend.validation.ValidDocumentFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class DocumentUploadController {
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
-    public FileDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
+    public FileItemDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
             return fileStorageService.storeFile(file);
     }
 

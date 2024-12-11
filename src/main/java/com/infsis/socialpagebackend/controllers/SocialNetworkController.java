@@ -18,24 +18,24 @@ public class SocialNetworkController {
     @Autowired
     private SocialNetworkService socialNetworkService;
 
-    @GetMapping("/institution/social-networks/{socialNetworkUuid}")
+    @GetMapping("/institutions/social-networks/{socialNetworkUuid}")
     public SocialNetworkDTO get(@PathVariable String institutionUuid, @PathVariable String socialNetworkUuid) {
         return socialNetworkService.getSocialNetwork(socialNetworkUuid);
     }
 
-    @GetMapping("/institution/social-networks")
+    @GetMapping("/institutions/social-networks")
     public List<SocialNetworkDTO> getAll() {
         return socialNetworkService.getAllSocialNetworks();
     }
 
-    @GetMapping("/institution/{institutionUuid}/social-networks")
+    @GetMapping("/institutions/{institutionUuid}/social-networks")
     public List<SocialNetworkDTO> getAllByInstitution(@PathVariable String institutionUuid) {
         return socialNetworkService.getAllSocialNetworksByInstitution(institutionUuid);
     }
 
-    @PostMapping("/institution/{institutionUuid}/social-networks")
+    @PostMapping("/institutions/{institutionUuid}/social-networks")
     @ResponseStatus(HttpStatus.CREATED)
-    public SocialNetworkDTO create(@PathVariable String institutionUuid, @Valid @RequestBody SocialNetworkDTO socialNetworkDTO) {
+    public List<SocialNetworkDTO> create(@PathVariable String institutionUuid, @Valid @RequestBody List<SocialNetworkDTO> socialNetworkDTO) {
         return socialNetworkService.saveSocialNetwork(institutionUuid, socialNetworkDTO);
     }
 }

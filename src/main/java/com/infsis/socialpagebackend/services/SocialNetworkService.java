@@ -10,6 +10,7 @@ import com.infsis.socialpagebackend.repositories.SocialNetworkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,12 +50,17 @@ public class SocialNetworkService {
                 .collect(Collectors.toList());
     }
 
-    public SocialNetworkDTO saveSocialNetwork(String institutionUuid, SocialNetworkDTO socialNetworkDTO) {
+    public List<SocialNetworkDTO> saveSocialNetwork(String institutionUuid, List<SocialNetworkDTO> socialNetworkDTOs) {
 
         Institution institution = institutionRepository.findOneByUuid(institutionUuid);
-        SocialNetwork socialNetwork = socialNetworkMapper.getSocialNetwork(socialNetworkDTO, institution);
-        socialNetworkRepository.save(socialNetwork);
+        List<SocialNetworkDTO> resSocialNetworksDTOs = new ArrayList<>();
+        for (SocialNetworkDTO socialNetworkDTO : socialNetworkDTOs) {
+            SocialNetwork socialNetwork = socialNetworkMapper.getSocialNetwork(socialNetworkDTO, institution);
+            socialNetworkRepository.save(socialNetwork);
 
-        return socialNetworkMapper.toDTO(socialNetwork);
+            resSocialNetworksDTOs.add(socialNetworkMapper.toDTO(socialNetwork));
+        }
+
+        return resSocialNetworksDTOs;
     }
 }

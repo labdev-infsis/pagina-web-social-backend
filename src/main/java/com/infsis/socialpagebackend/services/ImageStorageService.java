@@ -1,7 +1,11 @@
 package com.infsis.socialpagebackend.services;
 
-import com.infsis.socialpagebackend.dtos.FileDTO;
+import com.infsis.socialpagebackend.dtos.FileItemDTO;
+import com.infsis.socialpagebackend.dtos.FileMapper;
 import com.infsis.socialpagebackend.dtos.FileStatus;
+import com.infsis.socialpagebackend.models.FileItem;
+import com.infsis.socialpagebackend.repositories.FileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,35 +19,41 @@ import java.util.UUID;
 @Component
 public class ImageStorageService {
 
-    private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/photos/";
-    private static final String IMAGES_PATH = "/api/v1/images/";
+    @Autowired
+    private FileRepository fileRepository;
 
-    public List<FileDTO> storeImages(List<MultipartFile> images) throws IOException {
-        List<FileDTO> fileDTOList = new ArrayList<>();
+    @Autowired
+    private FileMapper fileMapper;
+
+    public List<FileItemDTO> storeImages(List<MultipartFile> images, String directory, String imagesPath) throws IOException {
+        List<FileItemDTO> fileItemDTOList = new ArrayList<>();
 
         for (MultipartFile image : images) {
             if (image.isEmpty()) {
-                throw new IOException("Image is empty");
+                throw new IOException("FileItem is empty");
             }
 
             String uniqueFileName = UUID.randomUUID().toString();
-            File uploadedImage = new File(UPLOAD_DIRECTORY + uniqueFileName);
-            image.transferTo(uploadedImage);
+
+            File uploadedFile = new File(directory + uniqueFileName);
+            image.transferTo(uploadedFile);
 
             String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path(IMAGES_PATH)
+                    .path(imagesPath)
                     .path(uniqueFileName)
                     .toUriString();
 
-            FileDTO fileDTO = new FileDTO();
-            fileDTO.setUuid(uniqueFileName);
-            fileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-            fileDTO.setType(image.getContentType());
-            fileDTO.setUrlResource(downloadUrl);
+            FileItemDTO fileItemDTO = new FileItemDTO();
+            fileItemDTO.setUuid(uniqueFileName);
+            fileItemDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+            fileItemDTO.setType(image.getContentType());
+            fileItemDTO.setUrlResource(downloadUrl);
 
-            fileDTOList.add(fileDTO);
+            FileItem fileItem = fileMapper.getFile(fileItemDTO);
+            fileRepository.save(fileItem);
+            fileItemDTOList.add(fileItemDTO);
         }
 
-        return fileDTOList;
+        return fileItemDTOList;
     }
 }

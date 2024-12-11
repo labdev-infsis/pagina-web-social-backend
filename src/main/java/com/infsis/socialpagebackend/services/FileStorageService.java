@@ -1,7 +1,10 @@
 package com.infsis.socialpagebackend.services;
 
-import com.infsis.socialpagebackend.dtos.FileDTO;
+import com.infsis.socialpagebackend.dtos.FileItemDTO;
+import com.infsis.socialpagebackend.dtos.FileMapper;
 import com.infsis.socialpagebackend.dtos.FileStatus;
+import com.infsis.socialpagebackend.repositories.FileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,9 +19,15 @@ public class FileStorageService {
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
     private static final String DOCUMENTS_PATH = "/api/v1/documents/";
 
-    public FileDTO storeFile(MultipartFile file) throws IOException {
+    @Autowired
+    private FileRepository fileRepository;
+
+    @Autowired
+    private FileMapper fileMapper;
+
+    public FileItemDTO storeFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new IOException("File is empty");
+            throw new IOException("FileItem is empty");
         }
 
         String uniqueFileName = UUID.randomUUID().toString();
@@ -30,12 +39,14 @@ public class FileStorageService {
                 .path(uniqueFileName)
                 .toUriString();
 
-        FileDTO fileDTO = new FileDTO();
-        fileDTO.setUuid(uniqueFileName);
-        fileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-        fileDTO.setType(file.getContentType());
-        fileDTO.setUrlResource(downloadUrl);
+        FileItemDTO fileItemDTO = new FileItemDTO();
+        fileItemDTO.setUuid(uniqueFileName);
+        fileItemDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+        fileItemDTO.setType(file.getContentType());
+        fileItemDTO.setUrlResource(downloadUrl);
 
-        return fileDTO;
+        fileRepository.save(fileMapper.getFile(fileItemDTO));
+
+        return fileItemDTO;
     }
 }
