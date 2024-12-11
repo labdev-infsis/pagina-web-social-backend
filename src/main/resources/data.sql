@@ -3,10 +3,10 @@ insert into role(id_role, name)
     (2, 'STUDENT');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_portada_path, photo_profile_path)
-    values(100, 'j5818068-9280-4055-987c-087f1b1f6635', 'Alicia', 'Mercado Sandoval', 'alicia.mercado@fcyt.umss.edu.bo', '79235628', '$2a$10$d2Re5HES0exoWQkbZ9IKSukZZI3kLokhOWJfRI1LZcuE/WN.zYV6e', null, 'https://i.ibb.co/VMVY21Q/Alicia-Mercado.png' );
+    values(100, 'j5818068-9280-4055-987c-087f1b1f6635', 'Alicia', 'Mercado Sandoval', 'alicia.mercado@fcyt.umss.edu.bo', '79235628', '$2a$10$d2Re5HES0exoWQkbZ9IKSukZZI3kLokhOWJfRI1LZcuE/WN.zYV6e', null, 'http://localhost:9090/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d' );
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_portada_path, photo_profile_path)
-    values(110, 'a0818068-4880-4055-987c-087f1b1f6635', 'Sergio', 'Salazar Velasco', '202004185@est.umss.edu', '62954271', '$2a$10$2ohp0csjbBWQkcidcmGeyuaP21iST1m2Ps7yBUa6uoViJ9eUYOlBi', null, 'https://i.ibb.co/2S6d8Fx/Sergio-Salazar.png' );
+    values(110, 'a0818068-4880-4055-987c-087f1b1f6635', 'Sergio', 'Salazar Velasco', '202004185@est.umss.edu', '62954271', '$2a$10$2ohp0csjbBWQkcidcmGeyuaP21iST1m2Ps7yBUa6uoViJ9eUYOlBi', null, 'http://localhost:9090/api/v1/images/users/13035150-f880-4475-808c-26086775ad47' );
 
 insert into user_roles (user_id, role_id)
     values(100, 1),(110, 2);
@@ -131,7 +131,9 @@ insert into file_item (id, uuid, url_resource, status, type)
      (110, '8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'http://localhost:9090/api/v1/documents/8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'SAVED_SUCCESSFULLY','application/pdf'),
      (111, '012aa435-6925-4ba8-ba90-af529c8344ef', 'http://localhost:9090/api/v1/images/inst-profile/012aa435-6925-4ba8-ba90-af529c8344ef', 'SAVED_SUCCESSFULLY','image/png'),
      (112, '1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'http://localhost:9090/api/v1/images/inst-cover/1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'SAVED_SUCCESSFULLY','image/jpg'),
-     (113, '3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'http://localhost:9090/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'SAVED_SUCCESSFULLY','image/jpeg');
+     (113, '3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'http://localhost:9090/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (114, 'fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'http://localhost:9090/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'SAVED_SUCCESSFULLY','image/png'),
+     (115, '13035150-f880-4475-808c-26086775ad47', 'http://localhost:9090/api/v1/images/users/13035150-f880-4475-808c-26086775ad47', 'SAVED_SUCCESSFULLY','image/png');
 
 INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 100,
