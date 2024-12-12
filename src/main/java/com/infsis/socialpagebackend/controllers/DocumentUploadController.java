@@ -1,7 +1,7 @@
 package com.infsis.socialpagebackend.controllers;
 
 import com.infsis.socialpagebackend.dtos.FileItemDTO;
-import com.infsis.socialpagebackend.services.FileStorageService;
+import com.infsis.socialpagebackend.services.DocumentStorageService;
 import com.infsis.socialpagebackend.validation.ValidDocumentFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -27,12 +27,12 @@ public class DocumentUploadController {
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
 
     @Autowired
-    private FileStorageService fileStorageService;
+    private DocumentStorageService documentStorageService;
 
-    @PostMapping("/upload")
+    @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public FileItemDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
-            return fileStorageService.storeFile(file);
+            return documentStorageService.storeFile(file);
     }
 
     @GetMapping(value = "/{filename}")
