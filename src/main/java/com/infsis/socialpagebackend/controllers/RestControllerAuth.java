@@ -4,6 +4,7 @@ package com.infsis.socialpagebackend.controllers;
 import com.infsis.socialpagebackend.dtos.DtoRegistro;
 import com.infsis.socialpagebackend.dtos.DtoLogin;
 import com.infsis.socialpagebackend.dtos.DtoAuthRespuesta;
+import com.infsis.socialpagebackend.dtos.DtoUserDetails;
 import com.infsis.socialpagebackend.models.InvalidToken;
 import com.infsis.socialpagebackend.models.Role;
 import com.infsis.socialpagebackend.models.Users;
@@ -21,11 +22,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import com.infsis.socialpagebackend.exceptions.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -52,6 +51,7 @@ public class RestControllerAuth {
         this.usuariosRepository = usuariosRepository;
         this.jwtGenerador = jwtGenerador;
     }
+
     //Método para poder registrar usuarios con role "user"
     @PostMapping("register")
     public ResponseEntity<String> registrar(@Valid @RequestBody DtoRegistro dtoRegistro) {
@@ -115,5 +115,23 @@ public class RestControllerAuth {
         invalidTokenRepository.save(invalidToken);
         SecurityContextHolder.clearContext();
         return new ResponseEntity<>("Sesión cerrada exitosamente", HttpStatus.OK);
+    }
+    @GetMapping("user/me")
+    public ResponseEntity<DtoUserDetails> getUserFromToken() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        Users user = usuariosRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con email: ", email));
+
+        DtoUserDetails userDetails = new DtoUserDetails();
+        userDetails.setName(user.getName());
+        userDetails.setLastName(user.getLastName());
+        userDetails.setUuid(user.getUuid());
+        userDetails.setEmail(user.getEmail());
+        userDetails.setPhone(user.getPhone());
+        userDetails.setPhotoProfilePath(user.getPhoto_profile_path());
+        userDetails.setPhotoPortadaPath(user.getPhoto_portada_path());
+
+        return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 }
