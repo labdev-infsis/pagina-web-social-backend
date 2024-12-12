@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.services;
 
+import com.infsis.socialpagebackend.configuration.ServerProperties;
 import com.infsis.socialpagebackend.dtos.FileItemDTO;
 import com.infsis.socialpagebackend.dtos.FileMapper;
 import com.infsis.socialpagebackend.dtos.FileStatus;
@@ -14,16 +15,20 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Component
-public class FileStorageService {
+public class DocumentStorageService {
 
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
     private static final String DOCUMENTS_PATH = "/api/v1/documents/";
+    private static final String SECURE_PORT = "443";
 
     @Autowired
     private FileRepository fileRepository;
 
     @Autowired
     private FileMapper fileMapper;
+
+    @Autowired
+    private ServerProperties serverProperties;
 
     public FileItemDTO storeFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
@@ -35,6 +40,9 @@ public class FileStorageService {
         file.transferTo(uploadedFile);
 
         String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .scheme(serverProperties.getSchema())
+                .host(serverProperties.getHost())
+                .port(serverProperties.getPort().equals(SECURE_PORT) ? "" : serverProperties.getPort())
                 .path(DOCUMENTS_PATH)
                 .path(uniqueFileName)
                 .toUriString();
