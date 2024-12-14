@@ -27,7 +27,7 @@ public class Institution {
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false, length = 300)
@@ -36,7 +36,7 @@ public class Institution {
     @Column(nullable = false, length = 300)
     private String location;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 100)
     private String category;
 
     @Email

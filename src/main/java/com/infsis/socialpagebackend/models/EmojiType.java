@@ -18,7 +18,7 @@ public class EmojiType {
     @Column(updatable = false, nullable = false, unique = true, length = 36)
     private String uuid;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 50)
     private String emoji_name;
 
     @Column(nullable = false, length = 5)

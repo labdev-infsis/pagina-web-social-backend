@@ -9,7 +9,7 @@ public class InstitutionDTO {
     private String uuid;
 
     @NotBlank
-    @Size(min = 3, max = 80)
+    @Size(min = 3, max = 100)
     private String name;
 
     @NotBlank
@@ -21,7 +21,7 @@ public class InstitutionDTO {
     private String location;
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 100)
     private String category;
 
     @NotBlank
