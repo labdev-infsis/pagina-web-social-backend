@@ -44,7 +44,7 @@ public class Users {
     private String photo_profile_path;
 
     @Column(length = 100)
-    private String photo_portada_path;
+    private String photo_cover_path;
 
     //Usamos fetchType en EAGER para que cada vez que se acceda o se extraiga un usuario de la BD, este se traiga todos sus roles
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

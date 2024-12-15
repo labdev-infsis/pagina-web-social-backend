@@ -4,15 +4,24 @@ import com.infsis.socialpagebackend.configuration.ServerProperties;
 import com.infsis.socialpagebackend.dtos.FileItemDTO;
 import com.infsis.socialpagebackend.dtos.FileMapper;
 import com.infsis.socialpagebackend.dtos.FileStatus;
+import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.models.FileItem;
 import com.infsis.socialpagebackend.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +30,9 @@ import java.util.UUID;
 public class ImageStorageService {
 
     private static final String SECURE_PORT = "443";
+    private static final String PNG_IMAGE_TYPE = "image/png";
+    private static final String JPG_IMAGE_TYPE = "image/jpg";
+    private static final String JPEG_IMAGE_TYPE = "image/jpeg";
 
     @Autowired
     private FileRepository fileRepository;
@@ -64,5 +76,34 @@ public class ImageStorageService {
         }
 
         return fileItemDTOList;
+    }
+
+    public ResponseEntity<Resource> getImage(String filename, String pathImages) {
+        FileItem file = fileRepository.findOneByUuid(filename);
+        if(file == null) {
+            throw new NotFoundException("File:", filename);
+        }
+        MediaType imageContentType = new MediaType(MediaType.IMAGE_JPEG);
+        if (file.getType().equals(PNG_IMAGE_TYPE)) {
+            imageContentType = MediaType.IMAGE_PNG;
+        } else if (file.getType().equals(JPEG_IMAGE_TYPE) || file.getType().equals(JPG_IMAGE_TYPE)) {
+            imageContentType = MediaType.IMAGE_JPEG;
+        }
+
+        try {
+            Path filePath = Paths.get(pathImages).resolve(filename);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        .contentType(imageContentType)
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 }

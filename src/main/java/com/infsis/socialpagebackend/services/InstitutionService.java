@@ -84,6 +84,18 @@ public class InstitutionService {
         return institutionMapper.toDTO(institution);
     }
 
+    private Optional<Institution> findInstitution(String institutionUuid) {
+        Institution example1 = new Institution(institutionUuid);
+        Optional<Institution> optionalInstitution = institutionRepository.findOne(Example.of(example1));
+
+        if (optionalInstitution.isEmpty()) {
+            throw  new NotFoundException("Institution", institutionUuid);
+        }
+
+        return optionalInstitution;
+    }
+
+    /*
     public InstitutionDTO saveProfileImage(String institutionUuid, List<MultipartFile> image) throws IOException {
         Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
 
@@ -109,19 +121,9 @@ public class InstitutionService {
         return institutionMapper.toDTO(institution);
     }
 
-    private Optional<Institution> findInstitution(String institutionUuid) {
-        Institution example1 = new Institution(institutionUuid);
-        Optional<Institution> optionalInstitution = institutionRepository.findOne(Example.of(example1));
-
-        if (optionalInstitution.isEmpty()) {
-            throw  new NotFoundException("Institution", institutionUuid);
-        }
-
-        return optionalInstitution;
-    }
-
     private FileItemDTO saveImage(List<MultipartFile> image, String imageDirectory, String imageRoute) throws IOException {
         List<FileItemDTO> fileItemDTO = imageStorageService.storeImages(image, imageDirectory, imageRoute);
         return fileItemDTO.get(0);
     }
+     */
 }

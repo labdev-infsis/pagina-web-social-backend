@@ -1,6 +1,5 @@
 package com.infsis.socialpagebackend.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -8,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class DtoRegistro {
+public class UserRegistryDTO {
     @NotBlank
     @Size(max = 50)
     @Email
