@@ -48,7 +48,7 @@ public class InstitutionController {
         return institutionService.deleteInstitution(institutionUuid);
     }
 
-
+/*
     @PostMapping("/{institutionUuid}/profile-photo")
     @ResponseStatus(HttpStatus.OK)
     public InstitutionDTO saveProfilePhoto(@PathVariable String institutionUuid, @RequestParam("image") @ValidImageFile MultipartFile photo) throws IOException {
@@ -66,7 +66,6 @@ public class InstitutionController {
 
         return institutionService.saveCoverImage(institutionUuid, institutionCoverImage);
     }
-
-
+*/
 
 }

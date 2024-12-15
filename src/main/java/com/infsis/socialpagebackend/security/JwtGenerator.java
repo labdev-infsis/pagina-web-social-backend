@@ -3,6 +3,7 @@ package com.infsis.socialpagebackend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -12,12 +13,21 @@ import java.util.Date;
 @Component
 public class JwtGenerator {
 
+    private final static String INVALID_JWT_MESSAGE = "Jwt has expired or is incorrect";
+
+    @Value("${security.jwt.expiration-time}")
+    private long jwtExpirationTime;
+
+    public long getExpirationTime() {
+        return jwtExpirationTime;
+    }
+
     //Método para crear un token por medio de la authentication
     public String generarToken(Authentication authentication) {
 
         String username = authentication.getName();
         Date tiempoActual = new Date();
-        Date expiracionToken = new Date(tiempoActual.getTime() + ConstantsSecurity.JWT_EXPIRATION_TOKEN);
+        Date expiracionToken = new Date(System.currentTimeMillis() + jwtExpirationTime);
 
         //Linea para generar el token
         String token = Jwts.builder() //Construimos un token JWT llamado token
@@ -48,7 +58,7 @@ public class JwtGenerator {
             Jwts.parser().setSigningKey(ConstantsSecurity.JWT_FIRMA).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("Jwt ah expirado o esta incorrecto");
+            throw new AuthenticationCredentialsNotFoundException(INVALID_JWT_MESSAGE);
         }
     }
 }
