@@ -35,13 +35,13 @@ public class DocumentUploadController {
             return documentStorageService.storeFile(file);
     }
 
-    @GetMapping("/{documentUuid}")
+    @GetMapping("/{documentUuid}/info")
     public DocumentFileDTO getDocumentInfo(@PathVariable String documentUuid) {
         return documentStorageService.getDocument(documentUuid);
     }
 
-    @GetMapping("/view/{documentUuid}")
-    public ResponseEntity<Resource> getImage(@PathVariable String documentUuid) {
+    @GetMapping("/{documentUuid}")
+    public ResponseEntity<Resource> getResourceDocument(@PathVariable String documentUuid) {
         try {
             Path filePath = Paths.get(UPLOAD_DIRECTORY).resolve(documentUuid);
             Resource resource = new UrlResource(filePath.toUri());

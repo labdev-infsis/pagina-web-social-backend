@@ -61,21 +61,21 @@ public class ImageStorageService {
                     .path(uniqueFileName)
                     .toUriString();
 
-            ImageFileDTO imageFileDTO = new ImageFileDTO();
-            imageFileDTO.setUuid(uniqueFileName);
-            imageFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-            imageFileDTO.setType(image.getContentType());
-            imageFileDTO.setUrlResource(downloadUrl);
+            ImageFile imageFile = new ImageFile();
+            imageFile.setUuid(uniqueFileName);
+            imageFile.setName(image.getOriginalFilename());
+            imageFile.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+            imageFile.setType(image.getContentType());
+            imageFile.setUrl_resource(downloadUrl);
 
-            ImageFile imageFile = imageFileMapper.getFile(imageFileDTO);
             imageFileRepository.save(imageFile);
-            imageFileDTOList.add(imageFileDTO);
+            imageFileDTOList.add(imageFileMapper.toDTO(imageFile));
         }
 
         return imageFileDTOList;
     }
 
-    public ResponseEntity<Resource> getImage(String filename, String pathImages) {
+    public ResponseEntity<Resource> getResourceImage(String filename, String pathImages) {
         ImageFile file = imageFileRepository.findOneByUuid(filename);
         if(file == null) {
             throw new NotFoundException("File:", filename);
