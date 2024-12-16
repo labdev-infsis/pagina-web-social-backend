@@ -41,8 +41,8 @@ insert into institution (id, uuid, name, description, location, category, email,
     values(10, '93j203b4-f63b-4c4a-be05-eae84cef0c0c',
         unistr('Direcci\00F3n de Relaciones Internacionales y Convenios - UMSS'),
         unistr('Direcci\00F3n de Relaciones Internacionales y Convenios Universidad Mayor de San Sim\00F3n'),
-        'Av. Ballivi\00E1n # 591 esq. Reza, Cochabamba, Bolivia',
-        'Sitio web de educación',
+        U&'Av. Ballivi\00E1n # 591 esq. Reza, Cochabamba, Bolivia',
+        U&'Sitio web de educaci\00F3n',
         'rrii@umss.edu.bo',
         '+591 4 4524779',
         'dric.umss.edu.bo',
@@ -156,7 +156,7 @@ insert into post_group (group_id, post_id)
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9');
 
-insert into file_item (id, uuid, url_resource, status, type)
+insert into image_file (id, uuid, url_resource, status, type)
     values (100, '729b9472-e531-4362-88cb-efd9fc656f78', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78', 'SAVED_SUCCESSFULLY','image/png'),
      (101, 'e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'SAVED_SUCCESSFULLY','image/png'),
      (102, '733b01ba-198e-42db-b9ca-d7ace9a7abad', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad', 'SAVED_SUCCESSFULLY','image/png'),

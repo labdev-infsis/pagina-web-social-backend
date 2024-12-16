@@ -3,7 +3,7 @@ package com.infsis.socialpagebackend.dtos;
 import lombok.Data;
 
 @Data
-public class FileItemDTO {
+public class ImageFileDTO {
 
     private String uuid;
 

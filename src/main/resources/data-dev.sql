@@ -167,7 +167,7 @@ insert into post_group (group_id, post_id)
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9'),
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9');
 
-insert into file_item (id, uuid, url_resource, status, type)
+insert into image_file (id, uuid, url_resource, status, type)
     values (100, '3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'http://localhost:9090/api/v1/images/posts/3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'SAVED_SUCCESSFULLY','image/jpeg'),
      (101, '6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'http://localhost:9090/api/v1/images/posts/6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'SAVED_SUCCESSFULLY','image/jpeg'),
      (102, 'e970d0cc-a76f-4884-9d05-574316eb7f94', 'http://localhost:9090/api/v1/images/posts/e970d0cc-a76f-4884-9d05-574316eb7f94', 'SAVED_SUCCESSFULLY','image/jpeg'),

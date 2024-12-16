@@ -1,7 +1,7 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
-import com.infsis.socialpagebackend.repositories.FileRepository;
+import com.infsis.socialpagebackend.dtos.ImageFileDTO;
+import com.infsis.socialpagebackend.repositories.ImageFileRepository;
 import com.infsis.socialpagebackend.services.ImageStorageService;
 import com.infsis.socialpagebackend.validation.ValidImageFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +35,17 @@ public class ImageUploadController {
     private ImageStorageService imageStorageService;
 
     @Autowired
-    private FileRepository fileRepository;
+    private ImageFileRepository imageFileRepository;
 
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FileItemDTO> handleImageUpload(@RequestParam("images") @ValidImageFile List<MultipartFile> images) throws IOException {
+    public List<ImageFileDTO> handleImageUpload(@RequestParam("images") @ValidImageFile List<MultipartFile> images) throws IOException {
         return imageStorageService.storeImages(images, POSTS_PHOTOS_DIRECTORY, IMAGES_POSTS_PATH);
     }
 
     @PostMapping("/inst-profile")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FileItemDTO> uploadInstProfilePhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
+    public List<ImageFileDTO> uploadInstProfilePhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
         List<MultipartFile> profileImage = new ArrayList<>();
         profileImage.add(image);
         return imageStorageService.storeImages(profileImage, INST_PROFILE_PHOTO_DIR, IMAGES_INSTITUTION_PROFILE_PATH);
@@ -53,7 +53,7 @@ public class ImageUploadController {
 
     @PostMapping("/inst-cover")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FileItemDTO> uploadInstCoverPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
+    public List<ImageFileDTO> uploadInstCoverPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
         List<MultipartFile> coverImage = new ArrayList<>();
         coverImage.add(image);
         return imageStorageService.storeImages(coverImage, INST_COVER_DIR, IMAGES_INSTITUTION_COVER_PATH);
@@ -61,7 +61,7 @@ public class ImageUploadController {
 
     @PostMapping("/user-profile")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FileItemDTO> uploadUserPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
+    public List<ImageFileDTO> uploadUserPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
         List<MultipartFile> userImage = new ArrayList<>();
         userImage.add(image);
         return imageStorageService.storeImages(userImage, USER_PROFILE_PHOTO_DIR, IMAGES_USER_PATH);

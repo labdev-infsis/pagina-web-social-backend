@@ -1,6 +1,6 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
+import com.infsis.socialpagebackend.dtos.DocumentFileDTO;
 import com.infsis.socialpagebackend.services.DocumentStorageService;
 import com.infsis.socialpagebackend.validation.ValidDocumentFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +31,19 @@ public class DocumentUploadController {
 
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public FileItemDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
+    public DocumentFileDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
             return documentStorageService.storeFile(file);
     }
 
-    @GetMapping(value = "/{filename}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+    @GetMapping("/{documentUuid}")
+    public DocumentFileDTO getDocumentInfo(@PathVariable String documentUuid) {
+        return documentStorageService.getDocument(documentUuid);
+    }
+
+    @GetMapping("/view/{documentUuid}")
+    public ResponseEntity<Resource> getImage(@PathVariable String documentUuid) {
         try {
-            Path filePath = Paths.get(UPLOAD_DIRECTORY).resolve(filename);
+            Path filePath = Paths.get(UPLOAD_DIRECTORY).resolve(documentUuid);
             Resource resource = new UrlResource(filePath.toUri());
 
             if (resource.exists()) {
