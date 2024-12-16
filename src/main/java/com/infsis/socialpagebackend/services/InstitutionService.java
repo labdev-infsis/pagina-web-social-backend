@@ -1,6 +1,5 @@
 package com.infsis.socialpagebackend.services;
 
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionMapper;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
@@ -9,9 +8,7 @@ import com.infsis.socialpagebackend.repositories.InstitutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,7 +96,7 @@ public class InstitutionService {
     public InstitutionDTO saveProfileImage(String institutionUuid, List<MultipartFile> image) throws IOException {
         Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
 
-        FileItemDTO file = saveImage(image, INST_PROFILE_PHOTO_DIR, IMAGES_INSTITUTION_PROFILE_PATH);
+        ImageFileDTO file = saveImage(image, INST_PROFILE_PHOTO_DIR, IMAGES_INSTITUTION_PROFILE_PATH);
 
         Institution institution = optionalInstitution.get();
         institution.setLogo_url(file.getUrlResource());
@@ -112,7 +109,7 @@ public class InstitutionService {
 
         Optional<Institution> optionalInstitution = findInstitution(institutionUuid);
 
-        FileItemDTO file = saveImage(image, INST_COVER_DIR, IMAGES_INSTITUTION_COVER_PATH);
+        ImageFileDTO file = saveImage(image, INST_COVER_DIR, IMAGES_INSTITUTION_COVER_PATH);
 
         Institution institution = optionalInstitution.get();
         institution.setBackground_url(file.getUrlResource());
@@ -121,8 +118,8 @@ public class InstitutionService {
         return institutionMapper.toDTO(institution);
     }
 
-    private FileItemDTO saveImage(List<MultipartFile> image, String imageDirectory, String imageRoute) throws IOException {
-        List<FileItemDTO> fileItemDTO = imageStorageService.storeImages(image, imageDirectory, imageRoute);
+    private ImageFileDTO saveImage(List<MultipartFile> image, String imageDirectory, String imageRoute) throws IOException {
+        List<ImageFileDTO> fileItemDTO = imageStorageService.storeImages(image, imageDirectory, imageRoute);
         return fileItemDTO.get(0);
     }
      */

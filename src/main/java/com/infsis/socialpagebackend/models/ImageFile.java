@@ -3,11 +3,10 @@ package com.infsis.socialpagebackend.models;
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
-@Table(name = "file_item")
-public class FileItem {
+@Table(name = "image_file")
+public class ImageFile {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,7 +24,7 @@ public class FileItem {
     @Column(nullable = false, length = 20)
     private String status;
 
-    public FileItem() {
+    public ImageFile() {
     }
 
     public Integer getId() {
@@ -72,8 +71,8 @@ public class FileItem {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FileItem fileItem = (FileItem) o;
-        return Objects.equals(id, fileItem.id) && Objects.equals(uuid, fileItem.uuid) && Objects.equals(url_resource, fileItem.url_resource) && Objects.equals(type, fileItem.type) && Objects.equals(status, fileItem.status);
+        ImageFile imageFile = (ImageFile) o;
+        return Objects.equals(id, imageFile.id) && Objects.equals(uuid, imageFile.uuid) && Objects.equals(url_resource, imageFile.url_resource) && Objects.equals(type, imageFile.type) && Objects.equals(status, imageFile.status);
     }
 
     @Override

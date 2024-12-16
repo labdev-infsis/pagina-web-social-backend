@@ -1,10 +1,10 @@
 package com.infsis.socialpagebackend.services;
 
 import com.infsis.socialpagebackend.configuration.ServerProperties;
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
-import com.infsis.socialpagebackend.dtos.FileMapper;
-import com.infsis.socialpagebackend.dtos.FileStatus;
-import com.infsis.socialpagebackend.repositories.FileRepository;
+import com.infsis.socialpagebackend.dtos.*;
+import com.infsis.socialpagebackend.exceptions.NotFoundException;
+import com.infsis.socialpagebackend.models.DocumentFile;
+import com.infsis.socialpagebackend.repositories.DocumentFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,42 +19,58 @@ public class DocumentStorageService {
 
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
     private static final String DOCUMENTS_PATH = "/api/v1/documents/";
+    private static final String DOCUMENTS_VIEW_PATH = "/api/v1/documents/view/";
     private static final String SECURE_PORT = "443";
 
     @Autowired
-    private FileRepository fileRepository;
+    private DocumentFileRepository documentFileRepository;
 
     @Autowired
-    private FileMapper fileMapper;
+    private DocumentFileMapper documentFileMapper;
 
     @Autowired
     private ServerProperties serverProperties;
 
-    public FileItemDTO storeFile(MultipartFile file) throws IOException {
+    public DocumentFileDTO getDocument(String documentUuid) {
+        DocumentFile documentFile = documentFileRepository.findOneByUuid(documentUuid);
+        if(documentFile == null) {
+            throw new NotFoundException("Document", documentUuid);
+        }
+
+        return documentFileMapper.toDTO(documentFile);
+
+    }
+
+    public DocumentFileDTO storeFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
-            throw new IOException("FileItem is empty");
+            throw new IOException("ImageFile is empty");
         }
 
         String uniqueFileName = UUID.randomUUID().toString();
+        //String fileName = file.getOriginalFilename().replaceAll("\\s+", "_");
         File uploadedFile = new File( UPLOAD_DIRECTORY + uniqueFileName);
         file.transferTo(uploadedFile);
 
         String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .scheme(serverProperties.getSchema())
-                .host(serverProperties.getHost())
-                .port(serverProperties.getPort().equals(SECURE_PORT) ? "" : serverProperties.getPort())
+                .path(DOCUMENTS_VIEW_PATH)
+                .path(uniqueFileName)
+                .toUriString();
+
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(DOCUMENTS_PATH)
                 .path(uniqueFileName)
                 .toUriString();
 
-        FileItemDTO fileItemDTO = new FileItemDTO();
-        fileItemDTO.setUuid(uniqueFileName);
-        fileItemDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-        fileItemDTO.setType(file.getContentType());
-        fileItemDTO.setUrlResource(downloadUrl);
+        DocumentFileDTO documentFileDTO = new DocumentFileDTO();
+        documentFileDTO.setUuid(uniqueFileName);
+        documentFileDTO.setName(file.getOriginalFilename());
+        documentFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+        documentFileDTO.setType(file.getContentType());
+        documentFileDTO.setUrl(url);
+        documentFileDTO.setUrlResource(downloadUrl);
 
-        fileRepository.save(fileMapper.getFile(fileItemDTO));
+        documentFileRepository.save(documentFileMapper.getFile(documentFileDTO));
 
-        return fileItemDTO;
+        return documentFileDTO;
     }
 }

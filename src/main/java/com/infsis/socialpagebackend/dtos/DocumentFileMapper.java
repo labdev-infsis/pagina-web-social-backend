@@ -1,0 +1,32 @@
+package com.infsis.socialpagebackend.dtos;
+
+import com.infsis.socialpagebackend.models.DocumentFile;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DocumentFileMapper {
+
+    public DocumentFileDTO toDTO(DocumentFile documentFile) {
+        DocumentFileDTO documentFileDTO = new DocumentFileDTO();
+        documentFileDTO.setUuid(documentFile.getUuid());
+        documentFileDTO.setName(documentFile.getName());
+        documentFileDTO.setUrl(documentFile.getUrl());
+        documentFileDTO.setUrlResource(documentFile.getUrl_resource());
+        documentFileDTO.setType(documentFile.getType());
+        documentFileDTO.setStatus(documentFile.getStatus());
+
+        return documentFileDTO;
+    }
+
+    public DocumentFile getFile(DocumentFileDTO documentFileDTO) {
+        DocumentFile documentFile = new DocumentFile();
+        documentFile.setUuid(documentFileDTO.getUuid());
+        documentFile.setName(documentFileDTO.getName());
+        documentFile.setUrl(documentFileDTO.getUrl());
+        documentFile.setUrl_resource(documentFileDTO.getUrlResource());
+        documentFile.setType(documentFileDTO.getType());
+        documentFile.setStatus(documentFileDTO.getStatus());
+
+        return documentFile;
+    }
+}

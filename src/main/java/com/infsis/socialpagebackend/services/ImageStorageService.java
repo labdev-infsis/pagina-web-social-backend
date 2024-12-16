@@ -1,12 +1,12 @@
 package com.infsis.socialpagebackend.services;
 
 import com.infsis.socialpagebackend.configuration.ServerProperties;
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
-import com.infsis.socialpagebackend.dtos.FileMapper;
+import com.infsis.socialpagebackend.dtos.ImageFileDTO;
+import com.infsis.socialpagebackend.dtos.ImageFileMapper;
 import com.infsis.socialpagebackend.dtos.FileStatus;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
-import com.infsis.socialpagebackend.models.FileItem;
-import com.infsis.socialpagebackend.repositories.FileRepository;
+import com.infsis.socialpagebackend.models.ImageFile;
+import com.infsis.socialpagebackend.repositories.ImageFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -35,20 +35,20 @@ public class ImageStorageService {
     private static final String JPEG_IMAGE_TYPE = "image/jpeg";
 
     @Autowired
-    private FileRepository fileRepository;
+    private ImageFileRepository imageFileRepository;
 
     @Autowired
-    private FileMapper fileMapper;
+    private ImageFileMapper imageFileMapper;
 
     @Autowired
     private ServerProperties serverProperties;
 
-    public List<FileItemDTO> storeImages(List<MultipartFile> images, String directory, String imagesPath) throws IOException {
-        List<FileItemDTO> fileItemDTOList = new ArrayList<>();
+    public List<ImageFileDTO> storeImages(List<MultipartFile> images, String directory, String imagesPath) throws IOException {
+        List<ImageFileDTO> imageFileDTOList = new ArrayList<>();
 
         for (MultipartFile image : images) {
             if (image.isEmpty()) {
-                throw new IOException("FileItem is empty");
+                throw new IOException("ImageFile is empty");
             }
 
             String uniqueFileName = UUID.randomUUID().toString();
@@ -57,29 +57,26 @@ public class ImageStorageService {
             image.transferTo(uploadedFile);
 
             String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .scheme(serverProperties.getSchema())
-                    .host(serverProperties.getHost())
-                    .port(serverProperties.getPort().equals(SECURE_PORT) ? "" : serverProperties.getPort())
                     .path(imagesPath)
                     .path(uniqueFileName)
                     .toUriString();
 
-            FileItemDTO fileItemDTO = new FileItemDTO();
-            fileItemDTO.setUuid(uniqueFileName);
-            fileItemDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-            fileItemDTO.setType(image.getContentType());
-            fileItemDTO.setUrlResource(downloadUrl);
+            ImageFileDTO imageFileDTO = new ImageFileDTO();
+            imageFileDTO.setUuid(uniqueFileName);
+            imageFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+            imageFileDTO.setType(image.getContentType());
+            imageFileDTO.setUrlResource(downloadUrl);
 
-            FileItem fileItem = fileMapper.getFile(fileItemDTO);
-            fileRepository.save(fileItem);
-            fileItemDTOList.add(fileItemDTO);
+            ImageFile imageFile = imageFileMapper.getFile(imageFileDTO);
+            imageFileRepository.save(imageFile);
+            imageFileDTOList.add(imageFileDTO);
         }
 
-        return fileItemDTOList;
+        return imageFileDTOList;
     }
 
     public ResponseEntity<Resource> getImage(String filename, String pathImages) {
-        FileItem file = fileRepository.findOneByUuid(filename);
+        ImageFile file = imageFileRepository.findOneByUuid(filename);
         if(file == null) {
             throw new NotFoundException("File:", filename);
         }

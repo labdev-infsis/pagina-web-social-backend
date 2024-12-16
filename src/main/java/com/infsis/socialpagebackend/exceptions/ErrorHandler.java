@@ -66,7 +66,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("FileItem too large!"));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("ImageFile too large!"));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

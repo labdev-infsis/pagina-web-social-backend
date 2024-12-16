@@ -1,15 +1,10 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.FileItemDTO;
+import com.infsis.socialpagebackend.dtos.ImageFileDTO;
 import com.infsis.socialpagebackend.services.VideoStorageService;
 import com.infsis.socialpagebackend.validation.ValidVideoFile;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/videos")
@@ -33,7 +27,7 @@ public class VideoUploadController {
 
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<FileItemDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
+    public List<ImageFileDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
         return videoStorageService.storeVideos(videos, VIDEOS_DIRECTORY, VIDEOS_PATH);
     }
     @GetMapping(value = "/posts/{filename}")
