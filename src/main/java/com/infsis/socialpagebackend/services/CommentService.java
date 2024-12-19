@@ -74,4 +74,22 @@ public class CommentService {
         }
         return comment.getReplies().size();
     }
+
+    public void deleteComment(String postUuid, String commentUuid) {
+        Comment comment = commentRepository.findByUuid(commentUuid);
+        if (comment == null) {
+            throw new NotFoundException("Comment no found", commentUuid);
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con email: ", email));
+
+        if (!comment.getUser().getUuid().equals(user.getUuid())) {
+            throw new RuntimeException("No tienes permiso para eliminar este comentario");
+        }
+
+        commentRepository.delete(comment);
+    }
 }

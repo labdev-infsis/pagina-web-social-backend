@@ -4,6 +4,7 @@ import com.infsis.socialpagebackend.dtos.CommentDTO;
 import com.infsis.socialpagebackend.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,5 +25,14 @@ public class CommentController {
     @GetMapping("/post/{postUuid}/comments")
     public List<CommentDTO> getComments(@PathVariable String postUuid) {
         return commentService.getCommentsByPost(postUuid);
+    }
+    @DeleteMapping("/post/{postUuid}/comments/{commentUuid}")
+    public ResponseEntity<String> deleteComment(@PathVariable String postUuid, @PathVariable String commentUuid) {
+        try {
+            commentService.deleteComment(postUuid, commentUuid);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Comentario eliminado con éxito");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
     }
 }
