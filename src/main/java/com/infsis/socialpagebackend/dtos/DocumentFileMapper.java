@@ -10,7 +10,6 @@ public class DocumentFileMapper {
         DocumentFileDTO documentFileDTO = new DocumentFileDTO();
         documentFileDTO.setUuid(documentFile.getUuid());
         documentFileDTO.setName(documentFile.getName());
-        documentFileDTO.setUrl(documentFile.getUrl());
         documentFileDTO.setUrlResource(documentFile.getUrl_resource());
         documentFileDTO.setType(documentFile.getType());
         documentFileDTO.setStatus(documentFile.getStatus());
@@ -22,7 +21,6 @@ public class DocumentFileMapper {
         DocumentFile documentFile = new DocumentFile();
         documentFile.setUuid(documentFileDTO.getUuid());
         documentFile.setName(documentFileDTO.getName());
-        documentFile.setUrl(documentFileDTO.getUrl());
         documentFile.setUrl_resource(documentFileDTO.getUrlResource());
         documentFile.setType(documentFileDTO.getType());
         documentFile.setStatus(documentFileDTO.getStatus());

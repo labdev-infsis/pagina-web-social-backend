@@ -69,22 +69,22 @@ public class ImageUploadController {
 
     @GetMapping(value = "/posts/{filename}")
     public ResponseEntity<Resource> getPostImage(@PathVariable String filename) {
-        return imageStorageService.getImage(filename, POSTS_PHOTOS_DIRECTORY);
+        return imageStorageService.getResourceImage(filename, POSTS_PHOTOS_DIRECTORY);
     }
 
     @GetMapping(value = "/inst-profile/{filename}")
     public ResponseEntity<Resource> getInstProfImage(@PathVariable String filename) {
-        return imageStorageService.getImage(filename, INST_PROFILE_PHOTO_DIR);
+        return imageStorageService.getResourceImage(filename, INST_PROFILE_PHOTO_DIR);
     }
 
     @GetMapping(value = "/inst-cover/{filename}")
     public ResponseEntity<Resource> getInstCoverImage(@PathVariable String filename) {
-        return imageStorageService.getImage(filename, INST_COVER_DIR);
+        return imageStorageService.getResourceImage(filename, INST_COVER_DIR);
     }
 
     @GetMapping(value = "/users/{filename}")
     public ResponseEntity<Resource> getUserImage(@PathVariable String filename) {
-        return imageStorageService.getImage(filename, USER_PROFILE_PHOTO_DIR);
+        return imageStorageService.getResourceImage(filename, USER_PROFILE_PHOTO_DIR);
     }
 
 }

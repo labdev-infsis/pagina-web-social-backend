@@ -19,7 +19,6 @@ public class DocumentStorageService {
 
     private static final String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/storage/institution/posts/documents/";
     private static final String DOCUMENTS_PATH = "/api/v1/documents/";
-    private static final String DOCUMENTS_VIEW_PATH = "/api/v1/documents/view/";
     private static final String SECURE_PORT = "443";
 
     @Autowired
@@ -52,11 +51,6 @@ public class DocumentStorageService {
         file.transferTo(uploadedFile);
 
         String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(DOCUMENTS_VIEW_PATH)
-                .path(uniqueFileName)
-                .toUriString();
-
-        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(DOCUMENTS_PATH)
                 .path(uniqueFileName)
                 .toUriString();
@@ -66,7 +60,6 @@ public class DocumentStorageService {
         documentFileDTO.setName(file.getOriginalFilename());
         documentFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
         documentFileDTO.setType(file.getContentType());
-        documentFileDTO.setUrl(url);
         documentFileDTO.setUrlResource(downloadUrl);
 
         documentFileRepository.save(documentFileMapper.getFile(documentFileDTO));
