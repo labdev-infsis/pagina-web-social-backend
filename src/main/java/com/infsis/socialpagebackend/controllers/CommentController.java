@@ -51,4 +51,13 @@ Retrieve all comments that need a moderator to be approved
     public CommentDTO approveModeratedComments(@RequestBody CommentDTO commentDTO) {
         return commentService.approvePendingModeratedComment(commentDTO);
     }
+    @PutMapping("/comments/delete")
+    public CommentDTO deleteModeratedComments(@RequestBody CommentDTO commentDTO) {
+        return commentService.removeModeratedComment(commentDTO);
+    }
+    @GetMapping("/comments/deleted")
+    public List<CommentDTO> getAllDeletedComments() {
+        return commentService.getAllDeletedModeratedComments();
+    }
+
 }
