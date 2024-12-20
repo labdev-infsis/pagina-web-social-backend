@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,12 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
+@EnableMethodSecurity(prePostEnabled = true)
 @Configuration
 //Le indica al contenedor de spring que esta es una clase de seguridad al momento de arrancar la aplicación
 @EnableWebSecurity
@@ -81,22 +79,4 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
- //CAMPO PARA DESABILITAR TEMPORALMENTE AUTENTICACION
-//     http
-//     .csrf(csrf -> csrf.disable())
-//     .exceptionHandling(exceptionHandling ->
-//             exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-//     .sessionManagement(sessionManagement ->
-//             sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//     .authorizeHttpRequests(authorizeRequests ->
-//             authorizeRequests
-//                 .anyRequest().permitAll() // Permite todas las solicitudes sin autenticación
-//     )
-//     .cors(c -> c.configurationSource(customCorsConfiguration))
-//     .httpBasic(withDefaults());
-// // Nota: El filtro de autenticación sigue registrado, pero no se usará ya que no se requieren permisos
-// http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-// return http.build();
-
-// }
 }

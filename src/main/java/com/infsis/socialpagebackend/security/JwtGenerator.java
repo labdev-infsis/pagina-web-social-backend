@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -29,15 +30,19 @@ public class JwtGenerator {
         Date tiempoActual = new Date();
         Date expiracionToken = new Date(System.currentTimeMillis() + jwtExpirationTime);
 
-        //Linea para generar el token
-        String token = Jwts.builder() //Construimos un token JWT llamado token
-                .setSubject(username) //Aca establecemos el nombre de usuario que está iniciando sesión
-                .setIssuedAt(new Date()) //Establecemos la fecha de emisión del token en el momento actual
-                .setExpiration(expiracionToken) //Establecemos la fecha de caducidad del token
-                .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA) /*Utilizamos este método para firmar
-                nuestro token y de esta manera evitar la manipulación o modificación de este*/
-                .compact(); //Este método finaliza la construcción del token y lo convierte en una cadena compacta
-        return token;
+        // Obtener el rol del usuario
+        String role = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse("");
+
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role", role) // Incluir rol en el token
+                .setIssuedAt(tiempoActual)
+                .setExpiration(expiracionToken)
+                .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA)
+                .compact();
     }
 
     //Método para extraer un Username apartir de un token
