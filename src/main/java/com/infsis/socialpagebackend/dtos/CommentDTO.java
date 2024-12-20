@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 public class CommentDTO {
     private String uuid;
     private String content;
-    private Date createdDate;
-    private String name;
-    private String lastName;
+    private boolean moderated;
+    private String state;
+    private String user_name;
+    private String user_photo;
+    private Date date;
     private int replyCount;
 }

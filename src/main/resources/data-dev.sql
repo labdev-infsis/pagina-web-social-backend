@@ -35,10 +35,10 @@ insert into user_roles (user_id, role_id)
      (120, 2),
      (121, 2);
 
-insert into comment_config (id, uuid, configuration)
-    values(20, '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'Todos pueden comentar'),
-    (21, '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', 'Nadie puede comentar'),
-    (22, '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', 'Comentarios con moderador');
+insert into comment_config (id, uuid, name, configuration_type)
+    values(20, '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'Todos pueden comentar', 'FREE_COMMENTS'),
+    (21, '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', 'Nadie puede comentar', 'RESTRICTED_COMMENTS'),
+    (22, '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', 'Comentarios con moderador', 'MODERATED_COMMENTS');
 
 insert into institution (id, uuid, name, description, location, category, email, phone, url, logo_url, background_url)
     values(10, '93j203b4-f63b-4c4a-be05-eae84cef0c0c',
@@ -115,11 +115,11 @@ insert into post (id, uuid, institution_id, user_id, comment_config_id, content_
         (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-11T07:05:22'),
         (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-14T09:21:22'),
         (105, '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-15T09:59:12'),
-        (106, '9v4mb4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-27T15:19:26'),
+        (106, '9v4mb4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-11-27T15:19:26'),
         (107, '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T10:14:18'),
         (108, '4jc8m3b6-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '4g9dn2m6-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T11:53:12'),
         (109, '2ox7z5n1-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '9vm3n7a3-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T11:53:15'),
-        (110, 'l6b4m1z9-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'n5x8f0j2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:01:03'),
+        (110, 'l6b4m1z9-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', 'n5x8f0j2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:01:03'),
         (111, 'k5b3n5m1-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'g7k3v8d5-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:51:03'),
         (112, 'f8j2n5m6-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'k3n6m1a9-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-11T16:47:03');
 
@@ -201,18 +201,18 @@ insert into image_file (id, uuid, name, url_resource, status, type)
      (129, '18e154d3-c772-4dd0-ac24-847cefc0679a', 'img30', 'http://localhost:9090/api/v1/images/posts/18e154d3-c772-4dd0-ac24-847cefc0679a', 'SAVED_SUCCESSFULLY', 'image/jpeg'),
      (130, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img31', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
-INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
-VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 100, 'A que hora empieza?', NOW(), NOW()),
-       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 100, 'Transmitiran for facebook?', NOW(), NOW()),
-       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 100, 'Estare ahi', NOW(), NOW()),
-       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Hay algun descuento si soy externo?', NOW(), NOW()),
-       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 102, 'En que horarios puedo inscribirme?', NOW(), NOW()),
-       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Hay cupos para la tarde todavia?', NOW(), NOW()),
-       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Donde puedo inscribirme xf', NOW(), NOW()),
-       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy buenos premios!', NOW(), NOW()),
-       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'No logre ir a la rifa, que numeros salieron premiados?', NOW(), NOW()),
-       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'La fecha limite de postulacion segun la imagen ya paso XD', NOW(), NOW()),
-       (20,'l6m3b9f7-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 115, 110, 'Si ya fui auxiliar antes, puedo postular todavia?', NOW(), NOW());
+INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, created_date, last_modified_date)
+VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 100, 'A que hora empieza?', false, 'VISIBLE', NOW(), NOW()),
+       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 100, 'Transmitiran for facebook?', false, 'VISIBLE', NOW(), NOW()),
+       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 100, 'Estare ahi', false, 'VISIBLE', NOW(), NOW()),
+       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Hay algun descuento si soy externo?', false, 'VISIBLE', NOW(), NOW()),
+       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 102, 'En que horarios puedo inscribirme?', false, 'VISIBLE', NOW(), NOW()),
+       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Hay cupos para la tarde todavia?', false, 'VISIBLE', NOW(), NOW()),
+       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Donde puedo inscribirme xf', false, 'VISIBLE', NOW(), NOW()),
+       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy buenos premios!', true, 'PENDING_APPROVAL', NOW(), NOW()),
+       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'No logre ir a la rifa, que numeros salieron premiados?', true, 'PENDING_APPROVAL', NOW(), NOW()),
+       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'La fecha limite de postulacion segun la imagen ya paso XD', false, 'VISIBLE', NOW(), NOW()),
+       (20,'l6m3b9f7-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 115, 110, 'Si ya fui auxiliar antes, puedo postular todavia?', true, 'PENDING_APPROVAL', NOW(), NOW());
 
 
 INSERT INTO replies (reply_id, uuid, user_id, comment_id, content, created_at)

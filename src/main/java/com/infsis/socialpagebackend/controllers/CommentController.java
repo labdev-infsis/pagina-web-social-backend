@@ -35,4 +35,20 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
     }
+
+    /*
+    Retrieve all comments that need a moderator to be approved
+     */
+    @GetMapping("/comments/moderated")
+    public List<CommentDTO> getAllModeratedComments() {
+        return commentService.getAllPendingModeratedComments();
+    }
+
+    /*
+Retrieve all comments that need a moderator to be approved
+ */
+    @PutMapping("/comments/approve")
+    public CommentDTO approveModeratedComments(@RequestBody CommentDTO commentDTO) {
+        return commentService.approvePendingModeratedComment(commentDTO);
+    }
 }

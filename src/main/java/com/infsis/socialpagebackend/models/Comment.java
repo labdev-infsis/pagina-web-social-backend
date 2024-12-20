@@ -38,6 +38,12 @@ public class Comment {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private boolean moderated;
+
+    @Column(nullable = false)
+    private String state;
+
     @CreatedDate
     @Column(updatable = false)
     private Date createdDate;
