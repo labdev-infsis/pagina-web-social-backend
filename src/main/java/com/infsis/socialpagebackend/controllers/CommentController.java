@@ -37,23 +37,48 @@ public class CommentController {
         }
     }
 
-
+    /*
+    Retrieve all comments that need a moderator to be approved
+     */
     @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/comments/moderated")
     public List<CommentDTO> getAllModeratedComments() {
         return commentService.getAllPendingModeratedComments();
     }
 
+    /*
+    Retrieve all the rejected comments by a moderated
+    */
+    @PreAuthorize("hasRole('MODERATOR')")
+    @GetMapping("/comments/rejected")
+    public List<CommentDTO> getAllRejectedComments() {
+        return commentService.getAllRejectedModeratedComments();
+    }
+
+    /*
+    It changes comment state PENDING to APPROVED
+    */
     @PreAuthorize("hasRole('MODERATOR')")
     @PutMapping("/comments/approve")
     public CommentDTO approveModeratedComments(@RequestBody CommentDTO commentDTO) {
         return commentService.approvePendingModeratedComment(commentDTO);
     }
+
+    /*
+    It changes comment state PENDING to REJECTED
+    */
+    @PreAuthorize("hasRole('MODERATOR')")
+    @PutMapping("/comments/reject")
+    public CommentDTO rejectModeratedComments(@RequestBody CommentDTO commentDTO) {
+        return commentService.rejectPendingModeratedComment(commentDTO);
+    }
+
     @PreAuthorize("hasRole('MODERATOR')")
     @PutMapping("/comments/delete")
     public CommentDTO deleteModeratedComments(@RequestBody CommentDTO commentDTO) {
         return commentService.removeModeratedComment(commentDTO);
     }
+
     @PreAuthorize("hasRole('MODERATOR')")
     @GetMapping("/comments/deleted")
     public List<CommentDTO> getAllDeletedComments() {
