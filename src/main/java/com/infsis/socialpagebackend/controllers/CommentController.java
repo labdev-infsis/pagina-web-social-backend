@@ -45,10 +45,26 @@ public class CommentController {
     }
 
     /*
-Retrieve all comments that need a moderator to be approved
- */
+    Retrieve all the rejected comments by a moderated
+    */
+    @GetMapping("/comments/rejected")
+    public List<CommentDTO> getAllRejectedComments() {
+        return commentService.getAllRejectedModeratedComments();
+    }
+
+    /*
+    It changes comment state PENDING to APPROVED
+    */
     @PutMapping("/comments/approve")
     public CommentDTO approveModeratedComments(@RequestBody CommentDTO commentDTO) {
         return commentService.approvePendingModeratedComment(commentDTO);
+    }
+
+    /*
+    It changes comment state PENDING to REJECTED
+    */
+    @PutMapping("/comments/reject")
+    public CommentDTO rejectModeratedComments(@RequestBody CommentDTO commentDTO) {
+        return commentService.rejectPendingModeratedComment(commentDTO);
     }
 }

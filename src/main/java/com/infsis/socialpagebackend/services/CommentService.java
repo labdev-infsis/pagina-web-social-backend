@@ -115,11 +115,37 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDTO> getAllRejectedModeratedComments() {
+        Users users = getCurrentUser();
+
+        List<Comment> comments = commentRepository.findAll();
+
+        return comments
+                .stream()
+                .filter(comment -> comment.getState().equals(CommentState.REJECTED.name()))
+                .map(comment -> {
+                    CommentDTO commentDTO = commentMapper.toDTO(comment);
+                    return commentDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
     public CommentDTO approvePendingModeratedComment(CommentDTO commentDTO) {
 
         Comment currentComment = commentRepository.findByUuid(commentDTO.getUuid());
 
         currentComment.setState(CommentState.APPROVED.name());
+
+        commentRepository.save(currentComment);
+
+        return commentMapper.toDTO(currentComment);
+    }
+
+    public CommentDTO rejectPendingModeratedComment(CommentDTO commentDTO) {
+
+        Comment currentComment = commentRepository.findByUuid(commentDTO.getUuid());
+
+        currentComment.setState(CommentState.REJECTED.name());
 
         commentRepository.save(currentComment);
 
