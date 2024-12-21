@@ -9,7 +9,8 @@ public class CommentConfigMapper {
     public CommentConfigDTO toDTO(CommentConfig commentConfig) {
         CommentConfigDTO commentConfigDTO = new CommentConfigDTO();
         commentConfigDTO.setUuid(commentConfig.getUuid());
-        commentConfigDTO.setConfiguration(commentConfig.getConfiguration());
+        commentConfigDTO.setName(commentConfig.getName());
+        commentConfigDTO.setConfiguration_type(commentConfig.getConfiguration_type());
 
         return commentConfigDTO;
     }
@@ -17,7 +18,8 @@ public class CommentConfigMapper {
     public CommentConfig getCommentConfig(CommentConfigDTO commentConfigDTO) {
         CommentConfig commentConfig = new CommentConfig();
         commentConfig.setUuid(commentConfigDTO.getUuid());
-        commentConfig.setConfiguration(commentConfigDTO.getConfiguration());
+        commentConfig.setName(commentConfigDTO.getName());
+        commentConfig.setConfiguration_type(commentConfigDTO.getConfiguration_type());
 
         return commentConfig;
     }

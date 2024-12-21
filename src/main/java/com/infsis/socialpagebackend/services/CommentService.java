@@ -1,11 +1,11 @@
 package com.infsis.socialpagebackend.services;
 
-import com.infsis.socialpagebackend.dtos.CommentCounterDTO;
-import com.infsis.socialpagebackend.dtos.CommentDTO;
+import com.infsis.socialpagebackend.dtos.*;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.models.Comment;
 import com.infsis.socialpagebackend.models.Post;
 import com.infsis.socialpagebackend.models.Users;
+import com.infsis.socialpagebackend.repositories.CommentConfigRepository;
 import com.infsis.socialpagebackend.repositories.CommentRepository;
 import com.infsis.socialpagebackend.repositories.PostRepository;
 import com.infsis.socialpagebackend.repositories.UserRepository;
@@ -29,19 +29,29 @@ public class CommentService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private CommentConfigRepository commentConfigRepository;
+
     public CommentDTO saveComment(String postUuid, CommentDTO commentDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        Users user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con email: ", email));
+
+        Users user = getCurrentUser();
 
         Post post = postRepository.findOneByUuid(postUuid);
-        Comment comment = new Comment();
-        comment.setPost(post);
-        comment.setUser(user);
-        comment.setContent(commentDTO.getContent());
+
+        String commentConfig = post.getComment_conf().getConfiguration_type();
+
+        Comment comment = commentMapper.getComment(commentDTO, user, post);
+
+        if (commentConfig.equals(PostCommentConfigState.MODERATED_COMMENTS.name())) {
+            comment.setModerated(true);
+            comment.setState(CommentState.PENDING_APPROVAL.name());
+        }
+
         comment = commentRepository.save(comment);
-        return convertToDTO(comment);
+        return commentMapper.toDTO(comment);
     }
 
     public List<CommentDTO> getCommentsByPost(String postUuid) {
@@ -49,22 +59,15 @@ public class CommentService {
 
         return post.getComments()
                 .stream()
+                .filter(comment ->
+                        comment.getState().equals(CommentState.VISIBLE.name())
+                        || comment.getState().equals(CommentState.APPROVED.name()))
                 .map(comment -> {
-                    CommentDTO commentDTO = convertToDTO(comment);
+                    CommentDTO commentDTO = commentMapper.toDTO(comment);
                     commentDTO.setReplyCount(getReplyCounter(comment.getUuid()));
                     return commentDTO;
                 })
                 .collect(Collectors.toList());
-    }
-
-    private CommentDTO convertToDTO(Comment comment) {
-        CommentDTO dto = new CommentDTO();
-        dto.setUuid(comment.getUuid());
-        dto.setContent(comment.getContent());
-        dto.setCreatedDate(comment.getCreatedDate());
-        dto.setName(comment.getUser().getName());
-        dto.setLastName(comment.getUser().getLastName());
-        return dto;
     }
 
     private int getReplyCounter(String commentUuid) {
@@ -81,15 +84,45 @@ public class CommentService {
             throw new NotFoundException("Comment no found", commentUuid);
         }
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        Users user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("Usuario no encontrado con email: ", email));
+        Users user = getCurrentUser();
 
         if (!comment.getUser().getUuid().equals(user.getUuid())) {
             throw new RuntimeException("No tienes permiso para eliminar este comentario");
         }
 
         commentRepository.delete(comment);
+    }
+
+    private Users getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found with email: ", email));
+    }
+
+    public List<CommentDTO> getAllPendingModeratedComments() {
+        Users users = getCurrentUser();
+
+        List<Comment> comments = commentRepository.findAll();
+
+        return comments
+                .stream()
+                .filter(comment -> comment.getState().equals(CommentState.PENDING_APPROVAL.name()))
+                .map(comment -> {
+                    CommentDTO commentDTO = commentMapper.toDTO(comment);
+                    return commentDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public CommentDTO approvePendingModeratedComment(CommentDTO commentDTO) {
+
+        Comment currentComment = commentRepository.findByUuid(commentDTO.getUuid());
+
+        currentComment.setState(CommentState.APPROVED.name());
+
+        commentRepository.save(currentComment);
+
+        return commentMapper.toDTO(currentComment);
     }
 }
