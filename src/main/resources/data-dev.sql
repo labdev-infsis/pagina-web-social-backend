@@ -1,6 +1,7 @@
 insert into role(id_role, name)
     values(1, 'ADMIN'),
-    (2, 'STUDENT');
+    (2, 'STUDENT'),
+    (3, 'MODERATOR');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
     values(100, 'j5818068-9280-4055-987c-087f1b1f6635', 'Alicia', 'Mercado Sandoval', 'alicia.mercado@fcyt.umss.edu.bo', '79235628', '$2a$10$d2Re5HES0exoWQkbZ9IKSukZZI3kLokhOWJfRI1LZcuE/WN.zYV6e', null, 'http://localhost:9090/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d' ),
@@ -16,7 +17,8 @@ insert into users (id_user, uuid, name, last_name, email, phone, password, photo
        (118, 'd33ded75-c9f3-4fef-9762-0ba4a905efa8', 'Antonio', 'Monje Aranibar', '201604527@est.umss.edu', '62933721', '$2a$10$m8FJFWAPDKIAU8SykyKmme7FcaQqrkHtg0zczh3Gn0lSgVeTZNaAy', null, 'http://localhost:9090/api/v1/images/users/b3a64fc9-3d28-4b92-b296-2324f9c4e061'),
        (119, 'e54bd4dc-d8f6-42e9-8e94-5d56bf42416f', 'Jeyson', 'Valdivia Bernal', 'jeyson.valdivia@gmail.com', '76834814', '$2a$10$anTAKIK4bm55/HYFWVoER.zu1eNL7Iwy0UCGi3THN.wDW77WaLCKa', null, 'http://localhost:9090/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410'),
        (120, 'ae542968-1335-425e-a206-283c38a20190', 'Omar', 'Argenes Quispe', 'argenes77@gmail.com', '65692585', '$2a$10$bO6cOzFhvWjqRRwn7a1/xupq3LxGO/hG.7cLpS14JAbksNjBGJCjW', null, 'http://localhost:9090/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2'),
-       (121, '7f9264d7-ca8d-41ca-be1f-d24c9dd244a2', 'Bianca', 'Antelo Dominguez', 'bianca.dominguez@gmail.com', '73597236', '$2a$10$QUoVqY/j3bdW5rOMO8aTY.Eaq2Ifju9a8Hm2ht7qex2ALF0tWVc1q', null, 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a');
+       (121, '7f9264d7-ca8d-41ca-be1f-d24c9dd244a2', 'Bianca', 'Antelo Dominguez', 'bianca.dominguez@gmail.com', '73597236', '$2a$10$QUoVqY/j3bdW5rOMO8aTY.Eaq2Ifju9a8Hm2ht7qex2ALF0tWVc1q', null, 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a'),
+       (122, '7f9264d7-ca8d-41ca-be1f-d24c9dd12345', 'Zoe', 'Quispe Dominguez', 'zoedominguez@gmail.com', '73597236', '$2a$10$QUoVqY/j3bdW5rOMO8aTY.Eaq2Ifju9a8Hm2ht7qex2ALF0tWVc1q', null, 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a');
 
 
 insert into user_roles (user_id, role_id)
@@ -33,8 +35,8 @@ insert into user_roles (user_id, role_id)
      (118, 2),
      (119, 2),
      (120, 2),
-     (121, 2);
-
+     (121, 2),
+     (122, 3);
 insert into comment_config (id, uuid, name, configuration_type)
     values(20, '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', 'Todos pueden comentar', 'FREE_COMMENTS'),
     (21, '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', 'Nadie puede comentar', 'RESTRICTED_COMMENTS'),

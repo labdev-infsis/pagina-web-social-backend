@@ -151,4 +151,28 @@ public class CommentService {
 
         return commentMapper.toDTO(currentComment);
     }
+    public CommentDTO removeModeratedComment(CommentDTO commentDTO) {
+
+        Comment currentComment = commentRepository.findByUuid(commentDTO.getUuid());
+
+        currentComment.setState(CommentState.REMOVED.name());
+
+        commentRepository.save(currentComment);
+
+        return commentMapper.toDTO(currentComment);
+    }
+    public List<CommentDTO> getAllDeletedModeratedComments() {
+        Users users = getCurrentUser();
+
+        List<Comment> comments = commentRepository.findAll();
+
+        return comments
+                .stream()
+                .filter(comment -> comment.getState().equals(CommentState.REMOVED.name()))
+                .map(comment -> {
+                    CommentDTO commentDTO = commentMapper.toDTO(comment);
+                    return commentDTO;
+                })
+                .collect(Collectors.toList());
+    }
 }

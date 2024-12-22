@@ -37,6 +37,7 @@ public class AuthenticationController {
     private static final String CLOSED_USER_SESSION_MESSAGE = "User session closed successfully";
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_STUDENT = "STUDENT";
+    private static final String ROLE_MODERATOR = "MODERATOR";
 
     @Autowired
     private InvalidTokenRepository invalidTokenRepository;
@@ -87,6 +88,9 @@ public class AuthenticationController {
     //Método para poder guardar usuarios de tipo ADMIN
     @PostMapping("/auth/register-adm")
     public ResponseEntity<String> registrarAdmin(@RequestBody UserRegistryDTO userRegistryDTO) {
+        if (!userRegistryDTO.getPassword().equals(userRegistryDTO.getRepeat_password())) {
+            return new ResponseEntity<>(PASSWORD_INVALID_MATCHING_MESSAGE, HttpStatus.BAD_REQUEST);
+        }
         if (usuariosRepository.existsByEmail(userRegistryDTO.getEmail())) {
             return new ResponseEntity<>(REGISTERED_USER_EMAIL_MESSAGE, HttpStatus.BAD_REQUEST);
         }
@@ -104,6 +108,28 @@ public class AuthenticationController {
         return new ResponseEntity<>(SUCCESSFUL_USER_REGISTRATION_MESSAGE, HttpStatus.OK);
     }
 
+    //Método para poder guardar usuarios de tipo MODERATOR
+    @PostMapping("/auth/register-moderator")
+    public ResponseEntity<String> registrarModerator(@RequestBody UserRegistryDTO userRegistryDTO) {
+        if (!userRegistryDTO.getPassword().equals(userRegistryDTO.getRepeat_password())) {
+            return new ResponseEntity<>(PASSWORD_INVALID_MATCHING_MESSAGE, HttpStatus.BAD_REQUEST);
+        }
+        if (usuariosRepository.existsByEmail(userRegistryDTO.getEmail())) {
+            return new ResponseEntity<>(REGISTERED_USER_EMAIL_MESSAGE, HttpStatus.BAD_REQUEST);
+        }
+        Users usuarios = new Users();
+
+        usuarios.setName(userRegistryDTO.getName());
+        usuarios.setLastName(userRegistryDTO.getLastName());
+        usuarios.setEmail(userRegistryDTO.getEmail());
+        usuarios.setPhone(userRegistryDTO.getPhone());
+        usuarios.setEmail(userRegistryDTO.getEmail());
+        usuarios.setPassword(passwordEncoder.encode(userRegistryDTO.getPassword()));
+        Role roles = rolesRepository.findByName(ROLE_MODERATOR).get();
+        usuarios.setRoles(Collections.singletonList(roles));
+        usuariosRepository.save(usuarios);
+        return new ResponseEntity<>(SUCCESSFUL_USER_REGISTRATION_MESSAGE, HttpStatus.OK);
+    }
     //Método para poder logear un usuario y obtener un token
     @PostMapping("/auth/login")
     public ResponseEntity<DtoAuthRespuesta> login(@RequestBody UserLoginDTO userLoginDTO) {

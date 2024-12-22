@@ -2,6 +2,8 @@ package com.infsis.socialpagebackend.security;
 
 import com.infsis.socialpagebackend.repositories.InvalidTokenRepository;
 import com.infsis.socialpagebackend.services.CustomUsersDetailsService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -16,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /*La función de esta clase será validar la información del token y si esto es exitoso,
@@ -41,38 +45,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return null;
     }
 
-    @Override                       //Solicitud entrante
-    protected void doFilterInternal(HttpServletRequest request,
-                                    //Respuesta saliente
-                                    HttpServletResponse response,
-                                    //Mecanismo para invocar el siguiente filtro en la siguiente cadena de filtros
-                                    FilterChain filterChain) throws ServletException, IOException {
-        //Obtenemos los datos del token mediante el método desarrollado arriba
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
         String token = obtenerTokenDeSolicitud(request);
-        // Validamos la información del token
         if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
             if (invalidTokenRepository.findByToken(token).isPresent()) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
                 return;
             }
-            //Asignamos el nombre de usuario contenido en el objeto "token" y lo pasamos a nuestra variable "username"
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
-            //Luego creamos el objeto userDetails el cual contendrá todos los detalles de nuestro username, ósea nombre, pw y roles segun el método loadUserByUsername
-            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);//recibe email o username
-            //Cargamos una lista de String con los roles alojados en BD
-            List<String> userRoles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
-            //Comprobamos que el usuario autenticado posee alguno de los siguientes roles alojados en BD
-            if (userRoles.contains("STUDENT") || userRoles.contains("ADMIN")) {
-                /*Creamos el objeto UsernamePasswordAuthenticationToken el cual contendrá los detalles de autenticación del usuario*/
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
-                        null, userDetails.getAuthorities());
-                //Aca establecimos información adicional de la autenticación, como por ejemplo la dirección ip del usuario, o el agente de usuario para hacer la solicitud etc.
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                //Establecemos el objeto anterior (autenticación del usuario) en el contexto de seguridad
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+            UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);
+
+            // Extraer rol del token
+            Claims claims = Jwts.parser().setSigningKey(ConstantsSecurity.JWT_FIRMA).parseClaimsJws(token).getBody();
+            String role = claims.get("role").toString();
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role); // Asegúrate de que el rol tenga el prefijo "ROLE_"
+
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    userDetails, null, Collections.singletonList(authority));
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-        //Permite que la solicitud continue hacia el siguiente filtro en la cadena de filtro.
-        filterChain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
 }
