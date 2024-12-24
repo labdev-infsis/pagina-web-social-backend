@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.controllers;
 
+import com.infsis.socialpagebackend.dtos.VideoPhotoDTO;
 import com.infsis.socialpagebackend.dtos.PostDTO;
 import com.infsis.socialpagebackend.dtos.PostGroupDTO;
 import com.infsis.socialpagebackend.services.PostService;
@@ -76,6 +77,14 @@ public class PostController {
 
         // Devolvemos la respuesta con los resultados
         return ResponseEntity.ok(posts);
+    }
+    @GetMapping("/institution/photos")
+    public List<VideoPhotoDTO> getPhotosByInstitution() {
+        return postService.getMediasInstitution("image");
+    }
+    @GetMapping("/institution/videos")
+    public List<VideoPhotoDTO> getVideosByInstitution() {
+        return postService.getMediasInstitution("video");
     }
 
 }
