@@ -1,6 +1,6 @@
 package com.infsis.socialpagebackend.controllers;
 
-import com.infsis.socialpagebackend.dtos.VideoPhotoDTO;
+import com.infsis.socialpagebackend.dtos.MediaItemDTO;
 import com.infsis.socialpagebackend.dtos.PostDTO;
 import com.infsis.socialpagebackend.dtos.PostGroupDTO;
 import com.infsis.socialpagebackend.services.PostService;
@@ -17,7 +17,8 @@ import java.util.List;
 @RequestMapping("/api/v1/posts")
 @Validated
 public class PostController {
-
+    public static final String IMAGE = "image";
+    public static final String VIDEO = "video";
     @GetMapping("/{postUuid}")
     public PostDTO get(@PathVariable String postUuid) {
         return postService.getPost(postUuid);
@@ -79,12 +80,12 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
     @GetMapping("/institution/photos")
-    public List<VideoPhotoDTO> getPhotosByInstitution() {
-        return postService.getMediasInstitution("image");
+    public List<MediaItemDTO> getPhotosByInstitution() {
+        return postService.getMediasInstitution(IMAGE);
     }
     @GetMapping("/institution/videos")
-    public List<VideoPhotoDTO> getVideosByInstitution() {
-        return postService.getMediasInstitution("video");
+    public List<MediaItemDTO> getVideosByInstitution() {
+        return postService.getMediasInstitution(VIDEO);
     }
 
 }

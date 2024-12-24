@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VideoPhotoDTO {
+public class MediaItemDTO {
     private String uuid_post;
     private String path;
 }

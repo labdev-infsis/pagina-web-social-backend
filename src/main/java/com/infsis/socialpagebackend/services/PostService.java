@@ -344,13 +344,13 @@ public class PostService {
                 .isEmpty();
     }
 
-    public List<VideoPhotoDTO> getMediasInstitution(String type) {
+    public List<MediaItemDTO> getMediasInstitution(String type) {
         List<Post> posts = postRepository.findAll();
-        List<VideoPhotoDTO> photos = new ArrayList<>();
+        List<MediaItemDTO> photos = new ArrayList<>();
         for (Post post : posts) {
             for (Media media : post.getContent().getMedia()) {
                 if (type.equalsIgnoreCase(media.getFile_type())) {
-                    VideoPhotoDTO photoDTO = new VideoPhotoDTO();
+                    MediaItemDTO photoDTO = new MediaItemDTO();
                     photoDTO.setUuid_post(post.getUuid());
                     photoDTO.setPath(media.getFile_path());
                     photos.add(photoDTO);
