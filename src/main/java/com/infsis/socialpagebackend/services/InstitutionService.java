@@ -2,13 +2,18 @@ package com.infsis.socialpagebackend.services;
 
 import com.infsis.socialpagebackend.dtos.InstitutionDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionMapper;
+import com.infsis.socialpagebackend.dtos.MediaItemDTO;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.models.Institution;
+import com.infsis.socialpagebackend.models.Media;
+import com.infsis.socialpagebackend.models.Post;
 import com.infsis.socialpagebackend.repositories.InstitutionRepository;
+import com.infsis.socialpagebackend.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +28,9 @@ public class InstitutionService {
 
     @Autowired
     private InstitutionRepository institutionRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Autowired
     private InstitutionMapper institutionMapper;
@@ -123,4 +131,21 @@ public class InstitutionService {
         return fileItemDTO.get(0);
     }
      */
+    public List<MediaItemDTO> getMediasInstitution(String institutionUuid, String type) {
+        List<Post> posts = postRepository.findAll();
+        List<MediaItemDTO> mediaItems = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getInstitution().getUuid().equals(institutionUuid)) {
+                for (Media media : post.getContent().getMedia()) {
+                    if (type.equalsIgnoreCase(media.getFile_type())) {
+                        MediaItemDTO mediaItemDTO = new MediaItemDTO();
+                        mediaItemDTO.setUuid_post(post.getUuid());
+                        mediaItemDTO.setPath(media.getFile_path());
+                        mediaItems.add(mediaItemDTO);
+                    }
+                }
+            }
+        }
+        return mediaItems;
+    }
 }

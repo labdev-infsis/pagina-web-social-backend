@@ -344,19 +344,21 @@ public class PostService {
                 .isEmpty();
     }
 
-    public List<MediaItemDTO> getMediasInstitution(String type) {
+    public List<MediaItemDTO> getMediasInstitution(String institutionUuid, String type) {
         List<Post> posts = postRepository.findAll();
-        List<MediaItemDTO> photos = new ArrayList<>();
+        List<MediaItemDTO> mediaItems = new ArrayList<>();
         for (Post post : posts) {
-            for (Media media : post.getContent().getMedia()) {
-                if (type.equalsIgnoreCase(media.getFile_type())) {
-                    MediaItemDTO photoDTO = new MediaItemDTO();
-                    photoDTO.setUuid_post(post.getUuid());
-                    photoDTO.setPath(media.getFile_path());
-                    photos.add(photoDTO);
+            if (post.getInstitution().getUuid().equals(institutionUuid)) {
+                for (Media media : post.getContent().getMedia()) {
+                    if (type.equalsIgnoreCase(media.getFile_type())) {
+                        MediaItemDTO mediaItemDTO = new MediaItemDTO();
+                        mediaItemDTO.setUuid_post(post.getUuid());
+                        mediaItemDTO.setPath(media.getFile_path());
+                        mediaItems.add(mediaItemDTO);
+                    }
                 }
             }
         }
-        return photos;
+        return mediaItems;
     }
 }

@@ -1,5 +1,7 @@
 package com.infsis.socialpagebackend.controllers;
 
+import com.infsis.socialpagebackend.services.PostService;
+import com.infsis.socialpagebackend.dtos.MediaItemDTO;
 import com.infsis.socialpagebackend.dtos.InstitutionDTO;
 import com.infsis.socialpagebackend.services.InstitutionService;
 import com.infsis.socialpagebackend.validation.ValidImageFile;
@@ -18,9 +20,13 @@ import java.util.List;
 @RequestMapping("/api/v1/institutions")
 @Validated
 public class InstitutionController {
-
+    public static final String IMAGE = "image";
+    public static final String VIDEO = "video";
     @Autowired
     private InstitutionService institutionService;
+
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/{institutionUuid}")
     public InstitutionDTO get(@PathVariable String institutionUuid) {
@@ -67,5 +73,13 @@ public class InstitutionController {
         return institutionService.saveCoverImage(institutionUuid, institutionCoverImage);
     }
 */
+    @GetMapping("/{institutionUuid}/photos")
+    public List<MediaItemDTO> getPhotosByInstitution(@PathVariable String institutionUuid) {
+        return postService.getMediasInstitution(institutionUuid, IMAGE);
+    }
 
+    @GetMapping("/{institutionUuid}/videos")
+    public List<MediaItemDTO> getVideosByInstitution(@PathVariable String institutionUuid) {
+        return postService.getMediasInstitution(institutionUuid, VIDEO);
+    }
 }
