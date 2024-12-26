@@ -64,6 +64,11 @@ public class PostService {
     @Autowired
     private GroupRepository groupRepository;
 
+
+    public List<String> getAllVideosByInstitution(String institutionUuid) {
+        return postRepository.findAllVideoUrlsByInstitution(institutionUuid);
+    }
+
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
 
@@ -75,6 +80,10 @@ public class PostService {
         CommentCounterDTO commentCounterDTO = getCommentCounter(postUuid);
 
         return postMapper.toDTO(post, reactionCounterDTO, commentCounterDTO);
+    }
+
+    public List<String> getAllMediaUrlsByInstitution(String institutionUuid) {
+        return postRepository.findMediaUrlsByInstitution(institutionUuid);
     }
 
     public List<PostDTO> getAllPost() {

@@ -17,6 +17,7 @@ import java.util.List;
 @Validated
 public class PostController {
 
+    
     @GetMapping("/{postUuid}")
     public PostDTO get(@PathVariable String postUuid) {
         return postService.getPost(postUuid);
@@ -53,6 +54,13 @@ public class PostController {
     @Autowired
     private PostService postService; // Inyección del servicio que contiene la lógica de negocio
 
+  
+
+    @GetMapping("/{institutionUuid}/videos")
+    public List<String> getAllVideosByInstitution(@PathVariable String institutionUuid) {
+        return postService.getAllVideosByInstitution(institutionUuid);
+    }
+
     @PutMapping("/{postUuid}") // Este endpoint maneja solicitudes PUT para actualizar una publicación específica
     public ResponseEntity<PostDTO> updatePost(
         @PathVariable String postUuid, // Se obtiene el UUID de la publicación desde la URL
@@ -76,6 +84,11 @@ public class PostController {
 
         // Devolvemos la respuesta con los resultados
         return ResponseEntity.ok(posts);
+    }
+    @GetMapping("/{institutionUuid}/photos")
+    public ResponseEntity<List<String>> getPhotosByInstitution(@PathVariable String institutionUuid) {
+        List<String> photos = postService.getAllMediaUrlsByInstitution(institutionUuid);
+        return ResponseEntity.ok(photos);
     }
 
 }

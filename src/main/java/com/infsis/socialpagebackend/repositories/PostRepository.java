@@ -17,4 +17,19 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Query("SELECT p FROM Post p WHERE p.uuid = ?1")
     Post findOneByUuid(String Uuid);
+
+    @Query("SELECT m.file_path FROM Post p " +
+    "JOIN p.content.media m " +
+    "WHERE p.institution.uuid = :institutionUuid " +
+    "ORDER BY p.post_date DESC")
+List<String> findMediaUrlsByInstitution(@Param("institutionUuid") String institutionUuid);
+
+@Query("SELECT m.file_path FROM Post p " +
+"JOIN p.content.media m " +
+"WHERE p.institution.uuid = :institutionUuid " +
+"AND m.file_type = 'video' " +
+"ORDER BY p.post_date DESC")
+List<String> findAllVideoUrlsByInstitution(@Param("institutionUuid") String institutionUuid);
+
+
 }
