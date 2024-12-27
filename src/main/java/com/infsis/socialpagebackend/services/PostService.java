@@ -344,5 +344,21 @@ public class PostService {
                 .isEmpty();
     }
 
-
+    public List<MediaItemDTO> getMediasInstitution(String institutionUuid, String type) {
+        List<Post> posts = postRepository.findAll();
+        List<MediaItemDTO> mediaItems = new ArrayList<>();
+        for (Post post : posts) {
+            if (post.getInstitution().getUuid().equals(institutionUuid)) {
+                for (Media media : post.getContent().getMedia()) {
+                    if (type.equalsIgnoreCase(media.getFile_type())) {
+                        MediaItemDTO mediaItemDTO = new MediaItemDTO();
+                        mediaItemDTO.setUuid_post(post.getUuid());
+                        mediaItemDTO.setPath(media.getFile_path());
+                        mediaItems.add(mediaItemDTO);
+                    }
+                }
+            }
+        }
+        return mediaItems;
+    }
 }

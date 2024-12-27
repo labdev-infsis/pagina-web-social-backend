@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/api/v1/posts")
 @Validated
 public class PostController {
-
     @GetMapping("/{postUuid}")
     public PostDTO get(@PathVariable String postUuid) {
         return postService.getPost(postUuid);
