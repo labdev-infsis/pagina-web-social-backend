@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,24 +27,28 @@ public class PostController {
         return postService.getAllPost();
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PostDTO create(@Valid @RequestBody PostDTO postDTO) {
         return postService.savePost(postDTO);
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/{postUuid}/group")
     @ResponseStatus(HttpStatus.OK)
     public PostGroupDTO group(@PathVariable String postUuid, @Valid @RequestBody PostGroupDTO postGroupDTO) {
         return postService.addToGroup(postUuid, postGroupDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @PutMapping("/{postUuid}/group")
     @ResponseStatus(HttpStatus.OK)
     public PostGroupDTO ungroup(@PathVariable String postUuid, @Valid @RequestBody PostGroupDTO postGroupDTO) {
         return postService.removeFromGroup(postUuid, postGroupDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/group/{groupUuid}")
     public List<PostDTO> getAllByGroup(@PathVariable String groupUuid) {
         return postService.getAllByGroup(groupUuid);
@@ -52,6 +57,7 @@ public class PostController {
     @Autowired
     private PostService postService; // Inyección del servicio que contiene la lógica de negocio
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PutMapping("/{postUuid}") // Este endpoint maneja solicitudes PUT para actualizar una publicación específica
     public ResponseEntity<PostDTO> updatePost(
         @PathVariable String postUuid, // Se obtiene el UUID de la publicación desde la URL
@@ -62,12 +68,7 @@ public class PostController {
         return ResponseEntity.ok(updatedPost); // Respondemos con un código HTTP 200 (OK)
     }
 
-   /**
-     * Endpoint para buscar publicaciones por texto.
-     *
-     * @param text Texto para buscar.
-     * @return Lista de publicaciones encontradas.
-     */
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/search")
     public ResponseEntity<List<PostDTO>> searchPosts(@RequestParam("text") String text) {
         // Llamamos al servicio para buscar publicaciones

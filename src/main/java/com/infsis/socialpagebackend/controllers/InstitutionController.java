@@ -8,6 +8,7 @@ import com.infsis.socialpagebackend.validation.ValidImageFile;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,22 +34,26 @@ public class InstitutionController {
         return institutionService.getInstitution(institutionUuid);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public List<InstitutionDTO> getAll() {
         return institutionService.getAllInstitutions();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public InstitutionDTO create(@Valid @RequestBody InstitutionDTO institutionDTO) {
         return institutionService.saveInstitution(institutionDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{institutionUuid}")
     public InstitutionDTO update(@Valid @RequestBody InstitutionDTO institutionDTO) {
         return institutionService.updateInstitution(institutionDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{institutionUuid}")
     public InstitutionDTO delete(@PathVariable String institutionUuid) {
         return institutionService.deleteInstitution(institutionUuid);
