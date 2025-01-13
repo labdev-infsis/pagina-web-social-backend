@@ -200,8 +200,10 @@ insert into image_file (id, uuid, name, url_resource, status, type)
      (126, 'e326bdb8-6eee-4814-a877-9e063183f410', 'img27', 'http://localhost:9090/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410', 'SAVED_SUCCESSFULLY','image/png'),
      (127, '004fca51-d313-41c4-94ff-5908ddb58dc2', 'img28', 'http://localhost:9090/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2', 'SAVED_SUCCESSFULLY','image/png'),
      (128, '2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'img29', 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'SAVED_SUCCESSFULLY','image/png'),
-     (129, '18e154d3-c772-4dd0-ac24-847cefc0679a', 'img30', 'http://localhost:9090/api/v1/images/posts/18e154d3-c772-4dd0-ac24-847cefc0679a', 'SAVED_SUCCESSFULLY', 'image/jpeg'),
-     (130, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img31', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY', 'video/mp4');
+     (129, '18e154d3-c772-4dd0-ac24-847cefc0679a', 'img30', 'http://localhost:9090/api/v1/images/posts/18e154d3-c772-4dd0-ac24-847cefc0679a', 'SAVED_SUCCESSFULLY', 'image/jpeg');
+
+insert into video_file (id, uuid, name, url_resource, status, type)
+    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
 INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, created_date, last_modified_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 100, 'A que hora empieza?', false, 'VISIBLE', NOW(), NOW()),

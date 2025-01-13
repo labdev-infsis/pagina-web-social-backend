@@ -1,10 +1,10 @@
 package com.infsis.socialpagebackend.services;
 
-import com.infsis.socialpagebackend.dtos.ImageFileDTO;
-import com.infsis.socialpagebackend.dtos.ImageFileMapper;
-import com.infsis.socialpagebackend.dtos.FileStatus;
+import com.infsis.socialpagebackend.dtos.*;
 import com.infsis.socialpagebackend.models.ImageFile;
+import com.infsis.socialpagebackend.models.VideoFile;
 import com.infsis.socialpagebackend.repositories.ImageFileRepository;
+import com.infsis.socialpagebackend.repositories.VideoFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,13 +31,13 @@ import java.util.UUID;
 public class VideoStorageService {
 
     @Autowired
-    private ImageFileRepository imageFileRepository;
+    private VideoFileRepository videoFileRepository;
 
     @Autowired
-    private ImageFileMapper imageFileMapper;
+    private VideoFileMapper videoFileMapper;
 
-    public List<ImageFileDTO> storeVideos(List<MultipartFile> videos, String directory, String path) throws IOException {
-        List<ImageFileDTO> imageFileDTOS = new ArrayList<>();
+    public List<VideoFileDTO> storeVideos(List<MultipartFile> videos, String directory, String path) throws IOException {
+        List<VideoFileDTO> videoFileDTOS = new ArrayList<>();
         for (MultipartFile video : videos) {
             String uuid = UUID.randomUUID().toString();
 
@@ -48,22 +48,23 @@ public class VideoStorageService {
                     .path(path)
                     .path(uuid)
                     .toUriString();
-            ImageFileDTO imageFileDTO = new ImageFileDTO();
-            imageFileDTO.setUuid(uuid);
-            imageFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
-            imageFileDTO.setType(video.getContentType());
-            imageFileDTO.setUrlResource(downloadUrl);
+            VideoFileDTO videoFileDTO = new VideoFileDTO();
+            videoFileDTO.setUuid(uuid);
+            videoFileDTO.setName(video.getOriginalFilename());
+            videoFileDTO.setStatus(FileStatus.SAVED_SUCCESSFULLY.name());
+            videoFileDTO.setType(video.getContentType());
+            videoFileDTO.setUrlResource(downloadUrl);
 
-            ImageFile imageFile = imageFileMapper.getFile(imageFileDTO);
-            imageFileRepository.save(imageFile);
-            imageFileDTOS.add(imageFileDTO);
+            VideoFile videoFile = videoFileMapper.getFile(videoFileDTO);
+            videoFileRepository.save(videoFile);
+            videoFileDTOS.add(videoFileDTO);
 
 
         }
-        return imageFileDTOS;
+        return videoFileDTOS;
     }
     public ResponseEntity<Resource> getVideo(String filename, String pathVideos) {
-        ImageFile file = imageFileRepository.findOneByUuid(filename);
+        VideoFile file = videoFileRepository.findOneByUuid(filename);
         if (file == null) {
             throw new NotFoundException("File:", filename);
         }
@@ -90,13 +91,12 @@ public class VideoStorageService {
         }
     }
 
-
     public void deleteVideo(String uuid, String directory) {
-        imageFileRepository.findByUuid(uuid).ifPresent(fileItem -> {
+        videoFileRepository.findByUuid(uuid).ifPresent(fileItem -> {
             Path filePath = Paths.get(directory, fileItem.getUuid());
             try {
                 Files.deleteIfExists(filePath);
-                imageFileRepository.delete(fileItem);
+                videoFileRepository.delete(fileItem);
             } catch (IOException e) {
                 throw new RuntimeException("Error al eliminar el video", e);
             }

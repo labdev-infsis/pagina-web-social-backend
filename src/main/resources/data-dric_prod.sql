@@ -186,6 +186,9 @@ insert into image_file (id, uuid, name, url_resource, status, type)
      (126, 'c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'img27', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'SAVED_SUCCESSFULLY','image/jpeg'),
      (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'vid02', 'https://devpws.cs.umss.edu.bo/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4');
 
+insert into video_file (id, uuid, name, url_resource, status, type)
+    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'https://devpws.cs.umss.edu.bo/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
+
 INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, created_date, last_modified_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 101, 'Buenosimoooo..felicidades, una consulta... ya rsta a la venta el helafoool', false, 'VISIBLE', NOW(), NOW()),
        (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 101, 'Muy Bien...', false, 'VISIBLE', NOW(), NOW()),
