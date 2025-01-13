@@ -135,6 +135,9 @@ insert into image_file (id, uuid, url_resource, status, type)
      (114, 'fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'SAVED_SUCCESSFULLY','image/png'),
      (115, '13035150-f880-4475-808c-26086775ad47', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/13035150-f880-4475-808c-26086775ad47', 'SAVED_SUCCESSFULLY','image/png');
 
+insert into video_file (id, uuid, name, url_resource, status, type)
+    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'https://devpws.cs.umss.edu.bo/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
+
 INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 100,
         (SELECT id FROM post WHERE uuid = '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9'),

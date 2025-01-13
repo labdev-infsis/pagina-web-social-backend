@@ -1,6 +1,7 @@
 package com.infsis.socialpagebackend.controllers;
 
 import com.infsis.socialpagebackend.dtos.ImageFileDTO;
+import com.infsis.socialpagebackend.dtos.VideoFileDTO;
 import com.infsis.socialpagebackend.services.VideoStorageService;
 import com.infsis.socialpagebackend.validation.ValidVideoFile;
 import org.springframework.core.io.Resource;
@@ -27,7 +28,7 @@ public class VideoUploadController {
 
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<ImageFileDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
+    public List<VideoFileDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
         return videoStorageService.storeVideos(videos, VIDEOS_DIRECTORY, VIDEOS_PATH);
     }
     @GetMapping(value = "/posts/{filename}")
