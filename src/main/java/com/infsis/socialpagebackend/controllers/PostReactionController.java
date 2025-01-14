@@ -19,13 +19,11 @@ public class PostReactionController {
     @Autowired
     private PostReactionService postReactionService;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/posts/{postUuid}/reactions/{reactionUuid}")
     public PostReactionDTO get(@PathVariable String postUuid, @PathVariable String reactionUuid) {
         return postReactionService.getPostReaction(postUuid, reactionUuid);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/posts/{postUuid}/reactions")
     public List<PostReactionDTO> getAll(@PathVariable String postUuid) {
         return postReactionService.getAllPostReaction(postUuid);

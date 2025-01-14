@@ -24,7 +24,7 @@ public class ReplyController {
         return replyService.getRepliesByCommentUuid(comment_uuid);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @PostMapping("/comments/{comment_uuid}/replies")
     public ReplyDTO createReply(@PathVariable String comment_uuid,@RequestBody ReplyDTO replyRequest) {
         return replyService.saveReply(comment_uuid,replyRequest);

@@ -25,14 +25,12 @@ public class ReplyReactionController {
         return ResponseEntity.ok(createdReaction);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/{replyUuid}")
     public ResponseEntity<List<ReplyReactionDTO>> getAllReplyReactions(@PathVariable String replyUuid) {
         List<ReplyReactionDTO> reactions = replyReactionService.getAllReplyReactions(replyUuid);
         return ResponseEntity.ok(reactions);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/{replyUuid}/{reactionUuid}")
     public ResponseEntity<ReplyReactionDTO> getReplyReaction(
             @PathVariable String replyUuid,

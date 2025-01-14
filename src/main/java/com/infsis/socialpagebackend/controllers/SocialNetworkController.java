@@ -19,19 +19,16 @@ public class SocialNetworkController {
     @Autowired
     private SocialNetworkService socialNetworkService;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/institutions/social-networks/{socialNetworkUuid}")
     public SocialNetworkDTO get(@PathVariable String institutionUuid, @PathVariable String socialNetworkUuid) {
         return socialNetworkService.getSocialNetwork(socialNetworkUuid);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/institutions/social-networks")
     public List<SocialNetworkDTO> getAll() {
         return socialNetworkService.getAllSocialNetworks();
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/institutions/{institutionUuid}/social-networks")
     public List<SocialNetworkDTO> getAllByInstitution(@PathVariable String institutionUuid) {
         return socialNetworkService.getAllSocialNetworksByInstitution(institutionUuid);

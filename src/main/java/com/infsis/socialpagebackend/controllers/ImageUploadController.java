@@ -38,7 +38,7 @@ public class ImageUploadController {
     @Autowired
     private ImageFileRepository imageFileRepository;
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ImageFileDTO> handleImageUpload(@RequestParam("images") @ValidImageFile List<MultipartFile> images) throws IOException {

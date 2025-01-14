@@ -17,7 +17,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @PostMapping("/post/{postUuid}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDTO addComment(@PathVariable String postUuid, @RequestBody CommentDTO commentDTO) {
@@ -29,7 +29,7 @@ public class CommentController {
         return commentService.getCommentsByPost(postUuid);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @DeleteMapping("/post/{postUuid}/comments/{commentUuid}")
     public ResponseEntity<String> deleteComment(@PathVariable String postUuid, @PathVariable String commentUuid) {
         try {

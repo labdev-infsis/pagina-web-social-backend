@@ -27,7 +27,7 @@ public class VideoUploadController {
     @Autowired
     private VideoStorageService videoStorageService;
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public List<VideoFileDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
@@ -39,7 +39,7 @@ public class VideoUploadController {
         return videoStorageService.getVideo(filename, VIDEOS_DIRECTORY);
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{uuid}")
     public ResponseEntity<String> deleteVideo(@PathVariable String uuid) {
         videoStorageService.deleteVideo(uuid, VIDEOS_DIRECTORY);
