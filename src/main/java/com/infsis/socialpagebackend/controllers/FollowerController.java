@@ -7,6 +7,7 @@ import com.infsis.socialpagebackend.services.FollowerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class FollowerController {
     @Autowired
     private FollowerService followerService;
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/{institutionUuid}/follow")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> followInstitution(@PathVariable String institutionUuid) {
@@ -31,6 +33,7 @@ public class FollowerController {
         }
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/{institutionUuid}/unfollow")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> unfollowInstitution(@PathVariable String institutionUuid) {
@@ -62,6 +65,7 @@ public class FollowerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    @PreAuthorize("hasRole('STUDENT')")
     @GetMapping("/{institutionUuid}/isFollowing")
     public ResponseEntity<Boolean> isFollowing(@PathVariable String institutionUuid) {
         try {

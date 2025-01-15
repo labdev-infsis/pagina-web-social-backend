@@ -5,6 +5,7 @@ import com.infsis.socialpagebackend.services.SocialNetworkService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class SocialNetworkController {
         return socialNetworkService.getAllSocialNetworksByInstitution(institutionUuid);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/institutions/{institutionUuid}/social-networks")
     @ResponseStatus(HttpStatus.CREATED)
     public List<SocialNetworkDTO> create(@PathVariable String institutionUuid, @Valid @RequestBody List<SocialNetworkDTO> socialNetworkDTO) {

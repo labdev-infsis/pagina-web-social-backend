@@ -7,6 +7,7 @@ import com.infsis.socialpagebackend.validation.ValidImageFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,12 +38,14 @@ public class ImageUploadController {
     @Autowired
     private ImageFileRepository imageFileRepository;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ImageFileDTO> handleImageUpload(@RequestParam("images") @ValidImageFile List<MultipartFile> images) throws IOException {
         return imageStorageService.storeImages(images, POSTS_PHOTOS_DIRECTORY, IMAGES_POSTS_PATH);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/inst-profile")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ImageFileDTO> uploadInstProfilePhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
@@ -51,6 +54,7 @@ public class ImageUploadController {
         return imageStorageService.storeImages(profileImage, INST_PROFILE_PHOTO_DIR, IMAGES_INSTITUTION_PROFILE_PATH);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/inst-cover")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ImageFileDTO> uploadInstCoverPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {
@@ -59,6 +63,7 @@ public class ImageUploadController {
         return imageStorageService.storeImages(coverImage, INST_COVER_DIR, IMAGES_INSTITUTION_COVER_PATH);
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/user-profile")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ImageFileDTO> uploadUserPhoto(@RequestParam("image") @ValidImageFile MultipartFile image) throws IOException {

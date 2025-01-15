@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,16 +27,19 @@ public class VideoUploadController {
     @Autowired
     private VideoStorageService videoStorageService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public List<VideoFileDTO> handleVideoUpload(@RequestParam("videos") @ValidVideoFile List<MultipartFile> videos) throws IOException {
         return videoStorageService.storeVideos(videos, VIDEOS_DIRECTORY, VIDEOS_PATH);
     }
+
     @GetMapping(value = "/posts/{filename}")
     public ResponseEntity<Resource> getPostVideo(@PathVariable String filename) {
         return videoStorageService.getVideo(filename, VIDEOS_DIRECTORY);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{uuid}")
     public ResponseEntity<String> deleteVideo(@PathVariable String uuid) {
         videoStorageService.deleteVideo(uuid, VIDEOS_DIRECTORY);

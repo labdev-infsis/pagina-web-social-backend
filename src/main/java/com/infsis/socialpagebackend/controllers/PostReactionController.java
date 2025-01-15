@@ -5,6 +5,7 @@ import com.infsis.socialpagebackend.services.PostReactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class PostReactionController {
         return postReactionService.getAllPostReaction(postUuid);
     }
 
+    @PreAuthorize("hasRole('STUDENT')")
     @PostMapping("/posts/{postUuid}/reactions")
     @ResponseStatus(HttpStatus.CREATED)
     public PostReactionDTO create(@PathVariable String postUuid, @Valid @RequestBody PostReactionDTO postReactionDTO) {

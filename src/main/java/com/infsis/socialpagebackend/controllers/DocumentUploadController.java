@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +30,7 @@ public class DocumentUploadController {
     @Autowired
     private DocumentStorageService documentStorageService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")
     @ResponseStatus(HttpStatus.CREATED)
     public DocumentFileDTO handleFileUpload(@RequestParam("file") @ValidDocumentFile MultipartFile file) throws IOException {
