@@ -1,7 +1,7 @@
 package com.infsis.socialpagebackend.security;
 
-import com.infsis.socialpagebackend.repositories.InvalidTokenRepository;
-import com.infsis.socialpagebackend.services.CustomUsersDetailsService;
+import com.infsis.socialpagebackend.authentication.repositories.InvalidTokenRepository;
+import com.infsis.socialpagebackend.authentication.services.CustomUsersDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -20,7 +20,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 
 /*La función de esta clase será validar la información del token y si esto es exitoso,
 establecerá la autenticación de un usuario en la solicitud o en el contexto de seguridad de nuestra aplicación*/
