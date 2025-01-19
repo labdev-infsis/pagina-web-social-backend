@@ -80,7 +80,7 @@ public class PostService {
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
 
-        if(post == null) {
+        if(post == null || post.isDeleted()) {
             throw new NotFoundException("Post", postUuid);
         }
         ReactionCounterDTO reactionCounterDTO = getPostReactionCounterDTO(post);
@@ -94,6 +94,7 @@ public class PostService {
         return postRepository
                 .findAll()
                 .stream()
+                .filter(post -> !post.isDeleted())
                 .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
                 .collect(Collectors.toList());
     }
@@ -103,7 +104,7 @@ public class PostService {
         return postRepository
                 .findAll()
                 .stream()
-                .filter(post -> isFromGroup(groupUuid, post))
+                .filter(post -> isFromGroup(groupUuid, post) && !post.isDeleted())
                 .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
                 .collect(Collectors.toList());
     }
@@ -144,6 +145,24 @@ public class PostService {
         return resDTO;
     }
 
+    public PostDTO updateePost(String postUuid, PostDTO postDTO) {
+
+        Post post = postRepository.findOneByUuid(postUuid);
+
+        if(post == null || post.isDeleted()) {
+            throw new NotFoundException("Post", postUuid);
+        }
+
+        return savePost(postDTO);
+
+    }
+
+    public PostDTO deletePost(String postUuid) {
+        Post post = postRepository.findOneByUuid(postUuid);
+        post.setDeleted(true);
+        postRepository.save(post);
+        return postMapper.toDTO(post);
+    }
     private List<Media> saveMedia(ContentDTO contentDTO, Content content){
         List<Media> medias = new ArrayList<>();
         if(contentDTO.getMedia() != null ) {
@@ -271,26 +290,40 @@ public class PostService {
 
     /* Método para actualizar una publicación específica
      */
-    public PostDTO updatePost(String postUuid, PostDTO updatedPostDTO) {
+    public PostDTO updatePost(String postUuid, PostDTO postDTO) {
         // Buscamos la publicación en la base de datos utilizando su UUID
         Post existingPost = postRepository.findOneByUuid(postUuid);
-        if (existingPost == null) { // Si no existe, lanzamos una excepción personalizada
+        if (existingPost == null || existingPost.isDeleted()) { // Si no existe, lanzamos una excepción personalizada
             throw new NotFoundException("Post", postUuid);
         }
 
 
         // Si el contenido está presente en el DTO, actualizamos el contenido asociado
-        if (updatedPostDTO.getContent() != null) {
-            Content updatedContent = contentRepository.save(
-                    postMapper.getContent(updatedPostDTO.getContent(), existingPost.getContent())
-            );
-            existingPost.setContent(updatedContent); // Asociamos el contenido actualizado a la publicación
+        if (postDTO.getContent() != null) {
+            Content content = contentRepository.save(new Content());
+
+            List<Media> medias = saveMedia(postDTO.getContent(), content);
+            Text text = saveText(postDTO.getContent(), content);
+
+            content.setText(text);
+            content.setMedia(medias);
+
+            content.setPost(existingPost);
+            contentRepository.save(content);
+
+            existingPost.setContent(content); // Asociamos el contenido actualizado a la publicación
         }
 
         // Actualizamos la configuración de comentarios si se envía un nuevo valor
-        if (updatedPostDTO.getComment_config_id() != null) {
-            existingPost.getComment_conf().setUuid(updatedPostDTO.getComment_config_id());
+        if (postDTO.getComment_config_id() != null) {
+            CommentConfig commentConfig = commentConfigRepository.findOneByUuid(postDTO.getComment_config_id());
+            existingPost.setComment_conf(commentConfig);
         }
+
+        Institution institution = institutionRepository.findOneByUuid(postDTO.getInstitution_id());
+
+        existingPost.setPost_date(postDTO.getDate());
+        existingPost.setInstitution(institution);
 
         // Guardamos la publicación actualizada en la base de datos
         Post updatedPost = postRepository.save(existingPost);

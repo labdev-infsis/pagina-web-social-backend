@@ -6,12 +6,11 @@ import com.infsis.socialpagebackend.posts.dtos.ContentDTO;
 import com.infsis.socialpagebackend.posts.dtos.ReactionCounterDTO;
 import com.infsis.socialpagebackend.institutions.models.Institution;
 import com.infsis.socialpagebackend.posts.dtos.PostDTO;
-import com.infsis.socialpagebackend.posts.models.CommentConfig;
-import com.infsis.socialpagebackend.posts.models.Content;
-import com.infsis.socialpagebackend.posts.models.Post;
-import com.infsis.socialpagebackend.posts.models.Text;
+import com.infsis.socialpagebackend.posts.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class PostMapper {

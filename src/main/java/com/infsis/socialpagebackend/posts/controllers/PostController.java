@@ -35,6 +35,13 @@ public class PostController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{postUuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO delete(@PathVariable String postUuid) {
+        return postService.deletePost(postUuid);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{postUuid}/group")
     @ResponseStatus(HttpStatus.OK)
     public PostGroupDTO group(@PathVariable String postUuid, @Valid @RequestBody PostGroupDTO postGroupDTO) {
