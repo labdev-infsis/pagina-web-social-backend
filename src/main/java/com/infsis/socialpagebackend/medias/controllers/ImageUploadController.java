@@ -93,10 +93,10 @@ public class ImageUploadController {
         return imageStorageService.getResourceImage(filename, USER_PROFILE_PHOTO_DIR);
     }
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/posts/{filename}")
+    @DeleteMapping("/{uuid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePostImage(@PathVariable String filename) {
-        imageStorageService.deleteImage(filename, POSTS_PHOTOS_DIRECTORY);
+    public void deletePostImage(@PathVariable String uuid) {
+        imageStorageService.deleteImage(uuid, POSTS_PHOTOS_DIRECTORY);
     }
 
 }
