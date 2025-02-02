@@ -92,5 +92,11 @@ public class ImageUploadController {
     public ResponseEntity<Resource> getUserImage(@PathVariable String filename) {
         return imageStorageService.getResourceImage(filename, USER_PROFILE_PHOTO_DIR);
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/posts/{filename}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePostImage(@PathVariable String filename) {
+        imageStorageService.deleteImage(filename, POSTS_PHOTOS_DIRECTORY);
+    }
 
 }
