@@ -18,19 +18,19 @@ public class CommentController {
     private CommentService commentService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
-    @PostMapping("/post/{postUuid}/comments")
+    @PostMapping("/posts/{postUuid}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDTO addComment(@PathVariable String postUuid, @RequestBody CommentDTO commentDTO) {
         return commentService.saveComment(postUuid, commentDTO);
     }
 
-    @GetMapping("/post/{postUuid}/comments")
+    @GetMapping("/posts/{postUuid}/comments")
     public List<CommentDTO> getComments(@PathVariable String postUuid) {
         return commentService.getCommentsByPost(postUuid);
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
-    @DeleteMapping("/post/{postUuid}/comments/{commentUuid}")
+    @DeleteMapping("/posts/{postUuid}/comments/{commentUuid}")
     public ResponseEntity<String> deleteComment(@PathVariable String postUuid, @PathVariable String commentUuid) {
         try {
             commentService.deleteComment(postUuid, commentUuid);

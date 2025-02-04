@@ -5,6 +5,7 @@ import com.infsis.socialpagebackend.authentication.repositories.UserRepository;
 import com.infsis.socialpagebackend.comments.dtos.CommentCounterDTO;
 import com.infsis.socialpagebackend.comments.models.Comment;
 import com.infsis.socialpagebackend.comments.repositories.CommentRepository;
+import com.infsis.socialpagebackend.enums.CommentState;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.institutions.models.Institution;
 import com.infsis.socialpagebackend.institutions.repositories.InstitutionRepository;
@@ -277,13 +278,18 @@ public class PostService {
 
     public CommentCounterDTO getCommentCounter(String postId) {
         List<Comment> comments = commentRepository.findByPostId(postId);
-        int totalComments = comments.size();
+        Long totalComments =
+                comments
+                        .stream()
+                        .filter(comment -> comment.getState().equals(CommentState.VISIBLE.name()) ||
+                                comment.getState().equals(CommentState.APPROVED.name()) )
+                        .count();
         int totalReplies = comments.stream().mapToInt(comment -> comment.getReplies().size()).sum();
 
         CommentCounterDTO commentCounterDTO = new CommentCounterDTO();
-        commentCounterDTO.setTotalComments(totalComments);
+        commentCounterDTO.setTotalComments(totalComments.intValue());
         commentCounterDTO.setTotalReplies(totalReplies);
-        commentCounterDTO.setTotalCommentsAndReplies(totalComments + totalReplies);
+        commentCounterDTO.setTotalCommentsAndReplies(totalComments.intValue() + totalReplies);
 
         return commentCounterDTO;
     }
