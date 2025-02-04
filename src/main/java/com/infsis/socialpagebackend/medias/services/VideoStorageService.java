@@ -91,12 +91,13 @@ public class VideoStorageService {
         }
     }
 
+    /**Eliminar un video por su  UUID*/
     public void deleteVideo(String uuid, String directory) {
         videoFileRepository.findByUuid(uuid).ifPresent(fileItem -> {
             Path filePath = Paths.get(directory, fileItem.getUuid());
             try {
-                Files.deleteIfExists(filePath);
-                videoFileRepository.delete(fileItem);
+                Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
+                videoFileRepository.delete(fileItem); // Eliminar el registro de la base de datos
             } catch (IOException e) {
                 throw new RuntimeException("Error al eliminar el video", e);
             }

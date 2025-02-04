@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.nio.file.Files;
 
 @Component
 public class ImageStorageService {
@@ -102,5 +103,20 @@ public class ImageStorageService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+    }
+    /**Eliminar una imagen por su UUID*/
+    public void deleteImage(String filename, String directory) {
+        ImageFile imageFile = imageFileRepository.findOneByUuid(filename);
+        if (imageFile == null) {
+            throw new NotFoundException("File:", filename);
+        }
+
+        Path filePath = Paths.get(directory, filename);
+        try {
+            Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
+            imageFileRepository.delete(imageFile); // Eliminar el registro de la base de datos
+        } catch (IOException e) {
+            throw new RuntimeException("Error al eliminar la imagen", e);
+        }
     }
 }
