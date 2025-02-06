@@ -30,4 +30,6 @@ public class UserDetailDTO {
 
     @Size(min = 3, max = 100)
     private String photo_cover_path;
+
+    private String role;
 }
