@@ -189,17 +189,17 @@ insert into image_file (id, uuid, name, url_resource, status, type)
 insert into video_file (id, uuid, name, url_resource, status, type)
     values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
-INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, created_date, last_modified_date)
-VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 101, 'Buenosimoooo..felicidades, una consulta... ya esta a la venta el helafoool', false, 'VISIBLE', NOW(), NOW()),
-       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 101, 'Muy Bien...', false, 'VISIBLE', NOW(), NOW()),
-       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 101, 'Muchas felicidades Daniela Laura una investigaci\00F3n que aporta al desarrollo de nuestro pa\00EDs, sigue por nuevos desaf\00EDos.. bendiciones.!!\+01F4AF', false, 'VISIBLE', NOW(), NOW()),
-       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Podrian grabar la entrevista por favor?', false, 'VISIBLE', NOW(), NOW()),
-       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 103, 'Por que plataformas van a transmitir?', false, 'VISIBLE', NOW(), NOW()),
-       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Buena entrevista!', false, 'VISIBLE', NOW(), NOW()),
-       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Graben la entrevista por favor.', false, 'VISIBLE', NOW(), NOW()),
-       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy Bueno', true, 'PENDING_APPROVAL', NOW(), NOW()),
-       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'Excelente charla!', true, 'PENDING_APPROVAL', NOW(), NOW()),
-       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'Hasta que fecha se puede postular?', false, 'VISIBLE', NOW(), NOW());
+INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, comment_date)
+VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 101, 'Buenosimoooo..felicidades, una consulta... ya esta a la venta el helafoool', false, 'VISIBLE', '2024-12-02T21:48:22'),
+       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 101, 'Muy Bien...', false, 'VISIBLE', '2024-12-03T08:27:22'),
+       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 101, 'Muchas felicidades Daniela Laura una investigaci\00F3n que aporta al desarrollo de nuestro pa\00EDs, sigue por nuevos desaf\00EDos.. bendiciones.!!\+01F4AF', false, 'VISIBLE', '2024-12-03T10:07:22'),
+       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Podrian grabar la entrevista por favor?', false, 'VISIBLE', '2024-12-03T10:37:22'),
+       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 103, 'Por que plataformas van a transmitir?', false, 'VISIBLE', '2024-12-04T11:49:22'),
+       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Buena entrevista!', false, 'VISIBLE', '2024-12-04T12:25:22'),
+       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Graben la entrevista por favor.', false, 'VISIBLE', '2024-12-05T15:38:12'),
+       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy Bueno', true, 'PENDING_APPROVAL', '2024-12-05T21:30:26'),
+       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'Excelente charla!', true, 'PENDING_APPROVAL', '2024-12-06T08:24:26'),
+       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'Hasta que fecha se puede postular?', false, 'VISIBLE', '2024-12-10T13:42:18');
 
 insert into comment_reaction (id, uuid, user_id, comment_id, emoji_type_id, reaction_date)
     values(100, '07063785-4327-49ff-86b7-2bf1e9596290', '9bae1fe0-2c56-4091-883d-15458e051500', 'd3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', '7v236a78-c73f-475c-80a6-f5a858648af1', '2024-12-03T15:23:22'),

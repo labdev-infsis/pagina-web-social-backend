@@ -16,7 +16,7 @@ public class CommentMapper {
         commentDTO.setContent(comment.getContent());
         commentDTO.setModerated(comment.isModerated());
         commentDTO.setState(comment.getState());
-        commentDTO.setDate(comment.getCreatedDate());
+        commentDTO.setDate(comment.getComment_date());
         commentDTO.setUser_name(comment.getUser().getName() + " " + comment.getUser().getLastName());
         commentDTO.setUser_photo(comment.getUser().getPhoto_profile_path());
 
@@ -28,7 +28,7 @@ public class CommentMapper {
         comment.setContent(commentDTO.getContent());
         comment.setUser(user);
         comment.setPost(post);
-        comment.setCreatedDate(commentDTO.getDate());
+        comment.setComment_date(commentDTO.getDate());
         comment.setState(CommentState.VISIBLE.name());
         comment.setModerated(commentDTO.isModerated());
         return comment;
