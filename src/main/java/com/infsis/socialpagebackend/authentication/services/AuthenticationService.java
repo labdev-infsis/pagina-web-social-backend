@@ -38,7 +38,10 @@ public class AuthenticationService {
 
     public UserDetailDTO getUserDetails() {
         Users currentUser = getCurrentUser();
-        return userMapper.toDTO(currentUser);
+        UserDetailDTO userDetailDTO = userMapper.toDTO(currentUser);
+        // Asumiendo que el usuario tiene un solo rol
+        userDetailDTO.setRole(currentUser.getRoles().get(0).getName());
+        return userDetailDTO;
     }
 
     private Users getCurrentUser() {
@@ -47,6 +50,4 @@ public class AuthenticationService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found with email: ", email));
     }
-
-
 }
