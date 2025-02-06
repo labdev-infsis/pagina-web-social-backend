@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.comments.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.infsis.socialpagebackend.replies.model.Reply;
 import com.infsis.socialpagebackend.authentication.models.Users;
 import com.infsis.socialpagebackend.posts.models.Post;
@@ -40,6 +41,10 @@ public class Comment {
 
     @Column(nullable = false)
     private String content;
+
+    @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+    private Date comment_date;
 
     @Column(nullable = false)
     private boolean moderated;

@@ -19,13 +19,11 @@ public class EmojiTypeController {
     @Autowired
     private EmojiTypeService emojiTypeService;
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping("/{emojiTypeUuid}")
     public EmojiTypeDTO get(@PathVariable String emojiTypeUuid) {
         return emojiTypeService.getEmojiType(emojiTypeUuid);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     @GetMapping
     public List<EmojiTypeDTO> getAll() {
         return emojiTypeService.getAllEmojiType();

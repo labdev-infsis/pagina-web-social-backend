@@ -205,18 +205,18 @@ insert into image_file (id, uuid, name, url_resource, status, type)
 insert into video_file (id, uuid, name, url_resource, status, type)
     values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
-INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, created_date, last_modified_date)
-VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 100, 'A que hora empieza?', false, 'VISIBLE', NOW(), NOW()),
-       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 100, 'Transmitiran for facebook?', false, 'VISIBLE', NOW(), NOW()),
-       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 100, 'Estare ahi', false, 'VISIBLE', NOW(), NOW()),
-       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Hay algun descuento si soy externo?', false, 'VISIBLE', NOW(), NOW()),
-       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 102, 'En que horarios puedo inscribirme?', false, 'VISIBLE', NOW(), NOW()),
-       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Hay cupos para la tarde todavia?', false, 'VISIBLE', NOW(), NOW()),
-       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Donde puedo inscribirme xf', false, 'VISIBLE', NOW(), NOW()),
-       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy buenos premios!', true, 'PENDING_APPROVAL', NOW(), NOW()),
-       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'No logre ir a la rifa, que numeros salieron premiados?', true, 'PENDING_APPROVAL', NOW(), NOW()),
-       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'La fecha limite de postulacion segun la imagen ya paso XD', false, 'VISIBLE', NOW(), NOW()),
-       (20,'l6m3b9f7-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 115, 110, 'Si ya fui auxiliar antes, puedo postular todavia?', true, 'PENDING_APPROVAL', NOW(), NOW());
+INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, comment_date)
+VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 100, 'A que hora empieza?', false, 'VISIBLE', '2024-10-30T15:23:22'),
+       (11,'m4c9b0x2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 118, 100, 'Transmitiran for facebook?', false, 'VISIBLE', '2024-10-30T18:39:22'),
+       (12,'z9n3d8j1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 120, 100, 'Estare ahi', false, 'VISIBLE', '2024-10-31T12:23:22'),
+       (13,'f8k1b6s9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 119, 102, 'Hay algun descuento si soy externo?', false, 'VISIBLE', '2024-11-13T11:35:22'),
+       (14,'v9s7h5k2-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 102, 'En que horarios puedo inscribirme?', false, 'VISIBLE', '2024-11-14T15:11:22'),
+       (15,'l4m6v9a0-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 110, 104, 'Hay cupos para la tarde todavia?', false, 'VISIBLE', '2024-11-14T18:27:22'),
+       (16,'m5d8f8b1-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 116, 105, 'Donde puedo inscribirme xf', false, 'VISIBLE', '2024-11-15T13:37:12'),
+       (17,'d9m2f2i5-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 106, 'Muy buenos premios!', true, 'PENDING_APPROVAL', '2024-11-27T21:53:26'),
+       (18,'i4v8m1a9-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 114, 106, 'No logre ir a la rifa, que numeros salieron premiados?', true, 'PENDING_APPROVAL', '2024-11-28T15:04:26'),
+       (19,'n5d9b5a8-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 117, 107, 'La fecha limite de postulacion segun la imagen ya paso XD', false, 'VISIBLE', '2024-12-05T16:31:18'),
+       (20,'l6m3b9f7-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 115, 110, 'Si ya fui auxiliar antes, puedo postular todavia?', true, 'PENDING_APPROVAL', '2024-12-10T11:18:03');
 
 
 INSERT INTO replies (reply_id, uuid, user_id, comment_id, content, created_at)
