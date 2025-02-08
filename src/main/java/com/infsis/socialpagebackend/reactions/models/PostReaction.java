@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SQLDelete(sql = "UPDATE PostReaction SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE post_reaction SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "post_reaction")
 public class PostReaction {

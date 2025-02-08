@@ -84,5 +84,16 @@ public class PostReactionService {
         return resDTO;
         
     }
+    public void deleteReaction(String postUuid) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found: ", email));
 
+        PostReaction postReaction = postReactionRepository.findByPostUuidAndUserUuid(postUuid, user.getUuid());
+        if (postReaction == null) {
+            throw new NotFoundException("Reaction not found for the user on the post: ", postUuid);
+        }
+        postReactionRepository.delete(postReaction);
+    }
 }
