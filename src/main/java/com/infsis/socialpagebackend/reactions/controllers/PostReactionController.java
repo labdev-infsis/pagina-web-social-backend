@@ -36,4 +36,11 @@ public class PostReactionController {
         return postReactionService.saveReaction(postUuid, postReactionDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
+    @DeleteMapping("/posts/{postUuid}/reactions")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String postUuid) {
+        postReactionService.deleteReaction(postUuid);
+    }
+
 }
