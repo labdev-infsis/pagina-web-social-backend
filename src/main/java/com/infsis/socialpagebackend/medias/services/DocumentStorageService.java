@@ -14,6 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Component
@@ -67,5 +70,16 @@ public class DocumentStorageService {
         documentFileRepository.save(documentFileMapper.getFile(documentFileDTO));
 
         return documentFileDTO;
+    }
+
+    public void deleteDocument(String documentUuid,String directory) {
+        DocumentFile documentFile = documentFileRepository.findOneByUuid(documentUuid);
+        Path filePath = Paths.get(directory, documentFile.getUuid());
+        try {
+            Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
+            documentFileRepository.delete(documentFile);// Eliminar el registro de la base de datos
+        } catch (IOException e) {
+            throw new RuntimeException("Error al eliminar el doc", e);
+        }
     }
 }

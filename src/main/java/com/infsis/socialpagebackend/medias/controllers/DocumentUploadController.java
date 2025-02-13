@@ -59,4 +59,11 @@ public class DocumentUploadController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{documentUuid}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDocument(@PathVariable String documentUuid) {
+        documentStorageService.deleteDocument(documentUuid, UPLOAD_DIRECTORY);
+    }
 }
