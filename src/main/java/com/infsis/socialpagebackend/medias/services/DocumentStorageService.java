@@ -7,6 +7,7 @@ import com.infsis.socialpagebackend.medias.dtos.DocumentFileDTO;
 import com.infsis.socialpagebackend.medias.mappers.DocumentFileMapper;
 import com.infsis.socialpagebackend.medias.models.DocumentFile;
 import com.infsis.socialpagebackend.medias.repositories.DocumentFileRepository;
+import com.infsis.socialpagebackend.posts.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +35,9 @@ public class DocumentStorageService {
 
     @Autowired
     private ServerProperties serverProperties;
+
+    @Autowired
+    private MediaRepository mediaRepository;
 
     public DocumentFileDTO getDocument(String documentUuid) {
         DocumentFile documentFile = documentFileRepository.findOneByUuid(documentUuid);
@@ -74,10 +78,12 @@ public class DocumentStorageService {
 
     public void deleteDocument(String documentUuid,String directory) {
         DocumentFile documentFile = documentFileRepository.findOneByUuid(documentUuid);
+        String urlResource = documentFile.getUrl_resource();
         Path filePath = Paths.get(directory, documentFile.getUuid());
         try {
             Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
             documentFileRepository.delete(documentFile);// Eliminar el registro de la base de datos
+            mediaRepository.deleteByFilePath(urlResource);//Eliminar el registro de la tabla media
         } catch (IOException e) {
             throw new RuntimeException("Error al eliminar el doc", e);
         }

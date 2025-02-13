@@ -5,6 +5,7 @@ import com.infsis.socialpagebackend.medias.dtos.VideoFileDTO;
 import com.infsis.socialpagebackend.medias.mappers.VideoFileMapper;
 import com.infsis.socialpagebackend.medias.models.VideoFile;
 import com.infsis.socialpagebackend.medias.repositories.VideoFileRepository;
+import com.infsis.socialpagebackend.posts.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,9 @@ public class VideoStorageService {
 
     @Autowired
     private VideoFileMapper videoFileMapper;
+
+    @Autowired
+    private MediaRepository mediaRepository;
 
     public List<VideoFileDTO> storeVideos(List<MultipartFile> videos, String directory, String path) throws IOException {
         List<VideoFileDTO> videoFileDTOS = new ArrayList<>();
@@ -95,9 +99,11 @@ public class VideoStorageService {
     public void deleteVideo(String uuid, String directory) {
         videoFileRepository.findByUuid(uuid).ifPresent(fileItem -> {
             Path filePath = Paths.get(directory, fileItem.getUuid());
+            String urlResource = fileItem.getUrl_resource();
             try {
                 Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
                 videoFileRepository.delete(fileItem); // Eliminar el registro de la base de datos
+                mediaRepository.deleteByFilePath(urlResource);//Eliminar el registro de la tabla media
             } catch (IOException e) {
                 throw new RuntimeException("Error al eliminar el video", e);
             }
