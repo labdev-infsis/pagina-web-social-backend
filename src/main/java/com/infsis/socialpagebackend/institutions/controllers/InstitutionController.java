@@ -19,6 +19,7 @@ import java.util.List;
 public class InstitutionController {
     public static final String IMAGE = "image";
     public static final String VIDEO = "video";
+    public static final String DOCUMENT   = "document";
     @Autowired
     private InstitutionService institutionService;
 
@@ -82,5 +83,10 @@ public class InstitutionController {
     @GetMapping("/{institutionUuid}/videos")
     public List<MediaItemDTO> getVideosByInstitution(@PathVariable String institutionUuid) {
         return postService.getMediasInstitution(institutionUuid, VIDEO);
+    }
+
+    @GetMapping("/{institutionUuid}/documents")
+    public List<MediaItemDTO> getDocsByInstitution(@PathVariable String institutionUuid) {
+        return postService.getMediasInstitution(institutionUuid, DOCUMENT);
     }
 }

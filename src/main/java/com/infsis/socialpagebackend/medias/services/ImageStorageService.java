@@ -7,6 +7,7 @@ import com.infsis.socialpagebackend.enums.FileStatus;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.medias.models.ImageFile;
 import com.infsis.socialpagebackend.medias.repositories.ImageFileRepository;
+import com.infsis.socialpagebackend.posts.repositories.MediaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -43,6 +44,9 @@ public class ImageStorageService {
 
     @Autowired
     private ServerProperties serverProperties;
+
+    @Autowired
+    private MediaRepository mediaRepository;
 
     public List<ImageFileDTO> storeImages(List<MultipartFile> images, String directory, String imagesPath) throws IOException {
         List<ImageFileDTO> imageFileDTOList = new ArrayList<>();
@@ -107,14 +111,12 @@ public class ImageStorageService {
     /**Eliminar una imagen por su UUID*/
     public void deleteImage(String filename, String directory) {
         ImageFile imageFile = imageFileRepository.findOneByUuid(filename);
-        if (imageFile == null) {
-            throw new NotFoundException("File:", filename);
-        }
-
+        String urlResource = imageFile.getUrl_resource();
         Path filePath = Paths.get(directory, filename);
         try {
             Files.deleteIfExists(filePath); // Eliminar el archivo del sistema de archivos
             imageFileRepository.delete(imageFile); // Eliminar el registro de la base de datos
+            mediaRepository.deleteByFilePath(urlResource);//Eliminar el registro de la tabla media
         } catch (IOException e) {
             throw new RuntimeException("Error al eliminar la imagen", e);
         }
