@@ -188,7 +188,8 @@ insert into image_file (id, uuid, name, url_resource, status, type)
 
 insert into video_file (id, uuid, name, url_resource, status, type)
     values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4'),
-    (101, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'video02', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY', 'video/mp4');
+    (101, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'video02', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY', 'video/mp4'),
+    (102, 'cbca5013-5556-4f35-b945-6a7de7083659', 'video03', 'http://localhost:9090/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
 INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, comment_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 101, 'Buenosimoooo..felicidades, una consulta... ya esta a la venta el helafoool', false, 'VISIBLE', '2024-12-02T21:48:22'),
