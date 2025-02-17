@@ -1,4 +1,5 @@
 package com.infsis.socialpagebackend.reactions.services;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.infsis.socialpagebackend.authentication.models.Users;
 import com.infsis.socialpagebackend.authentication.repositories.UserRepository;
@@ -12,6 +13,7 @@ import com.infsis.socialpagebackend.reactions.models.EmojiType;
 import com.infsis.socialpagebackend.reactions.repositories.CommentReactionRepository;
 import com.infsis.socialpagebackend.reactions.repositories.EmojiTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -74,5 +76,36 @@ public class CommentReactionService {
 
         return resultDTO;
     }
+
+    public CommentReactionDTO updateReaction(String reactionUuid, CommentReactionDTO commentReactionDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+    
+        Users user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found: ", email));
+    
+        CommentReaction existingReaction = commentReactionRepository.findOneByUuid(reactionUuid);
+    
+        if (existingReaction == null) {
+            throw new NotFoundException("CommentReaction", reactionUuid);
+        }
+    
+        if (!existingReaction.getUsers().getId().equals(user.getId())) { 
+          throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You can only update your own reactions.");
+        }
+        
+    
+        EmojiType newEmojiType = emojiTypeRepository.findOneByUuid(commentReactionDTO.getEmojiTypeId());
+    
+        if (newEmojiType == null) {
+            throw new NotFoundException("EmojiType", commentReactionDTO.getEmojiTypeId());
+        }
+    
+        existingReaction.setEmojiType(newEmojiType);
+        commentReactionRepository.save(existingReaction);
+    
+        return commentReactionMapper.toDTO(existingReaction);
+    }
+    
 
 }

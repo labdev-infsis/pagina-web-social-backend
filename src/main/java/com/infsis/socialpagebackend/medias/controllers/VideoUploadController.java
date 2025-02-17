@@ -23,7 +23,7 @@ public class VideoUploadController {
     private static final String VIDEOS_PATH = "/api/v1/videos/posts/";
 
     @Autowired
-    private com.infsis.socialpagebackend.medias.services.services.VideoStorageService videoStorageService;
+    private com.infsis.socialpagebackend.medias.services.VideoStorageService videoStorageService;
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/posts")

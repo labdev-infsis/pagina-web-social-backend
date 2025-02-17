@@ -3,17 +3,24 @@ package com.infsis.socialpagebackend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import com.infsis.socialpagebackend.authentication.models.Users;
+import com.infsis.socialpagebackend.authentication.repositories.UserRepository;
 
 import java.util.Date;
 
 @Component
 public class JwtGenerator {
+    
 
+    @Autowired
+    private UserRepository userRepository;
     private final static String INVALID_JWT_MESSAGE = "Jwt has expired or is incorrect";
 
     @Value("${security.jwt.expiration-time}")
@@ -23,27 +30,33 @@ public class JwtGenerator {
         return jwtExpirationTime;
     }
 
-    //Método para crear un token por medio de la authentication
-    public String generarToken(Authentication authentication) {
-
-        String username = authentication.getName();
-        Date tiempoActual = new Date();
-        Date expiracionToken = new Date(System.currentTimeMillis() + jwtExpirationTime);
-
-        // Obtener el rol del usuario
-        String role = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .findFirst()
-                .orElse("");
-
-        return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role) // Incluir rol en el token
-                .setIssuedAt(tiempoActual)
-                .setExpiration(expiracionToken)
-                .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA)
-                .compact();
+        // 🔥 Inyectamos el UserRepository en el constructor
+    public JwtGenerator(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
+
+   // Método para crear un token con userId incluido
+   public String generarToken(Authentication authentication) {
+    String username = authentication.getName();
+    Users user = userRepository.findByEmail(username)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+    String role = authentication.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .findFirst()
+            .orElse("");
+
+    return Jwts.builder()
+            .setSubject(username)
+            .claim("userId", user.getUuid())  // ✅ Usa el UUID correctamente
+            .claim("role", role)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
+            .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA)
+            .compact();
+}
+
+
 
     //Método para extraer un Username apartir de un token
     public String obtenerUsernameDeJwt(String token) {

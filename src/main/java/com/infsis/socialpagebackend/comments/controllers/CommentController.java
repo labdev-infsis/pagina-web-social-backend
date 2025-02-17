@@ -18,7 +18,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
-    @PostMapping("/posts/{postUuid}/comments")
+    @PostMapping("/post/{postUuid}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public CommentDTO addComment(@PathVariable String postUuid, @RequestBody CommentDTO commentDTO) {
         return commentService.saveComment(postUuid, commentDTO);

@@ -67,6 +67,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.GET).permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
+                                
                                 //.requestMatchers("/api/v1/websocket/**").permitAll()
                                 //.requestMatchers("/api/v1/institution/**").permitAll()
                                 //.requestMatchers("/api/v1/post/**").permitAll()

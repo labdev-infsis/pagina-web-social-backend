@@ -1,4 +1,4 @@
-package com.infsis.socialpagebackend.medias.services.services;
+package com.infsis.socialpagebackend.medias.services;
 
 import com.infsis.socialpagebackend.enums.*;
 import com.infsis.socialpagebackend.medias.dtos.VideoFileDTO;

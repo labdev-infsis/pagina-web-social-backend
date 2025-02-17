@@ -14,6 +14,7 @@ public class CommentMapper {
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.setUuid(comment.getUuid());
         commentDTO.setContent(comment.getContent());
+        commentDTO.setUserId(comment.getUser().getUuid());
         commentDTO.setModerated(comment.isModerated());
         commentDTO.setState(comment.getState());
         commentDTO.setDate(comment.getComment_date());
@@ -22,6 +23,7 @@ public class CommentMapper {
 
         return commentDTO;
     }
+    
 
     public Comment getComment(CommentDTO commentDTO, Users user, Post post) {
         Comment comment = new Comment();

@@ -36,4 +36,14 @@ public class CommentReactionController {
         return commentReactionService.saveReaction(commentUuid, commentReactionDTO);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
+    @PutMapping("/reactions/{reactionUuid}")
+    @ResponseStatus(HttpStatus.OK)
+    public CommentReactionDTO updateReaction(
+            @PathVariable String reactionUuid,
+            @Valid @RequestBody CommentReactionDTO commentReactionDTO) {
+        return commentReactionService.updateReaction(reactionUuid, commentReactionDTO);
+    }
+    
+
 }
