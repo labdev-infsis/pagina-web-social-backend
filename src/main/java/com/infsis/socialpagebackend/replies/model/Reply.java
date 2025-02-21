@@ -1,5 +1,6 @@
 package com.infsis.socialpagebackend.replies.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.infsis.socialpagebackend.authentication.models.Users;
 import com.infsis.socialpagebackend.comments.models.Comment;
 import com.infsis.socialpagebackend.reactions.models.ReplyReaction;
@@ -7,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.time.LocalDateTime;
 
 import java.util.Date;
 import java.util.List;
@@ -40,10 +42,13 @@ public class Reply {
 
     @Column(nullable = false)
     private String content;
+    
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
     @CreatedDate
-    @Column(updatable = false)
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+    
 
     @PrePersist
     public void initializeUuid() {

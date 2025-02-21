@@ -89,7 +89,7 @@ public class ReplyService {
         ReplyDTO dto = new ReplyDTO();
         dto.setUuid(reply.getUuid());
         dto.setContent(reply.getContent());
-        dto.setCreatedDate(reply.getCreatedAt());
+        dto.setCreatedDate(reply.getCreatedDate());
         dto.setName(reply.getUser().getName());
         dto.setLastName(reply.getUser().getLastName());
         return dto;
