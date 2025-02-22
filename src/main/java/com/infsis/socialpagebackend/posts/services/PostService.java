@@ -20,10 +20,14 @@ import com.infsis.socialpagebackend.reactions.repositories.EmojiTypeRepository;
 import com.infsis.socialpagebackend.reactions.repositories.PostReactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -413,4 +417,18 @@ public class PostService {
         }
         return mediaItems;
     }
+
+
+
+    public List<PostDTO> getPagedPosts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<Post> posts = postRepository.findAllPaged(pageable);
+    
+        return posts.stream()
+                    .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
+                    .collect(Collectors.toList());
+    }
+    
+
+    
 }

@@ -83,4 +83,14 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    @GetMapping("/paged")
+public ResponseEntity<List<PostDTO>> getPagedPosts(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size
+) {
+    List<PostDTO> posts = postService.getPagedPosts(page, size);
+    return ResponseEntity.ok(posts);
+}
+
+
 }
