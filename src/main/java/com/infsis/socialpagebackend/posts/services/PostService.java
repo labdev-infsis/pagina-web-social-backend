@@ -421,7 +421,7 @@ public class PostService {
 
 
     public List<PostDTO> getPagedPosts(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("post_date").descending());
         Page<Post> posts = postRepository.findAllPaged(pageable);
     
         return posts.stream()
@@ -429,6 +429,5 @@ public class PostService {
                     .collect(Collectors.toList());
     }
     
-
     
 }
