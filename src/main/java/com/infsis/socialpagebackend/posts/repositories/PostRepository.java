@@ -19,7 +19,8 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     @Query("SELECT p FROM Post p WHERE p.uuid = ?1")
     Post findOneByUuid(String Uuid);
-    @Query("SELECT p FROM Post p WHERE p.deleted = false ORDER BY p.createdDate DESC")
+  
+  
+    @Query("SELECT p FROM Post p WHERE p.deleted = false ORDER BY p.post_date DESC")
     Page<Post> findAllPaged(Pageable pageable);
-
 }
