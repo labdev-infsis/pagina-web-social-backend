@@ -38,4 +38,12 @@ public class ReplyReactionController {
         ReplyReactionDTO reaction = replyReactionService.getReplyReaction(replyUuid, reactionUuid);
         return ResponseEntity.ok(reaction);
     }
+    @PreAuthorize("hasAuthority('UPDATE_REPLY_REACTION')")
+    @PutMapping("/{reactionUuid}")
+public ResponseEntity<ReplyReactionDTO> updateReplyReaction(
+        @PathVariable String reactionUuid,
+        @RequestBody ReplyReactionDTO updatedDto) {
+    ReplyReactionDTO updatedReaction = replyReactionService.updateReplyReaction(reactionUuid, updatedDto);
+    return ResponseEntity.ok(updatedReaction);
+}
 }

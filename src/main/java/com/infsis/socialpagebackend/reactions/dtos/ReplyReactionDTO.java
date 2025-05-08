@@ -26,4 +26,8 @@ public class ReplyReactionDTO {
     @NotBlank
     @Size(min = 3, max = 36)
     private String emoji_type_id;
+
+      // Campos adicionales para el frontend
+      private String userName;
+      private String userPhoto;
 }

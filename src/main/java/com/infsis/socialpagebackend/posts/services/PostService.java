@@ -9,6 +9,7 @@ import com.infsis.socialpagebackend.enums.CommentState;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.institutions.models.Institution;
 import com.infsis.socialpagebackend.institutions.repositories.InstitutionRepository;
+import com.infsis.socialpagebackend.posts.clients.FacebookApiClient;
 import com.infsis.socialpagebackend.posts.dtos.*;
 import com.infsis.socialpagebackend.posts.mappers.MediaMapper;
 import com.infsis.socialpagebackend.posts.mappers.PostMapper;
@@ -82,6 +83,9 @@ public class PostService {
     @Autowired
     private GroupRepository groupRepository;
 
+    @Autowired
+    private FacebookApiClient facebookApiClient;
+
     public PostDTO getPost(String postUuid) {
         Post post = postRepository.findOneByUuid(postUuid);
 
@@ -147,6 +151,12 @@ public class PostService {
             resDTO = postMapper.toDTO(post);
 
         }
+
+        // Publish in Facebook
+        if(!postDTO.getIs_fb_posted()) {
+            facebookApiClient.postPublication(postDTO);
+        }
+
         return resDTO;
     }
 

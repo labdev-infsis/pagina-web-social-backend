@@ -17,9 +17,14 @@ public class CommentReactionMapper {
         commentReactionDTO.setCommentId(commentReaction.getComment().getUuid());
         commentReactionDTO.setReactionDate(commentReaction.getReactionDate());
         commentReactionDTO.setEmojiTypeId(commentReaction.getEmojiType().getUuid());
-
+    
+        // Nuevos campos
+        commentReactionDTO.setUserName(commentReaction.getUsers().getName() + " " + commentReaction.getUsers().getLastName());
+        commentReactionDTO.setUserPhoto(commentReaction.getUsers().getPhoto_profile_path());
+    
         return commentReactionDTO;
     }
+    
 
     public CommentReaction getReaction(CommentReactionDTO commentReactionDTO, Users users, Comment comment, EmojiType emojiType) {
         CommentReaction commentReaction = new CommentReaction();
@@ -30,5 +35,5 @@ public class CommentReactionMapper {
 
         return commentReaction;
     }
-
 }
+

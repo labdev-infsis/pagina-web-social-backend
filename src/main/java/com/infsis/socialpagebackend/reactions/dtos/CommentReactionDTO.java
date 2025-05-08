@@ -27,4 +27,9 @@ public class CommentReactionDTO {
     @Size(min = 3, max = 36)
     private String emojiTypeId;
 
+    
+    // NUEVOS CAMPOS PARA EL FRONTEND
+    private String userName;
+    private String userPhoto;
+
 }

@@ -22,4 +22,8 @@ public class MediaDTO {
     @Size(min = 3, max = 50)
     private String path;
 
+    @NotBlank
+    @Size(min = 3, max = 50)
+    private String fb_media_id;
+
 }

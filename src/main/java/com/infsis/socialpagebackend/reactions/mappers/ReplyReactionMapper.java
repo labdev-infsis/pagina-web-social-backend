@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReplyReactionMapper {
-
     public ReplyReactionDTO toDTO(ReplyReaction replyReaction) {
         ReplyReactionDTO dto = new ReplyReactionDTO();
         dto.setUuid(replyReaction.getUuid());
@@ -17,6 +16,11 @@ public class ReplyReactionMapper {
         dto.setReply_id(replyReaction.getReply().getUuid());
         dto.setReaction_date(replyReaction.getReactionDate());
         dto.setEmoji_type_id(replyReaction.getEmojiType().getUuid());
+    
+        // Campos nuevos
+        dto.setUserName(replyReaction.getUser().getName() + " " + replyReaction.getUser().getLastName());
+        dto.setUserPhoto(replyReaction.getUser().getPhoto_profile_path());
+    
         return dto;
     }
 

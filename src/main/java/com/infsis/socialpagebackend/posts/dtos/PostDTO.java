@@ -36,4 +36,6 @@ public class PostDTO {
 
     private CommentCounterDTO commentCounter;
 
+    private Boolean is_fb_posted;
+
 }

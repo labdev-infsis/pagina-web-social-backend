@@ -38,7 +38,9 @@ public class ReplyReactionService {
     private ReplyReactionMapper replyReactionMapper;
 
     public ReplyReactionDTO getReplyReaction(String replyUuid, String reactionUuid) {
-        ReplyReaction replyReaction = replyReactionRepository.findOneByUuid(reactionUuid);
+        ReplyReaction replyReaction = replyReactionRepository.findByUuid(reactionUuid)
+        .orElseThrow(() -> new NotFoundException("ReplyReaction", reactionUuid));
+    
         if(replyReaction == null) {
             throw new NotFoundException("ReplyReaction", reactionUuid);
         }
@@ -56,23 +58,43 @@ public class ReplyReactionService {
     public ReplyReactionDTO saveReplyReaction(String replyUuid, ReplyReactionDTO replyReactionDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
+    
         Users user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found: ", email));
-
+    
         Reply reply = replyRepository.findByUuid(replyUuid);
-        EmojiType emojiType = emojiTypeRepository.findOneByUuid(replyReactionDTO.getEmoji_type_id());
-
-        ReplyReaction replyReaction;
-        ReplyReactionDTO resDTO = new ReplyReactionDTO();
-        if(user != null && reply != null && emojiType != null) {
-
-            replyReaction = replyReactionMapper.getReaction(replyReactionDTO, user, reply, emojiType);
-            replyReactionRepository.save(replyReaction);
-
-            resDTO = replyReactionMapper.toDTO(replyReaction);
-
+        if (reply == null) {
+            throw new NotFoundException("Reply not found: ", replyUuid);
         }
-
-        return resDTO;
+    
+        EmojiType emojiType = emojiTypeRepository.findOneByUuid(replyReactionDTO.getEmoji_type_id());
+        if (emojiType == null) {
+            throw new NotFoundException("EmojiType not found: ", replyReactionDTO.getEmoji_type_id());
+        }
+    
+        ReplyReaction replyReaction = replyReactionMapper.getReaction(replyReactionDTO, user, reply, emojiType);
+        replyReactionRepository.save(replyReaction);
+    
+        return replyReactionMapper.toDTO(replyReaction);
     }
+
+    public ReplyReactionDTO updateReplyReaction(String reactionUuid, ReplyReactionDTO updatedDto) {
+    
+        ReplyReaction existing = replyReactionRepository.findByUuid(reactionUuid)
+            .orElseThrow(() -> new RuntimeException("Reacción no encontrada"));
+    
+            EmojiType emojiType = emojiTypeRepository.findOneByUuid(updatedDto.getEmoji_type_id());
+            if (emojiType == null) {
+                throw new RuntimeException("Emoji no válido");
+            }
+            
+    
+        existing.setEmojiType(emojiType);
+        existing.setReactionDate(updatedDto.getReaction_date());
+
+        ReplyReaction saved = replyReactionRepository.save(existing);
+        return replyReactionMapper.toDTO(saved);
+    }
+    
+    
 }

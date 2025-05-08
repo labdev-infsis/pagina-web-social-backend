@@ -10,7 +10,6 @@ import com.infsis.socialpagebackend.posts.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 @Component
 public class PostMapper {
@@ -25,7 +24,6 @@ public class PostMapper {
         postDTO.setUser_id(post.getUser().getUuid());
         postDTO.setComment_config_id(post.getComment_conf().getUuid());
         postDTO.setDate(post.getPost_date());
-        postDTO.setContent(contentMapper.toDTO(post.getContent()));
   
 
         return postDTO;
