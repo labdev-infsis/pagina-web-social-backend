@@ -49,7 +49,7 @@ public class FollowerController {
     public ResponseEntity<String> countFollowers(@PathVariable String institutionUuid) {
         try {
             long count = followerService.countFollowers(institutionUuid);
-            return ResponseEntity.ok(count + " Seguidores");
+            return ResponseEntity.ok(Long.toString(count));
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
