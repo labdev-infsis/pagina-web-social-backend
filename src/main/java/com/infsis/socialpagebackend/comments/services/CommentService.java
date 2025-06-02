@@ -134,7 +134,7 @@ public class CommentService {
     }
 
     public long countModeratedComments() {
-        return commentRepository.countByModerated(true);
+        return commentRepository.countByModerated(CommentState.PENDING_APPROVAL.name());
     }
 
     public CommentDTO approvePendingModeratedComment(CommentDTO commentDTO) {
@@ -142,6 +142,7 @@ public class CommentService {
         Comment currentComment = commentRepository.findByUuid(commentDTO.getUuid());
 
         currentComment.setState(CommentState.APPROVED.name());
+        currentComment.setModerated(false);
 
         commentRepository.save(currentComment);
 

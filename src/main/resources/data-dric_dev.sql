@@ -40,7 +40,7 @@ insert into comment_config (id, uuid, name, configuration_type)
 
 insert into institution (id, uuid, name, description, location, category, email, phone, url, logo_url, background_url)
     values(10, '93j203b4-f63b-4c4a-be05-eae84cef0c0c',
-        unistr('Direcci\00F3n de Relaciones Internacionales y Convenios - UMSS --- Comisi\00F3n Universitaria de Internacionalizaci\00F3n Educativa (CUDIE)'),
+        unistr('Direcci\00F3n de Relaciones Internacionales y Convenios - UMSS'),
         unistr('Direcci\00F3n de Relaciones Internacionales y Convenios Universidad Mayor de San Sim\00F3n'),
         U&'Av. Ballivi\00E1n # 591 esq. Reza, Cochabamba, Bolivia',
         U&'Sitio web de educaci\00F3n',
