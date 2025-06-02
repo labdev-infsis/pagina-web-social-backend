@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/institutions")
@@ -46,10 +48,12 @@ public class FollowerController {
         }
     }
     @GetMapping("/{institutionUuid}/followers/count")
-    public ResponseEntity<String> countFollowers(@PathVariable String institutionUuid) {
+    public ResponseEntity<Map<String, Object>> countFollowers(@PathVariable String institutionUuid) {
         try {
             long count = followerService.countFollowers(institutionUuid);
-            return ResponseEntity.ok(count + " Seguidores");
+            Map<String, Object> response = new HashMap<>();
+            response.put("total_followers", count);
+            return ResponseEntity.ok(response);
         } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }

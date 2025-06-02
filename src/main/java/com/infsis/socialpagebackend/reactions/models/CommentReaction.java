@@ -19,7 +19,7 @@ import java.util.UUID;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@SQLDelete(sql = "UPDATE CommentReaction SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE comment_reaction SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
 @Table(name = "comment_reaction")
 public class CommentReaction {

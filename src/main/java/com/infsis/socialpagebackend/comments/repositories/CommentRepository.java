@@ -13,4 +13,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     @Query("SELECT pr FROM Comment pr WHERE pr.post.uuid = ?1")
     List<Comment> findByPostId(String postUuid);
+
+    long countByModerated(boolean moderated);
+
 }

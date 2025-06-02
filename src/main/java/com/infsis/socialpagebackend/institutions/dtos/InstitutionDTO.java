@@ -9,7 +9,7 @@ public class InstitutionDTO {
     private String uuid;
 
     @NotBlank
-    @Size(min = 3, max = 100)
+    @Size(min = 3, max = 150)
     private String name;
 
     @NotBlank

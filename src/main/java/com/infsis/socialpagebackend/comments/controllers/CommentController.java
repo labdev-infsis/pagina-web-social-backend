@@ -2,6 +2,7 @@ package com.infsis.socialpagebackend.comments.controllers;
 
 import com.infsis.socialpagebackend.comments.dtos.CommentDTO;
 import com.infsis.socialpagebackend.comments.services.CommentService;
+import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +75,17 @@ public class CommentController {
     @GetMapping("/comments/deleted")
     public List<CommentDTO> getAllDeletedComments() {
         return commentService.getAllDeletedModeratedComments();
+    }
+
+    @PreAuthorize("hasAuthority('VIEW_MODERATED_COMMENTS')")
+    @GetMapping("/comments/count-moderated")
+    public ResponseEntity<Long> countModeratedComments() {
+        try {
+            long totalModeratedComments = commentService.countModeratedComments();
+            return ResponseEntity.ok(totalModeratedComments);
+        } catch (NotFoundException exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 }

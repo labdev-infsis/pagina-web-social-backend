@@ -5,11 +5,13 @@ import com.infsis.socialpagebackend.reactions.services.CommentReactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -36,12 +38,10 @@ public class CommentReactionController {
         return commentReactionService.saveReaction(commentUuid, commentReactionDTO);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE_COMMENT_REACTION')")
-    @PutMapping("/reactions/{reactionUuid}")
-    @ResponseStatus(HttpStatus.OK)
-    public CommentReactionDTO updateReaction(
-            @PathVariable String reactionUuid,
-            @Valid @RequestBody CommentReactionDTO commentReactionDTO) {
-        return commentReactionService.updateReaction(reactionUuid, commentReactionDTO);
+    @PreAuthorize("hasAuthority('DELETE_COMMENT_REACTION')")
+    @DeleteMapping("/comment/{commentUuid}/reactions")
+    public ResponseEntity<Map<String, String>> delete(@PathVariable String commentUuid) {
+        Map<String, String> response = commentReactionService.deleteReaction(commentUuid);
+        return ResponseEntity.ok(response);
     }
 }

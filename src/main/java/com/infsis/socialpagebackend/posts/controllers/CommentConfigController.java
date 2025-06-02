@@ -19,13 +19,13 @@ public class CommentConfigController {
     @Autowired
     private CommentConfigService commentConfigService;
 
-    @PreAuthorize("hasAuthority('VIEW_COMMENT_CONFIG')")
+    //@PreAuthorize("hasAuthority('VIEW_COMMENT_CONFIG')")
     @GetMapping("/{commentConfigUuid}")
     public CommentConfigDTO get(@PathVariable String commentConfigUuid) {
         return commentConfigService.getCommentConfig(commentConfigUuid);
     }
 
-    @PreAuthorize("hasAuthority('VIEW_ALL_COMMENT_CONFIGS')")
+    //@PreAuthorize("hasAuthority('VIEW_ALL_COMMENT_CONFIGS')")
     @GetMapping
     public List<CommentConfigDTO> getAll() {
         return commentConfigService.getAllCommentConfig();

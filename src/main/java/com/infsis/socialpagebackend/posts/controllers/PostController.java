@@ -61,25 +61,22 @@ public class PostController {
     }
 
     @Autowired
-    private PostService postService; // Inyección del servicio que contiene la lógica de negocio
+    private PostService postService;
 
     @PreAuthorize("hasAuthority('UPDATE_POST')")
-    @PutMapping("/{postUuid}") // Este endpoint maneja solicitudes PUT para actualizar una publicación específica
+    @PutMapping("/{postUuid}")
     public ResponseEntity<PostDTO> updatePost(
-        @PathVariable String postUuid, // Se obtiene el UUID de la publicación desde la URL
-        @Valid @RequestBody PostDTO updatedPostDTO // El cuerpo de la solicitud contiene los datos actualizados
+        @PathVariable String postUuid,
+        @Valid @RequestBody PostDTO updatedPostDTO
     ) {
-        // Llamamos al servicio para actualizar la publicación y devolvemos la respuesta con el objeto actualizado
         PostDTO updatedPost = postService.updatePost(postUuid, updatedPostDTO);
-        return ResponseEntity.ok(updatedPost); // Respondemos con un código HTTP 200 (OK)
+        return ResponseEntity.ok(updatedPost);
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<PostDTO>> searchPosts(@RequestParam("text") String text) {
-        // Llamamos al servicio para buscar publicaciones
-        List<PostDTO> posts = postService.searchPosts(text);
 
-        // Devolvemos la respuesta con los resultados
+        List<PostDTO> posts = postService.searchPosts(text);
         return ResponseEntity.ok(posts);
     }
 

@@ -5,6 +5,7 @@ import com.infsis.socialpagebackend.comments.mappers.CommentMapper;
 import com.infsis.socialpagebackend.enums.*;
 import com.infsis.socialpagebackend.exceptions.NotFoundException;
 import com.infsis.socialpagebackend.comments.models.Comment;
+import com.infsis.socialpagebackend.institutions.models.Institution;
 import com.infsis.socialpagebackend.posts.models.Post;
 import com.infsis.socialpagebackend.authentication.models.Users;
 import com.infsis.socialpagebackend.posts.repositories.CommentConfigRepository;
@@ -130,6 +131,10 @@ public class CommentService {
                     return commentDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public long countModeratedComments() {
+        return commentRepository.countByModerated(true);
     }
 
     public CommentDTO approvePendingModeratedComment(CommentDTO commentDTO) {

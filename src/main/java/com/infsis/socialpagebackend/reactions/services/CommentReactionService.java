@@ -19,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -56,56 +58,52 @@ public class CommentReactionService {
     }
 
     public CommentReactionDTO saveReaction(String commentUuid, CommentReactionDTO commentReactionDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        Users user = userRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("User not found: ", email));
-
+        Users user = getAuthenticatedUser();
         Comment comment = commentRepository.findByUuid(commentUuid);
-        EmojiType emojiType = emojiTypeRepository.findOneByUuid(commentReactionDTO.getEmojiTypeId());
+        if (comment == null) {
+            throw new NotFoundException("Comment not found: ", commentUuid);
+        }
 
+        EmojiType emojiType = emojiTypeRepository.findOneByUuid(commentReactionDTO.getEmojiTypeId());
+        if (emojiType == null) {
+            throw new NotFoundException("EmojiType not found: ", commentReactionDTO.getEmojiTypeId());
+        }
+
+        // Verificar si ya existe una reacción del usuario para este comentario
+        Optional<CommentReaction> optionalReaction = commentReactionRepository.findByCommentUuidAndUserUuid(commentUuid, user.getUuid());
+
+        CommentReaction existingReaction = optionalReaction.orElse(null);
         CommentReaction commentReaction;
-        CommentReactionDTO resultDTO = new CommentReactionDTO();
-        if (user != null && comment != null && emojiType != null) {
+        if (existingReaction != null) {
+            // Actualizar la reacción existente
+            existingReaction.setEmojiType(emojiType);
+            existingReaction.setReactionDate(commentReactionDTO.getReactionDate());
+            commentReaction = commentReactionRepository.save(existingReaction);
+        } else {
+            // Crear una nueva reacción
             commentReaction = commentReactionMapper.getReaction(commentReactionDTO, user, comment, emojiType);
             commentReactionRepository.save(commentReaction);
-
-            resultDTO = commentReactionMapper.toDTO(commentReaction);
         }
 
-        return resultDTO;
+        return commentReactionMapper.toDTO(commentReaction);
     }
 
-    public CommentReactionDTO updateReaction(String reactionUuid, CommentReactionDTO commentReactionDTO) {
+    public Map<String, String> deleteReaction(String commentUuid) {
+        Users user = getAuthenticatedUser();
+        Optional<CommentReaction> optionalReaction = commentReactionRepository.findByCommentUuidAndUserUuid(commentUuid, user.getUuid());
+
+        if (optionalReaction.isEmpty()) {
+            return Map.of("message", "No reaction found for the user on the comment.");
+        }
+
+        commentReactionRepository.delete(optionalReaction.get());
+        return Map.of("message", "Reaction successfully deleted.");
+    }
+
+    private Users getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
-    
-        Users user = userRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new NotFoundException("User not found: ", email));
-    
-        CommentReaction existingReaction = commentReactionRepository.findOneByUuid(reactionUuid);
-    
-        if (existingReaction == null) {
-            throw new NotFoundException("CommentReaction", reactionUuid);
-        }
-    
-        if (!existingReaction.getUsers().getId().equals(user.getId())) { 
-          throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You can only update your own reactions.");
-        }
-        
-    
-        EmojiType newEmojiType = emojiTypeRepository.findOneByUuid(commentReactionDTO.getEmojiTypeId());
-    
-        if (newEmojiType == null) {
-            throw new NotFoundException("EmojiType", commentReactionDTO.getEmojiTypeId());
-        }
-    
-        existingReaction.setEmojiType(newEmojiType);
-        commentReactionRepository.save(existingReaction);
-    
-        return commentReactionMapper.toDTO(existingReaction);
     }
-    
-
 }

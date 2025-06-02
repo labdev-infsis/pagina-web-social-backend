@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CommentReactionRepository extends JpaRepository<CommentReaction, Integer> {
@@ -16,4 +17,6 @@ public interface CommentReactionRepository extends JpaRepository<CommentReaction
     @Query("SELECT cr FROM CommentReaction cr WHERE cr.comment.uuid = ?1")
     List<CommentReaction> findByCommentId(String commentUuid);
 
+    @Query("SELECT cr FROM CommentReaction cr WHERE cr.comment.uuid = ?1 AND cr.users.uuid = ?2")
+    Optional<CommentReaction> findByCommentUuidAndUserUuid(String commentUuid, String userUuid);
 }
