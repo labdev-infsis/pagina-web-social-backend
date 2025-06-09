@@ -16,4 +16,8 @@ public interface ReplyReactionRepository extends JpaRepository<ReplyReaction, In
 
     @Query("SELECT rr FROM ReplyReaction rr WHERE rr.reply.uuid = ?1")
     List<ReplyReaction> findByReplyId(String replyUuid);
+
+    @Query("SELECT cr FROM ReplyReaction cr WHERE cr.reply.uuid = ?1 AND cr.user.uuid = ?2")
+    Optional<ReplyReaction> findByReplyUuidAndUserUuid(String replyUuid, String userUuid);
+
 }

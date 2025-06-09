@@ -38,4 +38,6 @@ public class PostDTO {
 
     private Boolean is_fb_posted;
 
+    private Boolean fb_post_enable;
+
 }

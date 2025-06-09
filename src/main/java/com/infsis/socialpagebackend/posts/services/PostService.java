@@ -153,8 +153,7 @@ public class PostService {
         }
 
         // Publish in Facebook
-
-        if(!postDTO.getIs_fb_posted()) {
+        if(postDTO.getFb_post_enable()) {
             facebookApiClient.postPublication(postDTO);
         }
 

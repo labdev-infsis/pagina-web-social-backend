@@ -42,26 +42,27 @@ public class FacebookApiClient {
     public void postPublication(PostDTO postDTO) {
 
         //String url = String.format("%s/feed?access_token=%s&appid=%s", graphApiUrl, graphApiPageAccessToken, graphApiPageAccessToken);
+        if (!postDTO.getIs_fb_posted()) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("access_token", graphApiPageAccessToken);
+            params.add("message", postDTO.getContent().getText());
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("access_token", graphApiPageAccessToken);
-        params.add("message", postDTO.getContent().getText());
+            int i = 0;
+            for (MediaDTO media : postDTO.getContent().getMedia()) {
+                params.add("attached_media[" + i + "]", "{'media_fbid':'" + media.getFb_media_id() + "'}");
+                i++;
+            }
 
-        int i = 0;
-        for (MediaDTO media : postDTO.getContent().getMedia()) {
-            params.add("attached_media[" + i + "]", "{'media_fbid':'" + media.getFb_media_id() + "'}");
-            i++;
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(graphApiUrl + "/" + graphApiPageId + "/feed", request, String.class);
+
+            logger.info("Successful Post in Facebook, Response Status: {} | Response Boddy : {}", response.getStatusCode(), response.getBody());
+        } else {
+            logger.info("The post with ID: {} was already published in Facebook.", postDTO.getUuid());
         }
-
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(graphApiUrl + "/" + graphApiPageId + "/feed", request, String.class);
-
-        logger.info("Successful Post in Facebook, Response Status: {} | Response Boddy : {}", response.getStatusCode(), response.getBody());
-
-
     }
 
     //Publish link images in Facebook
