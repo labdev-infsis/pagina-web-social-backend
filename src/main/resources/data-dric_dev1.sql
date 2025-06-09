@@ -40,7 +40,7 @@ insert into comment_config (id, uuid, name, configuration_type)
 
 insert into institution (id, uuid, name, description, location, category, email, phone, url, logo_url, background_url)
     values(10, '93j203b4-f63b-4c4a-be05-eae84cef0c0c',
-        unistr('Direcci\00F3n de Relaciones Internacionales y Convenios - UMSS --- Comisi\00F3n Universitaria de Internacionalizaci\00F3n Educativa (CUDIE)'),
+        unistr('Direcci\00F3n de Relaciones Internacionales y Convenios - UMSS'),
         unistr('Direcci\00F3n de Relaciones Internacionales y Convenios Universidad Mayor de San Sim\00F3n'),
         U&'Av. Ballivi\00E1n # 591 esq. Reza, Cochabamba, Bolivia',
         U&'Sitio web de educaci\00F3n',
@@ -262,7 +262,7 @@ INSERT INTO permissions (name_permission) VALUES
 ('CREATE_COMMENT_REACTION'),('DELETE_COMMENT_REACTION'),
 ('CREATE_EMOJI_TYPE'),
 ('CREATE_POST_REACTION'),('DELETE_POST_REACTION'),
-('CREATE_REPLY_REACTION'),('UPDATE_REPLY_REACTION'),
+('CREATE_REPLY_REACTION'),('DELETE_REPLY_REACTION'),
 ('CREATE_REPLY'),('DELETE_REPLY'),
 ('CREATE_SOCIAL_NETWORK'),
 ('ADD_COMMENT'),('DELETE_COMMENT'),('VIEW_MODERATED_COMMENTS'),('VIEW_REJECTED_COMMENTS'),('APPROVE_COMMENT'),('REJECT_COMMENT'),('DELETE_MODERATED_COMMENT'),('VIEW_DELETED_COMMENTS'),
@@ -278,7 +278,7 @@ SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'STUDENT'
 AND p.name_permission IN ('CREATE_COMMENT_REACTION','DELETE_COMMENT_REACTION',
                          'CREATE_POST_REACTION','DELETE_POST_REACTION',
-                         'CREATE_REPLY_REACTION', 'UPDATE_REPLY_REACTION',
+                         'CREATE_REPLY_REACTION', 'DELETE_REPLY_REACTION',
                          'CREATE_REPLY','DELETE_REPLY',
                          'ADD_COMMENT','DELETE_COMMENT',
                          'FOLLOW_INSTITUTION','UNFOLLOW_INSTITUTION','CHECK_FOLLOWING_STATUS');
