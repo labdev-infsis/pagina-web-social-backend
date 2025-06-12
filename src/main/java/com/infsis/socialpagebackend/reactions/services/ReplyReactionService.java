@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
+import java.util.Map;
+import java.util.Optional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,45 +57,52 @@ public class ReplyReactionService {
     }
 
     public ReplyReactionDTO saveReplyReaction(String replyUuid, ReplyReactionDTO replyReactionDTO) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-    
-        Users user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("User not found: ", email));
-    
+        Users user = getAuthenticatedUser();
         Reply reply = replyRepository.findByUuid(replyUuid);
         if (reply == null) {
             throw new NotFoundException("Reply not found: ", replyUuid);
         }
-    
+
         EmojiType emojiType = emojiTypeRepository.findOneByUuid(replyReactionDTO.getEmoji_type_id());
         if (emojiType == null) {
             throw new NotFoundException("EmojiType not found: ", replyReactionDTO.getEmoji_type_id());
         }
-    
-        ReplyReaction replyReaction = replyReactionMapper.getReaction(replyReactionDTO, user, reply, emojiType);
+
+        // Verificar si ya existe una reacción del usuario para esta respuesta
+        Optional<ReplyReaction> optionalReaction = replyReactionRepository.findByReplyUuidAndUserUuid(replyUuid, user.getUuid());
+
+        ReplyReaction replyReaction;
+        if (optionalReaction.isPresent()) {
+            // Actualizar la reacción existente
+            replyReaction = optionalReaction.get();
+            replyReaction.setEmojiType(emojiType);
+            replyReaction.setReactionDate(replyReactionDTO.getReaction_date());
+        } else {
+            // Crear una nueva reacción
+            replyReaction = replyReactionMapper.getReaction(replyReactionDTO, user, reply, emojiType);
+        }
+
         replyReactionRepository.save(replyReaction);
-    
         return replyReactionMapper.toDTO(replyReaction);
     }
 
-    public ReplyReactionDTO updateReplyReaction(String reactionUuid, ReplyReactionDTO updatedDto) {
-    
-        ReplyReaction existing = replyReactionRepository.findByUuid(reactionUuid)
-            .orElseThrow(() -> new RuntimeException("Reacción no encontrada"));
-    
-            EmojiType emojiType = emojiTypeRepository.findOneByUuid(updatedDto.getEmoji_type_id());
-            if (emojiType == null) {
-                throw new RuntimeException("Emoji no válido");
-            }
-            
-    
-        existing.setEmojiType(emojiType);
-        existing.setReactionDate(updatedDto.getReaction_date());
+    public Map<String, String> deleteReaction(String replyUuid) {
+        Users user = getAuthenticatedUser();
 
-        ReplyReaction saved = replyReactionRepository.save(existing);
-        return replyReactionMapper.toDTO(saved);
+        Optional<ReplyReaction> optionalReaction = replyReactionRepository.findByReplyUuidAndUserUuid(replyUuid, user.getUuid());
+
+        if (optionalReaction.isEmpty()) {
+            return Map.of("message", "No reaction found for the user on the reply.");
+        }
+
+        replyReactionRepository.delete(optionalReaction.get());
+        return Map.of("message", "Reaction successfully deleted.");
     }
-    
-    
+
+    private Users getAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("User not found: ", email));
+    }
 }

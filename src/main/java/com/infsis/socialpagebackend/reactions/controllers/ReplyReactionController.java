@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/reply-reactions")
@@ -38,12 +38,11 @@ public class ReplyReactionController {
         ReplyReactionDTO reaction = replyReactionService.getReplyReaction(replyUuid, reactionUuid);
         return ResponseEntity.ok(reaction);
     }
-    @PreAuthorize("hasAuthority('UPDATE_REPLY_REACTION')")
-    @PutMapping("/{reactionUuid}")
-public ResponseEntity<ReplyReactionDTO> updateReplyReaction(
-        @PathVariable String reactionUuid,
-        @RequestBody ReplyReactionDTO updatedDto) {
-    ReplyReactionDTO updatedReaction = replyReactionService.updateReplyReaction(reactionUuid, updatedDto);
-    return ResponseEntity.ok(updatedReaction);
-}
+
+    @PreAuthorize("hasAuthority('DELETE_REPLY_REACTION')")
+    @DeleteMapping("/{replyUuid}/reactions")
+    public ResponseEntity<Map<String, String>> deleteReplyReaction(@PathVariable String replyUuid) {
+        Map<String, String> response = replyReactionService.deleteReaction(replyUuid);
+        return ResponseEntity.ok(response);
+    }
 }
