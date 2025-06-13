@@ -3,10 +3,10 @@ insert into role(id_role, name)
     (2, 'STUDENT');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
-    values(100, 'j5818068-9280-4055-987c-087f1b1f6635', 'Alicia', 'Mercado Sandoval', 'alicia.mercado@fcyt.umss.edu.bo', '79235628', '$2a$10$d2Re5HES0exoWQkbZ9IKSukZZI3kLokhOWJfRI1LZcuE/WN.zYV6e', null, 'https://devpws.cs.umss.edu.bo/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d' );
+    values(100, 'j5818068-9280-4055-987c-087f1b1f6635', 'Alicia', 'Mercado Sandoval', 'alicia.mercado@fcyt.umss.edu.bo', '79235628', '$2a$10$d2Re5HES0exoWQkbZ9IKSukZZI3kLokhOWJfRI1LZcuE/WN.zYV6e', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d' );
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
-    values(110, 'a0818068-4880-4055-987c-087f1b1f6635', 'Sergio', 'Salazar Velasco', '202004185@est.umss.edu', '62954271', '$2a$10$2ohp0csjbBWQkcidcmGeyuaP21iST1m2Ps7yBUa6uoViJ9eUYOlBi', null, 'https://devpws.cs.umss.edu.bo/api/v1/images/users/13035150-f880-4475-808c-26086775ad47' );
+    values(110, 'a0818068-4880-4055-987c-087f1b1f6635', 'Sergio', 'Salazar Velasco', '202004185@est.umss.edu', '62954271', '$2a$10$2ohp0csjbBWQkcidcmGeyuaP21iST1m2Ps7yBUa6uoViJ9eUYOlBi', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/13035150-f880-4475-808c-26086775ad47' );
 
 insert into user_roles (user_id, role_id)
     values(100, 1),(110, 2);
@@ -25,8 +25,8 @@ insert into institution (id, uuid, name, description, location, category, email,
         'departamento.inf-sis@fcyt.umss.edu.bo',
         '(591)-(4)233719',
         'cs.umss.edu.bo',
-        'https://devpws.cs.umss.edu.bo/api/v1/images/inst-profile/012aa435-6925-4ba8-ba90-af529c8344ef',
-        'https://devpws.cs.umss.edu.bo/api/v1/images/inst-cover/1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe'),
+        'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-profile/012aa435-6925-4ba8-ba90-af529c8344ef',
+        'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-cover/1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe'),
     (11, '77f803b4-f63b-4c4a-be05-eae84cef0c0c',
         unistr('Ingenier\00EDa El\00E9ctrica'),
         unistr('Servicios, actividades y noticias de la carrera de Ingenier\00EDa El\00E9ctrica de la FCyT(UMSS)'),
@@ -63,18 +63,18 @@ insert into text (id, uuid, content_id, text)
     (108, 'h4k1c9z3-f5f4-4e39-92a6-fa761f2410a7', 'n5x8f0j2-9a6c-4d9e-aea7-da7e80bd5c6f', CONCAT(U&'\+01F4E2 CONVOCATORIA A CONCURSO DE M\00C9RITOS Y EXAMEN DE COMPETENCIA PARA LA PROVISI\00D3N DE AUXILIARES SERVICIO/LABORATORIO PARA EL DEPARTAMENTO DE INFORM\00C1TICA Y SISTEMAS', CHR(10), U&'Gesti\00F3n Acad\00E9mica 2025', CHR(10), U&'\+01F4BBDescargar convocatoria: https://acortar.link/xe4RYC', CHR(10), U&'Ingresar con cuenta Institucional'));
 
 insert into media (id, uuid, content_id, number, file_type, file_path)
-values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/3fddcbec-4bbe-411d-949a-4e4ab9fa986a'),
-    (101, '81k7f8a1-09e0-4435-a850-0613d778897b', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286'),
-    (102, '24l5f8a1-09e0-4435-a850-0613d778897b', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/e970d0cc-a76f-4884-9d05-574316eb7f94'),
-    (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/eec636b7-f44b-4bac-b471-aacda7566a01'),
-    (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/8dce74bc-bf71-4d65-8c0d-f447dfa0ad21'),
-    (105, '2k9zf8a1-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/d07799d0-e0ac-4da2-b1fe-c36387f3e0b8'),
-    (106, '6m1vf8a1-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 2, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/44251647-1ea0-4e8a-bbbf-fba398448519'),
-    (107, '17b9m4z3-09e0-4435-a850-0613d778897b', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/8c017615-a405-4b01-a9bd-7796710552ba'),
-    (108, '5jc8x7v4-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/703a9df8-fb13-4e02-acf0-12726d175380'),
-    (109, '8xm4v1n3-09e0-4435-a850-0613d778897b', '4g9dn2m6-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'document', 'https://devpws.cs.umss.edu.bo/api/v1/documents/2787bda6-2ce8-490f-8474-896ae931a9bb'),
-    (110, '3v7c2gs8-09e0-4435-a850-0613d778897b', '9vm3n7a3-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'document', 'https://devpws.cs.umss.edu.bo/api/v1/documents/8ee4bbee-7d08-4276-b555-dbae6b0872c3'),
-    (111, 'l2n5c0f7-09e0-4435-a850-0613d778897b', 'n5x8f0j2-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5');
+values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3fddcbec-4bbe-411d-949a-4e4ab9fa986a'),
+    (101, '81k7f8a1-09e0-4435-a850-0613d778897b', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286'),
+    (102, '24l5f8a1-09e0-4435-a850-0613d778897b', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/e970d0cc-a76f-4884-9d05-574316eb7f94'),
+    (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/eec636b7-f44b-4bac-b471-aacda7566a01'),
+    (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/8dce74bc-bf71-4d65-8c0d-f447dfa0ad21'),
+    (105, '2k9zf8a1-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/d07799d0-e0ac-4da2-b1fe-c36387f3e0b8'),
+    (106, '6m1vf8a1-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 2, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/44251647-1ea0-4e8a-bbbf-fba398448519'),
+    (107, '17b9m4z3-09e0-4435-a850-0613d778897b', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/8c017615-a405-4b01-a9bd-7796710552ba'),
+    (108, '5jc8x7v4-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/703a9df8-fb13-4e02-acf0-12726d175380'),
+    (109, '8xm4v1n3-09e0-4435-a850-0613d778897b', '4g9dn2m6-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'document', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/documents/2787bda6-2ce8-490f-8474-896ae931a9bb'),
+    (110, '3v7c2gs8-09e0-4435-a850-0613d778897b', '9vm3n7a3-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'document', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/documents/8ee4bbee-7d08-4276-b555-dbae6b0872c3'),
+    (111, 'l2n5c0f7-09e0-4435-a850-0613d778897b', 'n5x8f0j2-9a6c-4d9e-aea7-da7e80bd5c6f', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5');
 
 insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
     values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'j5818068-9280-4055-987c-087f1b1f6635','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-10-30T12:52:22'),
@@ -118,25 +118,25 @@ insert into post_group (group_id, post_id)
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9');
 
 insert into image_file (id, uuid, url_resource, status, type)
-    values (100, '3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (101, '6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (102, 'e970d0cc-a76f-4884-9d05-574316eb7f94', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/e970d0cc-a76f-4884-9d05-574316eb7f94', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (103, 'eec636b7-f44b-4bac-b471-aacda7566a01', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/eec636b7-f44b-4bac-b471-aacda7566a01', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (104, '8dce74bc-bf71-4d65-8c0d-f447dfa0ad21', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/8dce74bc-bf71-4d65-8c0d-f447dfa0ad21', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (105, 'd07799d0-e0ac-4da2-b1fe-c36387f3e0b8', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/d07799d0-e0ac-4da2-b1fe-c36387f3e0b8', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (106, '44251647-1ea0-4e8a-bbbf-fba398448519', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/44251647-1ea0-4e8a-bbbf-fba398448519', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (107, '8c017615-a405-4b01-a9bd-7796710552ba', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/8c017615-a405-4b01-a9bd-7796710552ba', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (108, '703a9df8-fb13-4e02-acf0-12726d175380', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/703a9df8-fb13-4e02-acf0-12726d175380', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (109, '2787bda6-2ce8-490f-8474-896ae931a9bb', 'https://devpws.cs.umss.edu.bo/api/v1/documents/2787bda6-2ce8-490f-8474-896ae931a9bb', 'SAVED_SUCCESSFULLY','application/pdf'),
-     (110, '8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'https://devpws.cs.umss.edu.bo/api/v1/documents/8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'SAVED_SUCCESSFULLY','application/pdf'),
-     (111, '012aa435-6925-4ba8-ba90-af529c8344ef', 'https://devpws.cs.umss.edu.bo/api/v1/images/inst-profile/012aa435-6925-4ba8-ba90-af529c8344ef', 'SAVED_SUCCESSFULLY','image/png'),
-     (112, '1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'https://devpws.cs.umss.edu.bo/api/v1/images/inst-cover/1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'SAVED_SUCCESSFULLY','image/jpg'),
-     (113, '3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'https://devpws.cs.umss.edu.bo/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (114, 'fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'SAVED_SUCCESSFULLY','image/png'),
-     (115, '13035150-f880-4475-808c-26086775ad47', 'https://devpws.cs.umss.edu.bo/api/v1/images/users/13035150-f880-4475-808c-26086775ad47', 'SAVED_SUCCESSFULLY','image/png');
+    values (100, '3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3fddcbec-4bbe-411d-949a-4e4ab9fa986a', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (101, '6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/6e8fb6b1-fa25-43c8-a4f7-97c5fe8d8286', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (102, 'e970d0cc-a76f-4884-9d05-574316eb7f94', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/e970d0cc-a76f-4884-9d05-574316eb7f94', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (103, 'eec636b7-f44b-4bac-b471-aacda7566a01', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/eec636b7-f44b-4bac-b471-aacda7566a01', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (104, '8dce74bc-bf71-4d65-8c0d-f447dfa0ad21', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/8dce74bc-bf71-4d65-8c0d-f447dfa0ad21', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (105, 'd07799d0-e0ac-4da2-b1fe-c36387f3e0b8', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/d07799d0-e0ac-4da2-b1fe-c36387f3e0b8', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (106, '44251647-1ea0-4e8a-bbbf-fba398448519', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/44251647-1ea0-4e8a-bbbf-fba398448519', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (107, '8c017615-a405-4b01-a9bd-7796710552ba', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/8c017615-a405-4b01-a9bd-7796710552ba', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (108, '703a9df8-fb13-4e02-acf0-12726d175380', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/703a9df8-fb13-4e02-acf0-12726d175380', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (109, '2787bda6-2ce8-490f-8474-896ae931a9bb', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/documents/2787bda6-2ce8-490f-8474-896ae931a9bb', 'SAVED_SUCCESSFULLY','application/pdf'),
+     (110, '8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/documents/8ee4bbee-7d08-4276-b555-dbae6b0872c3', 'SAVED_SUCCESSFULLY','application/pdf'),
+     (111, '012aa435-6925-4ba8-ba90-af529c8344ef', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-profile/012aa435-6925-4ba8-ba90-af529c8344ef', 'SAVED_SUCCESSFULLY','image/png'),
+     (112, '1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-cover/1cf06b76-d37a-47a1-8c73-6c9e4df0e8fe', 'SAVED_SUCCESSFULLY','image/jpg'),
+     (113, '3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3bcb7ab3-af96-4342-b342-0e7b841d76a5', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (114, 'fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/fc6cae6d-a3d4-48dd-8b3a-6572944dab5d', 'SAVED_SUCCESSFULLY','image/png'),
+     (115, '13035150-f880-4475-808c-26086775ad47', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/13035150-f880-4475-808c-26086775ad47', 'SAVED_SUCCESSFULLY','image/png');
 
 insert into video_file (id, uuid, name, url_resource, status, type)
-    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'https://devpws.cs.umss.edu.bo/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
+    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
 INSERT INTO comment (id, uuid, user_id, post_id, content, created_date, last_modified_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 100,
@@ -180,4 +180,4 @@ insert into comment_reaction (id, uuid, user_id, comment_id, emoji_type_id, reac
     (103, 'bce50d37-3ada-45ac-a556-a17cc33464d9', 'a0818068-4880-4055-987c-087f1b1f6635', 'd3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', '3f696a78-c73f-475c-80a6-f5a858648af1', '2024-11-14T20:14:22');
 
 INSERT INTO file_item (id, uuid, url_resource, status, type)
-    values(116,'526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6','https://devpws.cs.umss.edu.bo/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6','SAVED_SUCCESSFULLY','video/mp4')
+    values(116,'526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6','https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6','SAVED_SUCCESSFULLY','video/mp4')
