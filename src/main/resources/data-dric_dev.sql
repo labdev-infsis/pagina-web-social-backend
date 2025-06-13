@@ -4,19 +4,19 @@ insert into role(id_role, name)
     (3, 'MODERATOR');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
-    values(100, 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Oscar', 'Alba Salazar', 'director-dric@umss.edu.bo', '75603618', '$2a$10$lwZguPYFKEiIZYyCW4piVuyHb6hn6MGW3r7DOKg40BhPO3We5cwGu', null, 'http://localhost:9090/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78'),
-    (101, 'eab72365-d8c1-45df-9b48-274f64c65b86', 'Valentin', 'Laime Zapata', 'valentin.laime@umss.edu.bo', '70755958', '$2a$10$g46noOikL88uT7pNfj4Q/OVOyBtgfh6yFqixUxd4lww3UZrLeIOly', null, 'http://localhost:9090/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0'),
-    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', '202004181@est.umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
-    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', '202394182@est.umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
-    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', '202120735@est.umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
-    (113, 'c332c4ff-49e8-4e0e-a7f4-d59907d8cda3', 'Valeria', 'Gonzales Vargas', 'svaleria.gonzales.vargas@gmail.com', '78823541', '$2a$10$tt2avNxEODCYrI9qHFqr5elrI5O87dVRNQZGUgAHVMUi8XtWnwXE.', null, 'http://localhost:9090/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1'),
-    (114, '9f32985a-f108-4b19-9bda-cab7c501ae68', 'Jose', U&'Monta\00F1o Laura', '202001823@est.umss.edu', '72566218', '$2a$10$6HOIAlIZ2.KXIi8qL1AHxOIs3zHYydtV3QnZ.wJ9wrr18qhJEi576', null, 'http://localhost:9090/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420'),
-    (115, 'ab6e1a7f-4494-4251-8177-dc5c4fe18740', 'Marcos', 'Illanes Martinez', '201800513@est.umss.edu', '74269527', '$2a$10$96.BNIsnUH7u.eVTeWi7Ju/exv59yfngw.TdVVOv5ladZ87KBZLaK', null, 'http://localhost:9090/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e'),
-    (116, 'f8d1c969-af76-4161-b0d7-9c2dfc47e75c', 'Adriana', 'Boza Ruiz', '201904940@est.umss.edu', '70551293', '$2a$10$LRWTNQMxRoDEGUKNeZe86OOg7.aqxc1TE/HhGUJ01zhPBB2E1O/A.', null, 'http://localhost:9090/api/v1/images/users/f9c89556-cd27-481a-a8bd-59f4915f7dfa'),
-    (117, 'd33ded75-c9f3-4fef-9762-0ba4a905efa8', 'Antonio', 'Monje Aranibar', '201604527@est.umss.edu', '62933721', '$2a$10$m8FJFWAPDKIAU8SykyKmme7FcaQqrkHtg0zczh3Gn0lSgVeTZNaAy', null, 'http://localhost:9090/api/v1/images/users/b3a64fc9-3d28-4b92-b296-2324f9c4e061'),
-    (118, 'e54bd4dc-d8f6-42e9-8e94-5d56bf42416f', 'Jeyson', 'Valdivia Bernal', 'jeyson.valdivia@gmail.com', '76834814', '$2a$10$anTAKIK4bm55/HYFWVoER.zu1eNL7Iwy0UCGi3THN.wDW77WaLCKa', null, 'http://localhost:9090/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410'),
-    (119, 'ae542968-1335-425e-a206-283c38a20190', 'Omar', 'Argenes Quispe', 'argenes77@gmail.com', '65692585', '$2a$10$bO6cOzFhvWjqRRwn7a1/xupq3LxGO/hG.7cLpS14JAbksNjBGJCjW', null, 'http://localhost:9090/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2'),
-    (120, '7f9264d7-ca8d-41ca-be1f-d24c9dd244a2', 'Bianca', 'Antelo Dominguez', 'bianca.dominguez@gmail.com', '73597236', '$2a$10$QUoVqY/j3bdW5rOMO8aTY.Eaq2Ifju9a8Hm2ht7qex2ALF0tWVc1q', null, 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a');
+    values(100, 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Oscar', 'Alba Salazar', 'director-dric@umss.edu.bo', '75603618', '$2a$10$lwZguPYFKEiIZYyCW4piVuyHb6hn6MGW3r7DOKg40BhPO3We5cwGu', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78'),
+    (101, 'eab72365-d8c1-45df-9b48-274f64c65b86', 'Valentin', 'Laime Zapata', 'valentin.laime@umss.edu.bo', '70755958', '$2a$10$g46noOikL88uT7pNfj4Q/OVOyBtgfh6yFqixUxd4lww3UZrLeIOly', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0'),
+    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', '202004181@est.umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
+    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', '202394182@est.umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
+    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', '202120735@est.umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
+    (113, 'c332c4ff-49e8-4e0e-a7f4-d59907d8cda3', 'Valeria', 'Gonzales Vargas', 'svaleria.gonzales.vargas@gmail.com', '78823541', '$2a$10$tt2avNxEODCYrI9qHFqr5elrI5O87dVRNQZGUgAHVMUi8XtWnwXE.', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1'),
+    (114, '9f32985a-f108-4b19-9bda-cab7c501ae68', 'Jose', U&'Monta\00F1o Laura', '202001823@est.umss.edu', '72566218', '$2a$10$6HOIAlIZ2.KXIi8qL1AHxOIs3zHYydtV3QnZ.wJ9wrr18qhJEi576', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420'),
+    (115, 'ab6e1a7f-4494-4251-8177-dc5c4fe18740', 'Marcos', 'Illanes Martinez', '201800513@est.umss.edu', '74269527', '$2a$10$96.BNIsnUH7u.eVTeWi7Ju/exv59yfngw.TdVVOv5ladZ87KBZLaK', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e'),
+    (116, 'f8d1c969-af76-4161-b0d7-9c2dfc47e75c', 'Adriana', 'Boza Ruiz', '201904940@est.umss.edu', '70551293', '$2a$10$LRWTNQMxRoDEGUKNeZe86OOg7.aqxc1TE/HhGUJ01zhPBB2E1O/A.', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/f9c89556-cd27-481a-a8bd-59f4915f7dfa'),
+    (117, 'd33ded75-c9f3-4fef-9762-0ba4a905efa8', 'Antonio', 'Monje Aranibar', '201604527@est.umss.edu', '62933721', '$2a$10$m8FJFWAPDKIAU8SykyKmme7FcaQqrkHtg0zczh3Gn0lSgVeTZNaAy', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/b3a64fc9-3d28-4b92-b296-2324f9c4e061'),
+    (118, 'e54bd4dc-d8f6-42e9-8e94-5d56bf42416f', 'Jeyson', 'Valdivia Bernal', 'jeyson.valdivia@gmail.com', '76834814', '$2a$10$anTAKIK4bm55/HYFWVoER.zu1eNL7Iwy0UCGi3THN.wDW77WaLCKa', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410'),
+    (119, 'ae542968-1335-425e-a206-283c38a20190', 'Omar', 'Argenes Quispe', 'argenes77@gmail.com', '65692585', '$2a$10$bO6cOzFhvWjqRRwn7a1/xupq3LxGO/hG.7cLpS14JAbksNjBGJCjW', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2'),
+    (120, '7f9264d7-ca8d-41ca-be1f-d24c9dd244a2', 'Bianca', 'Antelo Dominguez', 'bianca.dominguez@gmail.com', '73597236', '$2a$10$QUoVqY/j3bdW5rOMO8aTY.Eaq2Ifju9a8Hm2ht7qex2ALF0tWVc1q', null, 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a');
 
 insert into user_roles (user_id, role_id)
     values(100, 1),
@@ -47,8 +47,8 @@ insert into institution (id, uuid, name, description, location, category, email,
         'rrii@umss.edu.bo',
         '+591 4 4524779',
         'dric.umss.edu.bo',
-        'http://localhost:9090/api/v1/images/inst-profile/f1309a27-93eb-4429-a096-d786f8d16f5c',
-        'http://localhost:9090/api/v1/images/inst-cover/14bacba4-b962-40b5-9dd1-d5bf8e1e86f8');
+        'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-profile/f1309a27-93eb-4429-a096-d786f8d16f5c',
+        'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-cover/14bacba4-b962-40b5-9dd1-d5bf8e1e86f8');
 
 insert into content (id, uuid)
     values(100, '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f'),
@@ -71,18 +71,18 @@ insert into text (id, uuid, content_id, text)
     (107, '2cm9z8n5-f5f4-4e39-92a6-fa761f2410a7', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', U&'\00A1ATENCI\00D3N ESTUDIANTES! <br>Oportunidad para realizar pasant\00EDas remuneradas por importantes empresas internacionales. <br>MAYOR INFORMACI\00D3N: https://dric.umss.edu.bo/convocatorias-iaeste-vigentes-y.../');
 
 insert into media (id, uuid, content_id, file_name, number, file_type, file_path)
-values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/a968e0d8-2209-4df0-aec1-4a1618d73aa4'),
-    (101, '81k7f8a1-09e0-4435-a850-0613d778897b', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'vid01', 1, 'video', 'http://localhost:9090/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659'),
-    (102, '24l5f8a1-09e0-4435-a850-0613d778897b', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img03', 1, 'image', 'http://localhost:9090/api/v1/images/posts/34c1bc99-453c-443c-8f2a-ca1f15650a71'),
-    (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img04', 1, 'image', 'http://localhost:9090/api/v1/images/posts/73228194-1485-496f-827d-7c38b62c5c7e'),
-    (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img05', 1, 'image', 'http://localhost:9090/api/v1/images/posts/fbbca054-34cd-4ebe-9bfe-3b22be8bb836'),
-    (105, '2k9zf8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img06', 2, 'image', 'http://localhost:9090/api/v1/images/posts/745a495d-4563-41a1-8733-f089b3b7b21d'),
-    (106, '6m1vf8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img07', 3, 'image', 'http://localhost:9090/api/v1/images/posts/3b900a66-2021-49e1-9152-c6d432d1aa52'),
-    (107, '17b9m4z3-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img08', 4, 'image', 'http://localhost:9090/api/v1/images/posts/ddc5a29a-c607-44db-95f2-c66f1da21fde'),
-    (108, '5jc8x7v4-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img09', 1, 'image', 'http://localhost:9090/api/v1/images/posts/27897c0a-2503-4536-83ed-a65a596646fb'),
-    (109, '8xm4v1n3-09e0-4435-a850-0613d778897b', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', 'vid02', 1, 'video', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd'),
-    (110, '3v7c2gs8-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img11', 1, 'image', 'http://localhost:9090/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4'),
-    (111, 'l2n5c0f7-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img12', 2, 'image', 'http://localhost:9090/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d');
+values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img01', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/a968e0d8-2209-4df0-aec1-4a1618d73aa4'),
+    (101, '81k7f8a1-09e0-4435-a850-0613d778897b', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'vid01', 1, 'video', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659'),
+    (102, '24l5f8a1-09e0-4435-a850-0613d778897b', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img03', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/34c1bc99-453c-443c-8f2a-ca1f15650a71'),
+    (103, '79a3f8a1-09e0-4435-a850-0613d778897b', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img04', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/73228194-1485-496f-827d-7c38b62c5c7e'),
+    (104, '38j1f8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img05', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/fbbca054-34cd-4ebe-9bfe-3b22be8bb836'),
+    (105, '2k9zf8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img06', 2, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/745a495d-4563-41a1-8733-f089b3b7b21d'),
+    (106, '6m1vf8a1-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img07', 3, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3b900a66-2021-49e1-9152-c6d432d1aa52'),
+    (107, '17b9m4z3-09e0-4435-a850-0613d778897b', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img08', 4, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/ddc5a29a-c607-44db-95f2-c66f1da21fde'),
+    (108, '5jc8x7v4-09e0-4435-a850-0613d778897b', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', 'img09', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/27897c0a-2503-4536-83ed-a65a596646fb'),
+    (109, '8xm4v1n3-09e0-4435-a850-0613d778897b', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', 'vid02', 1, 'video', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd'),
+    (110, '3v7c2gs8-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img11', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4'),
+    (111, 'l2n5c0f7-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img12', 2, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d');
 
 insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
     values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T07:53:22'),
@@ -158,39 +158,39 @@ insert into post_group (group_id, post_id)
     ('d7cc6017-1a74-40e5-9d9c-41d4d271259b', '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9');
 
 insert into image_file (id, uuid, name, url_resource, status, type)
-    values (100, '729b9472-e531-4362-88cb-efd9fc656f78', 'img01', 'http://localhost:9090/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78', 'SAVED_SUCCESSFULLY','image/png'),
-     (101, 'e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'img02', 'http://localhost:9090/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'SAVED_SUCCESSFULLY','image/png'),
-     (102, '733b01ba-198e-42db-b9ca-d7ace9a7abad', 'img03', 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad', 'SAVED_SUCCESSFULLY','image/png'),
-     (103, '06b8fbe5-9d91-422b-bd20-6d89d23e5608', 'img04', 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608', 'SAVED_SUCCESSFULLY','image/png'),
-     (104, 'b5de2b13-4720-41e7-87d2-d31abd590fac', 'img05', 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac', 'SAVED_SUCCESSFULLY','image/png'),
-     (105, '5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1', 'img06', 'http://localhost:9090/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1', 'SAVED_SUCCESSFULLY','image/png'),
-     (106, '1bed8052-ba51-41c2-88b5-e39e78dbf420', 'img07', 'http://localhost:9090/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420', 'SAVED_SUCCESSFULLY','image/png'),
-     (107, '28e3d103-76e8-4b0d-b04c-cf2e8821cf6e', 'img08', 'http://localhost:9090/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e', 'SAVED_SUCCESSFULLY','image/png'),
-     (108, 'f9c89556-cd27-481a-a8bd-59f4915f7dfa', 'img09', 'http://localhost:9090/api/v1/images/users/f9c89556-cd27-481a-a8bd-59f4915f7dfa', 'SAVED_SUCCESSFULLY','image/png'),
-     (109, 'b3a64fc9-3d28-4b92-b296-2324f9c4e061', 'img10', 'http://localhost:9090/api/v1/images/users/b3a64fc9-3d28-4b92-b296-2324f9c4e061', 'SAVED_SUCCESSFULLY','image/png'),
-     (110, 'e326bdb8-6eee-4814-a877-9e063183f410', 'img11', 'http://localhost:9090/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410', 'SAVED_SUCCESSFULLY','image/png'),
-     (111, '004fca51-d313-41c4-94ff-5908ddb58dc2', 'img12', 'http://localhost:9090/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2', 'SAVED_SUCCESSFULLY','image/png'),
-     (112, '2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'img13', 'http://localhost:9090/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'SAVED_SUCCESSFULLY','image/png'),
-     (113, 'f1309a27-93eb-4429-a096-d786f8d16f5c', 'img14', 'http://localhost:9090/api/v1/images/inst-profile/f1309a27-93eb-4429-a096-d786f8d16f5c', 'SAVED_SUCCESSFULLY','image/png'),
-     (114, '14bacba4-b962-40b5-9dd1-d5bf8e1e86f8', 'img15', 'http://localhost:9090/api/v1/images/inst-cover/14bacba4-b962-40b5-9dd1-d5bf8e1e86f8', 'SAVED_SUCCESSFULLY','image/png'),
-     (115, 'a968e0d8-2209-4df0-aec1-4a1618d73aa4', 'img16', 'http://localhost:9090/api/v1/images/posts/a968e0d8-2209-4df0-aec1-4a1618d73aa4', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (116, 'cbca5013-5556-4f35-b945-6a7de7083659', 'vid02', 'http://localhost:9090/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659', 'SAVED_SUCCESSFULLY','video/mp4'),
-     (117, '34c1bc99-453c-443c-8f2a-ca1f15650a71', 'img18', 'http://localhost:9090/api/v1/images/posts/34c1bc99-453c-443c-8f2a-ca1f15650a71', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (118, '73228194-1485-496f-827d-7c38b62c5c7e', 'img19', 'http://localhost:9090/api/v1/images/posts/73228194-1485-496f-827d-7c38b62c5c7e', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (119, 'fbbca054-34cd-4ebe-9bfe-3b22be8bb836', 'img20', 'http://localhost:9090/api/v1/images/posts/fbbca054-34cd-4ebe-9bfe-3b22be8bb836', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (120, '745a495d-4563-41a1-8733-f089b3b7b21d', 'img21', 'http://localhost:9090/api/v1/images/posts/745a495d-4563-41a1-8733-f089b3b7b21d', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (121, '3b900a66-2021-49e1-9152-c6d432d1aa52', 'img22', 'http://localhost:9090/api/v1/images/posts/3b900a66-2021-49e1-9152-c6d432d1aa52', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (122, 'ddc5a29a-c607-44db-95f2-c66f1da21fde', 'img23', 'http://localhost:9090/api/v1/images/posts/ddc5a29a-c607-44db-95f2-c66f1da21fde', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (123, '27897c0a-2503-4536-83ed-a65a596646fb', 'img24', 'http://localhost:9090/api/v1/images/posts/27897c0a-2503-4536-83ed-a65a596646fb', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (124, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'vid01', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY','video/mp4'),
-     (125, '6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'img26', 'http://localhost:9090/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (126, 'c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'img27', 'http://localhost:9090/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4');
+    values (100, '729b9472-e531-4362-88cb-efd9fc656f78', 'img01', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78', 'SAVED_SUCCESSFULLY','image/png'),
+     (101, 'e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'img02', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0', 'SAVED_SUCCESSFULLY','image/png'),
+     (102, '733b01ba-198e-42db-b9ca-d7ace9a7abad', 'img03', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad', 'SAVED_SUCCESSFULLY','image/png'),
+     (103, '06b8fbe5-9d91-422b-bd20-6d89d23e5608', 'img04', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608', 'SAVED_SUCCESSFULLY','image/png'),
+     (104, 'b5de2b13-4720-41e7-87d2-d31abd590fac', 'img05', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac', 'SAVED_SUCCESSFULLY','image/png'),
+     (105, '5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1', 'img06', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1', 'SAVED_SUCCESSFULLY','image/png'),
+     (106, '1bed8052-ba51-41c2-88b5-e39e78dbf420', 'img07', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420', 'SAVED_SUCCESSFULLY','image/png'),
+     (107, '28e3d103-76e8-4b0d-b04c-cf2e8821cf6e', 'img08', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e', 'SAVED_SUCCESSFULLY','image/png'),
+     (108, 'f9c89556-cd27-481a-a8bd-59f4915f7dfa', 'img09', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/f9c89556-cd27-481a-a8bd-59f4915f7dfa', 'SAVED_SUCCESSFULLY','image/png'),
+     (109, 'b3a64fc9-3d28-4b92-b296-2324f9c4e061', 'img10', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/b3a64fc9-3d28-4b92-b296-2324f9c4e061', 'SAVED_SUCCESSFULLY','image/png'),
+     (110, 'e326bdb8-6eee-4814-a877-9e063183f410', 'img11', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/e326bdb8-6eee-4814-a877-9e063183f410', 'SAVED_SUCCESSFULLY','image/png'),
+     (111, '004fca51-d313-41c4-94ff-5908ddb58dc2', 'img12', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/004fca51-d313-41c4-94ff-5908ddb58dc2', 'SAVED_SUCCESSFULLY','image/png'),
+     (112, '2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'img13', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/users/2148f392-4f16-40b6-88e7-bd0ca32bd84a', 'SAVED_SUCCESSFULLY','image/png'),
+     (113, 'f1309a27-93eb-4429-a096-d786f8d16f5c', 'img14', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-profile/f1309a27-93eb-4429-a096-d786f8d16f5c', 'SAVED_SUCCESSFULLY','image/png'),
+     (114, '14bacba4-b962-40b5-9dd1-d5bf8e1e86f8', 'img15', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/inst-cover/14bacba4-b962-40b5-9dd1-d5bf8e1e86f8', 'SAVED_SUCCESSFULLY','image/png'),
+     (115, 'a968e0d8-2209-4df0-aec1-4a1618d73aa4', 'img16', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/a968e0d8-2209-4df0-aec1-4a1618d73aa4', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (116, 'cbca5013-5556-4f35-b945-6a7de7083659', 'vid02', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659', 'SAVED_SUCCESSFULLY','video/mp4'),
+     (117, '34c1bc99-453c-443c-8f2a-ca1f15650a71', 'img18', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/34c1bc99-453c-443c-8f2a-ca1f15650a71', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (118, '73228194-1485-496f-827d-7c38b62c5c7e', 'img19', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/73228194-1485-496f-827d-7c38b62c5c7e', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (119, 'fbbca054-34cd-4ebe-9bfe-3b22be8bb836', 'img20', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/fbbca054-34cd-4ebe-9bfe-3b22be8bb836', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (120, '745a495d-4563-41a1-8733-f089b3b7b21d', 'img21', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/745a495d-4563-41a1-8733-f089b3b7b21d', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (121, '3b900a66-2021-49e1-9152-c6d432d1aa52', 'img22', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/3b900a66-2021-49e1-9152-c6d432d1aa52', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (122, 'ddc5a29a-c607-44db-95f2-c66f1da21fde', 'img23', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/ddc5a29a-c607-44db-95f2-c66f1da21fde', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (123, '27897c0a-2503-4536-83ed-a65a596646fb', 'img24', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/27897c0a-2503-4536-83ed-a65a596646fb', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (124, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'vid01', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY','video/mp4'),
+     (125, '6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'img26', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (126, 'c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'img27', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4');
 
 insert into video_file (id, uuid, name, url_resource, status, type)
-    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4'),
-    (101, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'video02', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY', 'video/mp4'),
-    (102, 'cbca5013-5556-4f35-b945-6a7de7083659', 'video03', 'http://localhost:9090/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659', 'SAVED_SUCCESSFULLY', 'video/mp4');
+    values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4'),
+    (101, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'video02', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY', 'video/mp4'),
+    (102, 'cbca5013-5556-4f35-b945-6a7de7083659', 'video03', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/videos/posts/cbca5013-5556-4f35-b945-6a7de7083659', 'SAVED_SUCCESSFULLY', 'video/mp4');
 
 INSERT INTO comment (id, uuid, user_id, post_id, content, moderated, state, comment_date)
 VALUES (10,'d3b07384-d9a0-4c4a-8d9d-0c9a9f8b9c9c', 113, 101, 'Buenosimoooo..felicidades, una consulta... ya esta a la venta el helafoool', false, 'VISIBLE', '2024-12-02T21:48:22'),
@@ -309,5 +309,5 @@ insert into article (id, uuid, section_id, user_id, title, text, date)
         (105, '846ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Departamento de Internacionalizaci\00F3n y Proyectos', U&' <ul><li>Jefe del Departamento: Mgr. Javier Augusto Jordán Arandia proyectosdric@umss.edu.bo </li><li>Ing. John Medina: coord-proyectos-dric@umss.edu.bo</li> <li> Por designar: internal-dric@umss.edu.bo </li></ul>', '2024-12-04T08:00:22');
 
 insert into article_media (id, uuid, article_id, file_name, number, file_type, file_path)
-values(100, 'e7629149-79db-4bc6-85c9-12fa52d35c34', '819ab4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34'),
-    (101, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', '846ib4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5');
+values(100, 'e7629149-79db-4bc6-85c9-12fa52d35c34', '819ab4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34'),
+    (101, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', '846ib4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'https://pagina-web-social-backend-6m6g.onrender.com/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5');
