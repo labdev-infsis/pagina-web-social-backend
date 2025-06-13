@@ -88,19 +88,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-@Bean
-public CorsConfigurationSource customCorsConfiguration() {
-    CorsConfiguration config = new CorsConfiguration();
-
-    // ✅ Aquí defines el dominio de tu frontend (Netlify o Render)
-    config.setAllowedOrigins(List.of("https://iug.netlify.app")); // CAMBIA si usas otro dominio
-    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    config.setAllowedHeaders(List.of("*"));
-    config.setAllowCredentials(true); // importante si usas cookies o Authorization
-
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", config);
-    return source;
-}
 
 }
