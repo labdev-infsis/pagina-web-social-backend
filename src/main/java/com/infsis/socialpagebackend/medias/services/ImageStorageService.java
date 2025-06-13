@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.beans.factory.annotation.Value;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +50,10 @@ public class ImageStorageService {
     @Autowired
     private MediaRepository mediaRepository;
 
+
+  @Value("${app.backend.base-url}")
+    private String backendBaseUrl;
+
     public List<ImageFileDTO> storeImages(List<MultipartFile> images, String directory, String imagesPath) throws IOException {
         List<ImageFileDTO> imageFileDTOList = new ArrayList<>();
 
@@ -61,10 +67,7 @@ public class ImageStorageService {
             File uploadedFile = new File(directory + uniqueFileName);
             image.transferTo(uploadedFile);
 
-            String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path(imagesPath)
-                    .path(uniqueFileName)
-                    .toUriString();
+               String downloadUrl = backendBaseUrl + imagesPath + uniqueFileName;
 
             ImageFile imageFile = new ImageFile();
             imageFile.setUuid(uniqueFileName);
