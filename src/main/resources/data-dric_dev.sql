@@ -185,7 +185,9 @@ insert into image_file (id, uuid, name, url_resource, status, type)
      (124, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'vid01', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY','video/mp4'),
      (125, '6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'img26', 'http://localhost:9090/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'SAVED_SUCCESSFULLY','image/jpeg'),
      (126, 'c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'img27', 'http://localhost:9090/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4');
+     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4'),
+     (128, 'e7629149-79db-4bc6-85c9-12fa52d35c34', 'img29', 'http://localhost:9090/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (129, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', 'img30', 'http://localhost:9090/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5', 'SAVED_SUCCESSFULLY','image/jpeg');
 
 insert into video_file (id, uuid, name, url_resource, status, type)
     values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4'),
@@ -292,3 +294,22 @@ INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'MODERATOR'
 AND p.name_permission IN ('VIEW_MODERATED_COMMENTS','VIEW_REJECTED_COMMENTS','APPROVE_COMMENT','REJECT_COMMENT','DELETE_MODERATED_COMMENT','VIEW_DELETED_COMMENTS');
+
+
+insert into section (id, uuid, institution_id, user_id, name, date)
+    values(100, '919ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Presentaci\00F3n', '2024-12-02T07:53:22'),
+        (101, '923ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Convenios', '2024-12-02T19:31:22'),
+        (102, '939db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Proyectos', '2024-12-03T08:00:22'),
+        (103, '942ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Becas y Movilidad', '2024-12-04T08:00:22');
+
+insert into article (id, uuid, section_id, user_id, title, text, date)
+    values(100, '819ab4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '', U&'La Direcci\00F3n de Relaciones Internacionales y Convenios fue creada el 7 de enero de 1988, con el rango de Secretar\00EDa. El año 1995 se instituye como Departamento y en noviembre de 1997 se crea la actual Direcci\00F3n.', '2024-12-02T07:53:22'),
+        (101, '823ab4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Misi\00F3n', U&'Promover, coordinar y canalizar la cooperaci\00F3n internacional y nacional, as\00ED como la coordinaci\00F3n interinstitucional de la UMSS, en beneficio de los procesos de enseñanza-aprendizaje, investigaci\00F3n cient\00EDfica y tecnol\00F3gica, interacci\00F3n social y fortalecimiento institucional.', '2024-12-02T19:31:22'),
+        (102, '839db4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Prop\00F3sito', U&'Es prop\00F3sito fundamental de la Direcci\00F3n de Relaciones Internacionales y Convenios de la Universidad Mayor de San Sim\00F3n, explotar de manera organizada y sistem\00E9tica las oportunidades de Cooperaci\00F3n Internacional y de Coordinaci\00F3n Interinstitucional (local, nacional e internacional), coadyuvar a la movilidad docente/estudiantil/administrativa, a la otorgaci\00F3n de becas, la gesti\00F3n de proyectos internacionales y la implementaci\00F3n de un programa de internacionalizaci\00F3n universitaria para dinamizar el desarrollo institucional, acad\00E9mico y cient\00EDfico de la UMSS y mejorar su contribuci\00F3n al desarrollo regional y nacional.', '2024-12-03T08:00:22'),
+        (103, '842ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Estructura', U&'La DRIC depende directamente del Rectorado. Para el cumplimiento de sus funciones, se estructura de la siguiente manera:<br><ul><li>Dirección Ejecutiva</li><li>Departamento de Convenios, Movilidad y Becas</li><li>Departamento de Internacionalizaci\00F3n y Proyectos</li></ul> <br> Esta estructura permite que la UMSS se constituya en una buena contraparte, principalmente en proyectos que cuentan con cooperaci\00F3n internacional, habiendo acumulado amplia experiencia. <br> <b>Director:</b> Lic. Oscar Edwin Alba Salazar <br> <b>Correo:</b> director-dric@umss.edu.bo <br> <b>Correo:</b> rrii@umss.edu.bo', '2024-12-04T08:00:22'),
+        (104, '845ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Departamento de Convenios, Movilidad y Becas', U&'<ul> <li>Jefe del Departamento: Mgr. Asunta Giovanna Magdalena Maldonado Moscoso convenios-dric@umss.edu.bo</li><li>Mgr. Silvia del Pilar Arze: corconvenios-dric@umss⋅edu.bo</li> <li> Dr. Roberto Achaya: robertoachayamamani@gmail.com </li><li>Mgr. Roxana Zambrana: dric@umss.edu</li></ul>', '2024-12-04T08:00:22'),
+        (105, '846ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Departamento de Internacionalizaci\00F3n y Proyectos', U&' <ul><li>Jefe del Departamento: Mgr. Javier Augusto Jordán Arandia proyectosdric@umss.edu.bo </li><li>Ing. John Medina: coord-proyectos-dric@umss.edu.bo</li> <li> Por designar: internal-dric@umss.edu.bo </li></ul>', '2024-12-04T08:00:22');
+
+insert into article_media (id, uuid, article_id, file_name, number, file_type, file_path)
+values(100, 'e7629149-79db-4bc6-85c9-12fa52d35c34', '819ab4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34'),
+    (101, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', '846ib4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5');

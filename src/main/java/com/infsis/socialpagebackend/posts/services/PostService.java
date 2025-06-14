@@ -26,7 +26,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
@@ -428,8 +427,6 @@ public class PostService {
         return mediaItems;
     }
 
-
-
     public List<PostDTO> getPagedPosts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("post_date").descending());
         Page<Post> posts = postRepository.findAllPaged(pageable);
@@ -438,6 +435,5 @@ public class PostService {
                     .map(post -> postMapper.toDTO(post, getPostReactionCounterDTO(post), getCommentCounter(post.getUuid())))
                     .collect(Collectors.toList());
     }
-    
     
 }
