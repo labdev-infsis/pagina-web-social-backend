@@ -4,15 +4,16 @@ insert into role(id_role, name)
     (3, 'MODERATOR'),
     (4, 'ADMIN_CONVENIOS'),
     (5, 'ADMIN_PROYECTOS'),
-    (6, 'ADMIN_BECAS');
+    (6, 'ADMIN_BECAS'),
+    (7, 'ADMIN_CUDIE');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
     values(100, 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Alicia', 'Selaya Flores', 'admin-dric@umss.edu.bo', '75603618', '$2a$10$lwZguPYFKEiIZYyCW4piVuyHb6hn6MGW3r7DOKg40BhPO3We5cwGu', null, 'http://localhost:9090/api/v1/images/users/af87625e-3075-41a5-901a-cf950330b237'),
     (101, 'eab72365-d8c1-45df-9b48-274f64c65b86', 'Valentin', 'Laime Zapata', 'valentin.laime@umss.edu.bo', '70755958', '$2a$10$g46noOikL88uT7pNfj4Q/OVOyBtgfh6yFqixUxd4lww3UZrLeIOly', null, 'http://localhost:9090/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0'),
-    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', 'emely.fernandez@umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
-    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', 'javier.lopez@umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
-    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', 'leonardo.beltran@umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
-    (113, 'c332c4ff-49e8-4e0e-a7f4-d59907d8cda3', 'Valeria', 'Gonzales Vargas', 'svaleria.gonzales.vargas@gmail.com', '78823541', '$2a$10$tt2avNxEODCYrI9qHFqr5elrI5O87dVRNQZGUgAHVMUi8XtWnwXE.', null, 'http://localhost:9090/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1'),
+    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', 'admin-convenios@umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
+    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', 'admin-proyectos@umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
+    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', 'admin-becas@umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
+    (113, 'c332c4ff-49e8-4e0e-a7f4-d59907d8cda3', 'Valeria', 'Gonzales Vargas', 'admin-cudie@umss.edu', '78823541', '$2a$10$tt2avNxEODCYrI9qHFqr5elrI5O87dVRNQZGUgAHVMUi8XtWnwXE.', null, 'http://localhost:9090/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1'),
     (114, '9f32985a-f108-4b19-9bda-cab7c501ae68', 'Jose', U&'Monta\00F1o Laura', '202001823@est.umss.edu', '72566218', '$2a$10$6HOIAlIZ2.KXIi8qL1AHxOIs3zHYydtV3QnZ.wJ9wrr18qhJEi576', null, 'http://localhost:9090/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420'),
     (115, 'ab6e1a7f-4494-4251-8177-dc5c4fe18740', 'Marcos', 'Illanes Martinez', '201800513@est.umss.edu', '74269527', '$2a$10$96.BNIsnUH7u.eVTeWi7Ju/exv59yfngw.TdVVOv5ladZ87KBZLaK', null, 'http://localhost:9090/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e'),
     (116, 'f8d1c969-af76-4161-b0d7-9c2dfc47e75c', 'Adriana', 'Boza Ruiz', '201904940@est.umss.edu', '70551293', '$2a$10$LRWTNQMxRoDEGUKNeZe86OOg7.aqxc1TE/HhGUJ01zhPBB2E1O/A.', null, 'http://localhost:9090/api/v1/images/users/f9c89556-cd27-481a-a8bd-59f4915f7dfa'),
@@ -27,7 +28,7 @@ insert into user_roles (user_id, role_id)
     (110, 4),
     (111, 5),
     (112, 6),
-    (113, 2),
+    (113, 7),
     (114, 2),
     (115, 2),
     (116, 2),
@@ -92,7 +93,7 @@ insert into post (id, uuid, institution_id, user_id, comment_config_id, content_
         (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T19:31:22', 'GENERAL'),
         (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-03T08:00:22', 'GENERAL'),
         (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T08:00:22', 'GENERAL'),
-        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T10:25:22', 'GENERAL'),
+        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T10:25:22', 'CUDIE'),
         (105, '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T08:00:12', 'PROYECTOS'),
         (106, '9v4mb4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T19:30:26', 'BECAS'),
         (107, '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:51:18', 'CONVENIOS');
@@ -296,20 +297,25 @@ INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'ADMIN';
 
--- Asignar permisos a ADMIN
+-- Asignar permisos a ADMIN CONVENIOS
 INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'ADMIN_CONVENIOS';
 
--- Asignar permisos a ADMIN
+-- Asignar permisos a ADMIN PROYECTOS
 INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'ADMIN_PROYECTOS';
 
--- Asignar permisos a ADMIN
+-- Asignar permisos a ADMIN BECAS
 INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'ADMIN_BECAS';
+
+-- Asignar permisos a ADMIN CUDIE
+INSERT INTO rol_permissions (role_id, permission_id)
+SELECT r.id_role, p.id_permission FROM role r, permissions p
+WHERE r.name = 'ADMIN_CUDIE';
 
 -- Asignar permisos al rol de MODERATOR
 INSERT INTO rol_permissions (role_id, permission_id)
