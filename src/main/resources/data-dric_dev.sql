@@ -1,14 +1,17 @@
 insert into role(id_role, name)
     values(1, 'ADMIN'),
     (2, 'STUDENT'),
-    (3, 'MODERATOR');
+    (3, 'MODERATOR'),
+    (4, 'ADMIN_CONVENIOS'),
+    (5, 'ADMIN_PROYECTOS'),
+    (6, 'ADMIN_BECAS');
 
 insert into users (id_user, uuid, name, last_name, email, phone, password, photo_cover_path, photo_profile_path)
-    values(100, 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Oscar', 'Alba Salazar', 'director-dric@umss.edu.bo', '75603618', '$2a$10$lwZguPYFKEiIZYyCW4piVuyHb6hn6MGW3r7DOKg40BhPO3We5cwGu', null, 'http://localhost:9090/api/v1/images/users/729b9472-e531-4362-88cb-efd9fc656f78'),
+    values(100, 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Alicia', 'Selaya Flores', 'admin-dric@umss.edu.bo', '75603618', '$2a$10$lwZguPYFKEiIZYyCW4piVuyHb6hn6MGW3r7DOKg40BhPO3We5cwGu', null, 'http://localhost:9090/api/v1/images/users/af87625e-3075-41a5-901a-cf950330b237'),
     (101, 'eab72365-d8c1-45df-9b48-274f64c65b86', 'Valentin', 'Laime Zapata', 'valentin.laime@umss.edu.bo', '70755958', '$2a$10$g46noOikL88uT7pNfj4Q/OVOyBtgfh6yFqixUxd4lww3UZrLeIOly', null, 'http://localhost:9090/api/v1/images/users/e867fa32-75b7-4c3c-8943-4a2808c10ac0'),
-    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', '202004181@est.umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
-    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', '202394182@est.umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
-    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', '202120735@est.umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
+    (110, '9bae1fe0-2c56-4091-883d-15458e051500', 'Emely', 'Fernandez Soliz', 'emely.fernandez@umss.edu', '69577142', '$2a$10$ElXlBz1WzNDhanqtCmszb.bub/iKGcNQgcbr31MQe9wjsiim7Q5zG', null, 'http://localhost:9090/api/v1/images/users/733b01ba-198e-42db-b9ca-d7ace9a7abad'),
+    (111, '844b324d-2f5e-41c9-b726-0149eeb01157', 'Javier', 'Lopez Canedo', 'javier.lopez@umss.edu', '71852821', '$2a$10$Gm0O/HK8qXeqa/XPvrm4/uAQj2.G3XdKOHg8XTxG4Gif1UYDPcbEa', null, 'http://localhost:9090/api/v1/images/users/06b8fbe5-9d91-422b-bd20-6d89d23e5608'),
+    (112, '2e121a51-24b5-4aad-92c2-150997ec4266', 'Leonardo', 'Beltran Ramirez', 'leonardo.beltran@umss.edu', '75891148', '$2a$10$vs8E1jwz6Z3BBitXHP.Y/uVQ0pNkqHhXf0oQCFH7Nf/rjccHL2lCO', null, 'http://localhost:9090/api/v1/images/users/b5de2b13-4720-41e7-87d2-d31abd590fac'),
     (113, 'c332c4ff-49e8-4e0e-a7f4-d59907d8cda3', 'Valeria', 'Gonzales Vargas', 'svaleria.gonzales.vargas@gmail.com', '78823541', '$2a$10$tt2avNxEODCYrI9qHFqr5elrI5O87dVRNQZGUgAHVMUi8XtWnwXE.', null, 'http://localhost:9090/api/v1/images/users/5e9f9c0d-4c31-4335-a11e-b9c7f6f8a2b1'),
     (114, '9f32985a-f108-4b19-9bda-cab7c501ae68', 'Jose', U&'Monta\00F1o Laura', '202001823@est.umss.edu', '72566218', '$2a$10$6HOIAlIZ2.KXIi8qL1AHxOIs3zHYydtV3QnZ.wJ9wrr18qhJEi576', null, 'http://localhost:9090/api/v1/images/users/1bed8052-ba51-41c2-88b5-e39e78dbf420'),
     (115, 'ab6e1a7f-4494-4251-8177-dc5c4fe18740', 'Marcos', 'Illanes Martinez', '201800513@est.umss.edu', '74269527', '$2a$10$96.BNIsnUH7u.eVTeWi7Ju/exv59yfngw.TdVVOv5ladZ87KBZLaK', null, 'http://localhost:9090/api/v1/images/users/28e3d103-76e8-4b0d-b04c-cf2e8821cf6e'),
@@ -21,9 +24,9 @@ insert into users (id_user, uuid, name, last_name, email, phone, password, photo
 insert into user_roles (user_id, role_id)
     values(100, 1),
     (101, 1),
-    (110, 2),
-    (111, 2),
-    (112, 2),
+    (110, 4),
+    (111, 5),
+    (112, 6),
     (113, 2),
     (114, 2),
     (115, 2),
@@ -84,15 +87,15 @@ values(100, '17ucf8a1-09e0-4435-a850-0613d778897b', '1e5294f8-9a6c-4d9e-aea7-da7
     (110, '3v7c2gs8-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img11', 1, 'image', 'http://localhost:9090/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4'),
     (111, 'l2n5c0f7-09e0-4435-a850-0613d778897b', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', 'img12', 2, 'image', 'http://localhost:9090/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d');
 
-insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date)
-    values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T07:53:22'),
-        (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T19:31:22'),
-        (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-03T08:00:22'),
-        (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T08:00:22'),
-        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T10:25:22'),
-        (105, '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T08:00:12'),
-        (106, '9v4mb4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T19:30:26'),
-        (107, '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:51:18');
+insert into post (id, uuid, institution_id, user_id, comment_config_id, content_id, post_date, post_type)
+    values(100, '5f9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49','875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1e5294f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T07:53:22', 'GENERAL'),
+        (101, '7h3ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '6i2494f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-02T19:31:22', 'GENERAL'),
+        (102, '2k9db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '587d7d7f-5g3n-4b77-cf98-77a9h46759d0', '8f3194f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-03T08:00:22', 'GENERAL'),
+        (103, '8s2ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '5l6n94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T08:00:22', 'GENERAL'),
+        (104, '3g9ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '2v4z94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-04T10:25:22', 'GENERAL'),
+        (105, '5n1ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '7o1b94f8-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T08:00:12', 'PROYECTOS'),
+        (106, '9v4mb4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '492d7d7f-9f4s-8g45-hy34-77a9h46759d0', '3m8c52v4-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-05T19:30:26', 'BECAS'),
+        (107, '1ib6k3c5-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '875d7d7f-7a1c-4b77-ab63-77a9f76759d0', '1om5x7n2-9a6c-4d9e-aea7-da7e80bd5c6f', '2024-12-10T10:51:18', 'CONVENIOS');
 
 insert into emoji_type (id, uuid, emoji_name, emoji_code)
     values(100, '3f696a78-c73f-475c-80a6-f5a858648af1', 'thumbs-up', U&'\+01F44D'),
@@ -185,7 +188,12 @@ insert into image_file (id, uuid, name, url_resource, status, type)
      (124, 'aa74ec25-6e70-4776-899c-7465c61de5bd', 'vid01', 'http://localhost:9090/api/v1/videos/posts/aa74ec25-6e70-4776-899c-7465c61de5bd', 'SAVED_SUCCESSFULLY','video/mp4'),
      (125, '6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'img26', 'http://localhost:9090/api/v1/images/posts/6cce68f8-76ef-4639-9828-9e5e6e819fc4', 'SAVED_SUCCESSFULLY','image/jpeg'),
      (126, 'c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'img27', 'http://localhost:9090/api/v1/images/posts/c401fbaa-7f94-41ad-a7ef-f677d2d30f3d', 'SAVED_SUCCESSFULLY','image/jpeg'),
-     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4');
+     (127, '526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'img28', 'http://localhost:9090/api/v1/videos/posts/526e6a41-f1cd-42e1-ab6c-e32ccbfdddb6', 'SAVED_SUCCESSFULLY','video/mp4'),
+     (128, 'e7629149-79db-4bc6-85c9-12fa52d35c34', 'img29', 'http://localhost:9090/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (129, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', 'img30', 'http://localhost:9090/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5', 'SAVED_SUCCESSFULLY','image/jpeg'),
+     (130, 'af87625e-3075-41a5-901a-cf950330b237', 'img31', 'http://localhost:9090/api/v1/images/users/af87625e-3075-41a5-901a-cf950330b237', 'SAVED_SUCCESSFULLY','image/png');
+
+
 
 insert into video_file (id, uuid, name, url_resource, status, type)
     values (100, '200504be-c220-4932-9810-126fe8590a9c', 'video01', 'http://localhost:9090/api/v1/videos/posts/200504be-c220-4932-9810-126fe8590a9c', 'SAVED_SUCCESSFULLY', 'video/mp4'),
@@ -285,10 +293,45 @@ AND p.name_permission IN ('CREATE_COMMENT_REACTION','DELETE_COMMENT_REACTION',
 
 -- Asignar permisos a ADMIN
 INSERT INTO rol_permissions (role_id, permission_id)
-SELECT r.id_role, p.id_permission FROM role r, permissions p WHERE r.name = 'ADMIN';
+SELECT r.id_role, p.id_permission FROM role r, permissions p
+WHERE r.name = 'ADMIN';
+
+-- Asignar permisos a ADMIN
+INSERT INTO rol_permissions (role_id, permission_id)
+SELECT r.id_role, p.id_permission FROM role r, permissions p
+WHERE r.name = 'ADMIN_CONVENIOS';
+
+-- Asignar permisos a ADMIN
+INSERT INTO rol_permissions (role_id, permission_id)
+SELECT r.id_role, p.id_permission FROM role r, permissions p
+WHERE r.name = 'ADMIN_PROYECTOS';
+
+-- Asignar permisos a ADMIN
+INSERT INTO rol_permissions (role_id, permission_id)
+SELECT r.id_role, p.id_permission FROM role r, permissions p
+WHERE r.name = 'ADMIN_BECAS';
 
 -- Asignar permisos al rol de MODERATOR
 INSERT INTO rol_permissions (role_id, permission_id)
 SELECT r.id_role, p.id_permission FROM role r, permissions p
 WHERE r.name = 'MODERATOR'
 AND p.name_permission IN ('VIEW_MODERATED_COMMENTS','VIEW_REJECTED_COMMENTS','APPROVE_COMMENT','REJECT_COMMENT','DELETE_MODERATED_COMMENT','VIEW_DELETED_COMMENTS');
+
+
+insert into section (id, uuid, institution_id, user_id, name, date)
+    values(100, '919ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Presentaci\00F3n', '2024-12-02T07:53:22'),
+        (101, '923ab4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Convenios', '2024-12-02T19:31:22'),
+        (102, '939db4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Proyectos', '2024-12-03T08:00:22'),
+        (103, '942ib4e8-0856-4aad-b3aa-747e2dba76d9', '93j203b4-f63b-4c4a-be05-eae84cef0c0c', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', 'Becas y Movilidad', '2024-12-04T08:00:22');
+
+insert into article (id, uuid, section_id, user_id, title, text, date)
+    values(100, '819ab4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', '', U&'La Direcci\00F3n de Relaciones Internacionales y Convenios fue creada el 7 de enero de 1988, con el rango de Secretar\00EDa. El año 1995 se instituye como Departamento y en noviembre de 1997 se crea la actual Direcci\00F3n.', '2024-12-02T07:53:22'),
+        (101, '823ab4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Misi\00F3n', U&'Promover, coordinar y canalizar la cooperaci\00F3n internacional y nacional, as\00ED como la coordinaci\00F3n interinstitucional de la UMSS, en beneficio de los procesos de enseñanza-aprendizaje, investigaci\00F3n cient\00EDfica y tecnol\00F3gica, interacci\00F3n social y fortalecimiento institucional.', '2024-12-02T19:31:22'),
+        (102, '839db4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Prop\00F3sito', U&'Es prop\00F3sito fundamental de la Direcci\00F3n de Relaciones Internacionales y Convenios de la Universidad Mayor de San Sim\00F3n, explotar de manera organizada y sistem\00E9tica las oportunidades de Cooperaci\00F3n Internacional y de Coordinaci\00F3n Interinstitucional (local, nacional e internacional), coadyuvar a la movilidad docente/estudiantil/administrativa, a la otorgaci\00F3n de becas, la gesti\00F3n de proyectos internacionales y la implementaci\00F3n de un programa de internacionalizaci\00F3n universitaria para dinamizar el desarrollo institucional, acad\00E9mico y cient\00EDfico de la UMSS y mejorar su contribuci\00F3n al desarrollo regional y nacional.', '2024-12-03T08:00:22'),
+        (103, '842ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Estructura', U&'La DRIC depende directamente del Rectorado. Para el cumplimiento de sus funciones, se estructura de la siguiente manera:<br><ul><li>Dirección Ejecutiva</li><li>Departamento de Convenios, Movilidad y Becas</li><li>Departamento de Internacionalizaci\00F3n y Proyectos</li></ul> <br> Esta estructura permite que la UMSS se constituya en una buena contraparte, principalmente en proyectos que cuentan con cooperaci\00F3n internacional, habiendo acumulado amplia experiencia. <br> <b>Director:</b> Lic. Oscar Edwin Alba Salazar <br> <b>Correo:</b> director-dric@umss.edu.bo <br> <b>Correo:</b> rrii@umss.edu.bo', '2024-12-04T08:00:22'),
+        (104, '845ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Departamento de Convenios, Movilidad y Becas', U&'<ul> <li>Jefe del Departamento: Mgr. Asunta Giovanna Magdalena Maldonado Moscoso convenios-dric@umss.edu.bo</li><li>Mgr. Silvia del Pilar Arze: corconvenios-dric@umss⋅edu.bo</li> <li> Dr. Roberto Achaya: robertoachayamamani@gmail.com </li><li>Mgr. Roxana Zambrana: dric@umss.edu</li></ul>', '2024-12-04T08:00:22'),
+        (105, '846ib4e8-0856-4aad-b3aa-747e2dba76d9', '919ab4e8-0856-4aad-b3aa-747e2dba76d9', 'a5f6a74c-3004-4c03-8fcb-3a7fe9d19b49', U&'Departamento de Internacionalizaci\00F3n y Proyectos', U&' <ul><li>Jefe del Departamento: Mgr. Javier Augusto Jordán Arandia proyectosdric@umss.edu.bo </li><li>Ing. John Medina: coord-proyectos-dric@umss.edu.bo</li> <li> Por designar: internal-dric@umss.edu.bo </li></ul>', '2024-12-04T08:00:22');
+
+insert into article_media (id, uuid, article_id, file_name, number, file_type, file_path)
+values(100, 'e7629149-79db-4bc6-85c9-12fa52d35c34', '819ab4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/e7629149-79db-4bc6-85c9-12fa52d35c34'),
+    (101, 'a5a0a99c-6280-4b74-a507-12a5a2109cd5', '846ib4e8-0856-4aad-b3aa-747e2dba76d9', 'img01', 1, 'image', 'http://localhost:9090/api/v1/images/posts/a5a0a99c-6280-4b74-a507-12a5a2109cd5');

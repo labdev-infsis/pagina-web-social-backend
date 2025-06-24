@@ -6,6 +6,9 @@ import com.infsis.socialpagebackend.comments.models.Comment;
 import com.infsis.socialpagebackend.institutions.models.Institution;
 import com.infsis.socialpagebackend.reactions.models.PostReaction;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.SQLDelete;
@@ -17,6 +20,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.*;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @SQLDelete(sql = "UPDATE Post SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
@@ -54,6 +60,9 @@ public class Post {
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date post_date;
 
+    @Column(nullable = false)
+    private String post_type;
+
     @CreatedDate
     @Column(updatable = false)
     private Date createdDate;
@@ -72,122 +81,6 @@ public class Post {
 
     @Column(nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT '0'")
     private boolean deleted;
-
-    // Constructor vacío
-    public Post() {}
-
-    // Getters y Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
-
-    public Users getUser() {
-        return users;
-    }
-
-    public void setUser(Users users) {
-        this.users = users;
-    }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
-    }
-
-    public CommentConfig getComment_conf() {
-        return comment_conf;
-    }
-
-    public void setComment_conf(CommentConfig comment_conf) {
-        this.comment_conf = comment_conf;
-    }
-
-    public Date getPost_date() {
-        return post_date;
-    }
-
-    public void setPost_date(Date post_date) {
-        this.post_date = post_date;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public List<PostReaction> getPostReactions() {
-        return postReactions;
-    }
-
-    public void setPostReactions(List<PostReaction> postReactions) {
-        this.postReactions = postReactions;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
 
     @PrePersist
     public void initializeUuid() {
