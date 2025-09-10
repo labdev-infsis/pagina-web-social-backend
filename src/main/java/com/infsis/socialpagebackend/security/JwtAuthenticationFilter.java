@@ -1,6 +1,6 @@
 package com.infsis.socialpagebackend.security;
 
-import com.infsis.socialpagebackend.authentication.repositories.InvalidTokenRepository;
+import com.infsis.socialpagebackend.authentication.repositories.TokenRepository;
 import com.infsis.socialpagebackend.authentication.services.CustomUsersDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtGenerator jwtGenerador;
 
     @Autowired
-    private InvalidTokenRepository invalidTokenRepository;
+    private TokenRepository tokenRepository;
 
     /*Con el siguiente método extraeremos  el token JWT de la cabecera de nuestra petición Http("Authorization")
      * luego lo validaremos y finalmente se retornará*/
@@ -44,10 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = obtenerTokenDeSolicitud(request);
         if (StringUtils.hasText(token) && jwtGenerador.validarToken(token)) {
-            if (invalidTokenRepository.findByToken(token).isPresent()) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token inválido");
-                return;
-            }
+
             String username = jwtGenerador.obtenerUsernameDeJwt(token);
             UserDetails userDetails = customUsersDetailsService.loadUserByUsername(username);
 
@@ -61,5 +58,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             userDetails.getAuthorities().forEach(auth -> System.out.println("Permiso: " + auth.getAuthority()));
         }
         chain.doFilter(request, response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        // Excluir el endpoint de refresh token
+        return path.equals("/api/auth/refresh");
     }
 }

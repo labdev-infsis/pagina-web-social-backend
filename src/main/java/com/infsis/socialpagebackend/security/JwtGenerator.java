@@ -4,12 +4,9 @@ import com.infsis.socialpagebackend.authentication.models.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import com.infsis.socialpagebackend.authentication.models.Users;
 import com.infsis.socialpagebackend.authentication.repositories.UserRepository;
@@ -20,66 +17,84 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtGenerator {
-    
 
-    @Autowired
-    private UserRepository userRepository;
-    private final static String INVALID_JWT_MESSAGE = "Jwt has expired or is incorrect";
+    private final UserRepository userRepository;
+
+    private static final String INVALID_JWT_MESSAGE = "JWT has expired or is incorrect";
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpirationTime;
+
+    @Value("${security.jwt.refresh-expiration-time}")
+    private long jwtRefreshExpirationTime;
+
+    @Autowired
+    public JwtGenerator(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public String generarAccessToken(Users user) {
+        return generarToken(user, jwtExpirationTime);
+    }
+
+    public String generarRefreshToken(Users user) {
+        return generarToken(user, jwtRefreshExpirationTime);
+    }
 
     public long getExpirationTime() {
         return jwtExpirationTime;
     }
 
-        // 🔥 Inyectamos el UserRepository en el constructor
-    public JwtGenerator(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-   // Método para crear un token con userId incluido
-   public String generarToken(Authentication authentication) {
-       String username = authentication.getName();
-       Users user = userRepository.findByEmail(username)
-               .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-       // Extraer solo los nombres de los roles
-       List<String> roleNames = user.getRoles().stream()
-               .map(Role::getName)
-               .collect(Collectors.toList());
-
-       return Jwts.builder()
-               .setSubject(username)
-               .claim("userId", user.getUuid())  // ✅ Usa el UUID correctamente
-               .claim("roles", roleNames)  // ✅ Guarda solo los nombres de los roles
-               .setIssuedAt(new Date())
-               .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
-               .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA)
-               .compact();
-   }
-
-
-
-    //Método para extraer un Username apartir de un token
     public String obtenerUsernameDeJwt(String token) {
-        Claims claims = Jwts.parser() //El método parser se utiliza con el fin de analizar el token
-                .setSigningKey(ConstantsSecurity.JWT_FIRMA)// Establece la clave de firma, que se utiliza para verificar la firma del token
-                .parseClaimsJws(token) //Se utiliza para verificar la firma del token, apartir del String "token"
-                .getBody(); /*Obtenemos el claims(cuerpo) ya verificado del token el cual contendrá la información de
-                nombre de usuario, fecha de expiración y firma del token*/
-        return claims.getSubject(); //Devolvemos el nombre de usuario o email
+        return extractClaims(token).getSubject();
     }
 
-    //Método para validar el token
-    public Boolean validarToken(String token) {
+    public boolean validarToken(String token) {
         try {
-            //Validación del token por medio de la firma que contiene el String token(token)
-            //Si son idénticas validara el token o caso contrario saltara la excepción de abajo
-            Jwts.parser().setSigningKey(ConstantsSecurity.JWT_FIRMA).parseClaimsJws(token);
+            extractClaims(token);
             return true;
         } catch (Exception e) {
             throw new AuthenticationCredentialsNotFoundException(INVALID_JWT_MESSAGE);
         }
+    }
+
+    public boolean isTokenValid(String token, Users user) {
+        final String username = obtenerUsernameDeJwt(token);
+        return username.equals(user.getEmail()) && !isTokenExpired(token);
+    }
+
+    // Métodos privados para modularizar
+
+    private String generarToken(Users user, long expirationTime) {
+        return Jwts.builder()
+                .setSubject(user.getEmail())
+                .claim("userId", user.getUuid())
+                .claim("roles", extractRoleNames(user))
+                .claim("name", user.getName())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS512, ConstantsSecurity.JWT_FIRMA)
+                .compact();
+    }
+
+    private List<String> extractRoleNames(Users user) {
+        return user.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toList());
+    }
+
+    private Claims extractClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(ConstantsSecurity.JWT_FIRMA)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    private boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaims(token).getExpiration();
     }
 }

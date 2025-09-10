@@ -5,28 +5,25 @@ import com.infsis.socialpagebackend.authentication.dtos.AuthResponseDTO;
 import com.infsis.socialpagebackend.authentication.dtos.UserDetailDTO;
 import com.infsis.socialpagebackend.authentication.dtos.UserLoginDTO;
 import com.infsis.socialpagebackend.authentication.dtos.UserRegistryDTO;
-import com.infsis.socialpagebackend.authentication.models.InvalidToken;
+import com.infsis.socialpagebackend.authentication.models.Token;
 import com.infsis.socialpagebackend.authentication.models.Role;
 import com.infsis.socialpagebackend.authentication.models.Users;
-import com.infsis.socialpagebackend.authentication.repositories.InvalidTokenRepository;
+import com.infsis.socialpagebackend.authentication.repositories.TokenRepository;
 import com.infsis.socialpagebackend.authentication.repositories.RoleRepository;
 import com.infsis.socialpagebackend.authentication.repositories.UserRepository;
 import com.infsis.socialpagebackend.security.JwtGenerator;
 import com.infsis.socialpagebackend.authentication.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
-
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +42,7 @@ public class AuthenticationController {
     private static final String ROLE_MODERATOR = "MODERATOR";
 
     @Autowired
-    private InvalidTokenRepository invalidTokenRepository;
+    private TokenRepository tokenRepository;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -155,24 +152,29 @@ public class AuthenticationController {
         response.put("data", newUser);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     //Método para poder logear un usuario y obtener un token
     @PostMapping("/auth/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody UserLoginDTO userLoginDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                userLoginDTO.getEmail(), userLoginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtGenerador.generarToken(authentication);
-        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
+        AuthResponseDTO response = authenticationService.login(userLoginDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
     @PostMapping("/auth/logout")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7);
-        InvalidToken invalidToken = new InvalidToken();
+        Token invalidToken = new Token();
         invalidToken.setToken(token);
-        invalidToken.setInvalidatedAt(LocalDateTime.now());
-        invalidTokenRepository.save(invalidToken);
+        invalidToken.setIsRevoked(true);
+        tokenRepository.save(invalidToken);
         SecurityContextHolder.clearContext();
         return new ResponseEntity<>(CLOSED_USER_SESSION_MESSAGE, HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/refresh")
+    public ResponseEntity<AuthResponseDTO> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) final String refreshToken) {
+        AuthResponseDTO response = authenticationService.refreshToken(refreshToken);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/v1/users/me")
