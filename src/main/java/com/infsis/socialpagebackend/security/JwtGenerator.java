@@ -45,6 +45,10 @@ public class JwtGenerator {
         return jwtExpirationTime;
     }
 
+    public long getRefreshExpirationTime() {
+        return jwtRefreshExpirationTime;
+    }
+
     public String obtenerUsernameDeJwt(String token) {
         return extractClaims(token).getSubject();
     }

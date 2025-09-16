@@ -8,7 +8,7 @@ import java.util.List;
 
 public class VideoFileListValidator implements ConstraintValidator<ValidVideoFile, List<MultipartFile>> {
 
-    private static final long MAX_SIZE = 100 * 1024 * 1024; // 100 MB
+    private static final long MAX_SIZE = 1024 * 1024 * 1024; // 1 GB
 
     @Override
     public void initialize(ValidVideoFile constraintAnnotation) {

@@ -161,14 +161,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auth/logout")
-    public ResponseEntity<String> logout(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").substring(7);
-        Token invalidToken = new Token();
-        invalidToken.setToken(token);
-        invalidToken.setIsRevoked(true);
-        tokenRepository.save(invalidToken);
+    public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request) {
+        String refreshTokenHeader = request.getHeader("Authorization");
+        authenticationService.logout(refreshTokenHeader);
         SecurityContextHolder.clearContext();
-        return new ResponseEntity<>(CLOSED_USER_SESSION_MESSAGE, HttpStatus.OK);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", CLOSED_USER_SESSION_MESSAGE);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/auth/refresh")

@@ -71,7 +71,9 @@ public class ErrorHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleDuplicatedDataException(IllegalArgumentException exc) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("Data was already added!"));
+        // Usar el mensaje real de la excepción y devolver un JSON
+        ErrorResponse error = new ErrorResponse(400, exc.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
 }

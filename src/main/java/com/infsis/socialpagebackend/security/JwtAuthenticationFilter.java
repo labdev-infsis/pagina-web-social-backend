@@ -63,7 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        // Excluir el endpoint de refresh token
-        return path.equals("/api/auth/refresh");
+        // Excluir los endpoints de refresh token y logout del filtro
+        return path.equals("/api/auth/refresh") || path.equals("/api/auth/logout");
     }
 }
