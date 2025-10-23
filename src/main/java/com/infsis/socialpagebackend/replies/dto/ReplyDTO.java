@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class ReplyDTO {
     private String uuid;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX", timezone = "UTC")
     private Instant createdDate;
     private String content;
     private String name;
